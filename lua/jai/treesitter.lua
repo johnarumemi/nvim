@@ -1,16 +1,21 @@
 -- [[ nvim-treesitter setup ]]
 -- https://github.com/nvim-treesitter/nvim-treesitter
 
--- setup treesitter based code folding
--- commented out due to using LSP based folding with nvim-ufo
+-- Treesitter Folding
+-- https://vimhelp.org/usr_28.txt.html
 -- https://alpha2phi.medium.com/neovim-for-beginners-code-folding-7574925412ea
--- local opt = vim.opt
--- opt.foldlevel = 20
--- opt.foldmethod = "expr"
--- opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- commented out due to using LSP based folding with nvim-ufo
 
--- Below are currently default settings
+local opt = vim.opt
+
+opt.foldcolumn = "3"
+opt.foldlevel = 20  -- set to a high level so that by default most folds are open
+opt.foldmethod = "expr" -- allows for structured parsing to determine folds
+opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+-- Below are mainly default settings
 require('nvim-treesitter.configs').setup {
+
   -- A list of parser names, or "all" (the listed parsers should always be installed)
   ensure_installed = {
     "lua",
@@ -21,7 +26,16 @@ require('nvim-treesitter.configs').setup {
     "toml",
     "javascript",
     "tsx",
-    "help"
+    "typescript",
+    "help",
+    "go",
+    "gitcommit",
+    "gitignore",
+    "git_rebase",
+    "dockerfile",
+    "jq",
+    "json",
+    "html"
   },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -32,7 +46,7 @@ require('nvim-treesitter.configs').setup {
   auto_install = true,
 
   -- List of parsers to ignore installing (for "all")
-  ignore_install = { "javascript" },
+  ignore_install = {},
 
   ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
   -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
@@ -52,8 +66,6 @@ require('nvim-treesitter.configs').setup {
         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
         if ok and stats and stats.size > max_filesize then
             return true
-        -- elseif lang == "javascript" then
-        --  return true
         end
     end,
 
@@ -64,6 +76,5 @@ require('nvim-treesitter.configs').setup {
     additional_vim_regex_highlighting = false,
   },
 }
-
 
 
