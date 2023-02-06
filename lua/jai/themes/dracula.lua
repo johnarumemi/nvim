@@ -1,5 +1,4 @@
 -- [[ Dracula Theme Configuration ]]
-local cmd = vim.api.nvim_command
 
 vim.cmd('colorscheme dracula')       -- cmd:  Set colorscheme to use dracula plugin
 
