@@ -24,7 +24,7 @@ cmp.setup({
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
 
-    -- TODO: not sure what below mapping works
+    -- TODO: not sure that below mapping works
     ["<C-Space>"] = cmp.mapping.complete(),
 
     -- close autocompletion window

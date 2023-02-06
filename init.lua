@@ -15,12 +15,9 @@ require('jai.plugins')   -- Plugins
 -- plugins.lua and run PackerInstall
 -- TODO: move setup of each plugin to separate file
 require('nvim-tree').setup{}
-
 require("jai.themes.main")
-
-require("jai.treesitter")
-
 require('nvim-autopairs').setup{}
+
 
 -- Setup LSP related plugins
 require("jai.mason")
@@ -28,3 +25,5 @@ require("jai.lsp")          -- requires jai.mason
 require("jai.rust")         -- requires jai.mason
 require("jai.nvim_cmp_config")   -- requires jai.rust (TODO: confirm dependency)
 
+-- It is advised that the below is commented out until core plugins all installed
+require("jai.treesitter")

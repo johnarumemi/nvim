@@ -1,4 +1,5 @@
 -- [[ opts.lua ]]
+-- Default global options
 
 -- alias the vim.opt meta-accessor
 local opt = vim.opt
@@ -30,6 +31,7 @@ opt.tabstop = 4                  -- num:  Number of spaces tabs count for
 opt.splitright = true            -- bool: Place new window to right of current one
 opt.splitbelow = true            -- bool: Place new window below the current one
 
+-- [[ Extras ]]
 -- auto format on save
 local format_sync_grp = vim.api.nvim_create_augroup("Format", {})
 vim.api.nvim_create_autocmd("BufWritePre", {

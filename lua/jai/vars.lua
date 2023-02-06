@@ -1,4 +1,5 @@
---[[ vars.lua ]]
+-- [[ vars.lua ]]
+-- Default global variable settings
 
 -- below is just to stop errors that say "missing vim global variable"
 vim = vim
@@ -35,6 +36,7 @@ g.t_co = 256
 g.background = "dark"
 
 -- update the packpath via adding additional search path
+-- TODO: this is duplicated in jai.plugins.lua; requires refactoring
 local packer_path = vim.fn.stdpath('config') .. '/site'
 vim.o.packpath = vim.o.packpath .. ',' .. packer_path
 
