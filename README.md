@@ -1,6 +1,11 @@
 # NVIM config
 This is just a repo that stores my nvim configuration
 
+# Installation
+
+## Fonts
+https://gist.github.com/davidteren/898f2dcccd42d9f8680ec69a3a5d350e?permalink_comment_id=4058108#gistcomment-4058108
+
 # mason
 This is a package manager that is used for managing various development tools: it can
 be installed and managed via Packer. Development tools can include LSP **servers**,
@@ -42,4 +47,10 @@ package name.
 :h mason-lspconfig-automatic-server-setup
 :h mason-lspconfig-settings
 :h mason-lspconfig-server-map
+
+# Troubleshooting
+
+## Corrupted Sessions
+sometimes sessions are corrupted, and while there might be better ways of resolving this;
+for now the best way is to just delete sessions found in `~/.local/share/nvim/sessions/`
 
