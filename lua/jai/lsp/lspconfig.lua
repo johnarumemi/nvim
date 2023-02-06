@@ -2,10 +2,11 @@
 -- setup all your LSP servers here. Ensure that you have required lspconfig first
 -- Note: rust_analyzer is setup via rust-tools, so do not perform any setup
 -- functionality here for rust.
+-- TODO: can this be scoped to a buffer specific option?
 local opt = vim.opt
 
-local on_attach = require("jai.on_attach")
-local capabilities = require("jai.capabilities")
+local on_attach = require("jai.lsp.on_attach")
+local capabilities = require("jai.lsp.capabilities")
 
 -- Some LSP's are setup via other plugins:
 -- rust: setup by rust-tools. see jai/rust.lua for setup configuration

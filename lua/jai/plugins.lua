@@ -1,4 +1,5 @@
 -- [[ plugins.lua ]]
+
 local fn = vim.fn
 
 -- below path should resolve to '$HOME/.config/nvim/site/pack'
@@ -35,7 +36,6 @@ return require('packer').startup({function(use)
 
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
-
 
   -- LSP
   use {

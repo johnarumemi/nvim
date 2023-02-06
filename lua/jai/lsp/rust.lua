@@ -6,15 +6,17 @@
 -- menuone: popup even when there's only one match
 -- noinsert: Do not insert text until a selection is made
 -- noselect: Do not auto-select, nvim-cmp plugin will handle this for us.
+-- TODO: can this be scoped to a buffer specific option?
 vim.o.completeopt = "menuone,noinsert,noselect"
 
 -- Avoid showing extra messages when using completion
 vim.opt.shortmess = vim.opt.shortmess + "c"
 
-local default_on_attach = require("jai.on_attach")
-local capabilities = require("jai.capabilities")
-
 local rt = require("rust-tools")
+
+local default_on_attach = require("jai.lsp.on_attach")
+local capabilities = require("jai.lsp.capabilities")
+
 
 -- custom on_attach for rust LSP
 local function on_attach(client, bufnr)
