@@ -15,11 +15,9 @@ require('jai.plugins')   -- Plugins
 -- plugins.lua and run PackerInstall
 -- TODO: move setup of each plugin to separate file
 require('nvim-tree').setup{}
-require('lualine').setup {
-  options = {
-    theme = 'dracula-nvim'
-  }
-}
+
+require("jai.themes.main")
+
 require("jai.treesitter")
 
 require('nvim-autopairs').setup{}

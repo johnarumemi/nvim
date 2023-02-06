@@ -55,9 +55,9 @@ return require('packer').startup({function(use)
         }
   }
 
-  -- Theme
+  -- Themes
   use 'Mofiqul/dracula.nvim'
-
+  use 'marko-cerovac/material.nvim'
 
   -- [[ Development ]]
   use {
