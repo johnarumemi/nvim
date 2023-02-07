@@ -51,6 +51,12 @@ require("lspconfig").pyright.setup{
     capabilities=capabilities
 }
 
+-- SQL
+require("lspconfig").sqlls.setup{
+  on_attach=on_attach,
+  capabilities=capabilities
+}
+
 -- Markdown
 require("lspconfig").marksman.setup{
   on_attach=on_attach,
