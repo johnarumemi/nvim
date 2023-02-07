@@ -4,7 +4,6 @@
 -- Treesitter Folding
 -- https://vimhelp.org/usr_28.txt.html
 -- https://alpha2phi.medium.com/neovim-for-beginners-code-folding-7574925412ea
--- commented out due to using LSP based folding with nvim-ufo
 
 local opt = vim.opt
 

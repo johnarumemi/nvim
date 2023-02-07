@@ -1,9 +1,8 @@
 -- [[ opts.lua ]]
-
+-- Default global options
 
 -- alias the vim.opt meta-accessor
 local opt = vim.opt
-local cmd = vim.api.nvim_command
 
 -- [[ Context ]]
 opt.colorcolumn = '88'           -- str:  Show col for max line length
@@ -15,11 +14,6 @@ opt.signcolumn = "yes"           -- str:  Show the sign column
 -- [[ Filetypes ]]
 opt.encoding = 'utf8'            -- str:  String encoding to use
 opt.fileencoding = 'utf8'        -- str:  File encoding to use
-
--- [[ Theme ]]
-opt.syntax = "ON"                -- str:  Allow syntax highlighting
-opt.termguicolors = true         -- bool: If term supports ui color then enable
-cmd('colorscheme dracula')       -- cmd:  Set colorscheme to use dracula plugin
 
 -- [[ Search ]]
 opt.ignorecase = true            -- bool: Ignore case in search patterns
@@ -37,6 +31,7 @@ opt.tabstop = 4                  -- num:  Number of spaces tabs count for
 opt.splitright = true            -- bool: Place new window to right of current one
 opt.splitbelow = true            -- bool: Place new window below the current one
 
+-- [[ Extras ]]
 -- auto format on save
 local format_sync_grp = vim.api.nvim_create_augroup("Format", {})
 vim.api.nvim_create_autocmd("BufWritePre", {

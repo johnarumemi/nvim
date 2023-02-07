@@ -2,14 +2,14 @@
 -- setup all your LSP servers here. Ensure that you have required lspconfig first
 -- Note: rust_analyzer is setup via rust-tools, so do not perform any setup
 -- functionality here for rust.
-local on_attach = require("jai.on_attach")
-local capabilities = require("jai.capabilities")
-
+-- TODO: can this be scoped to a buffer specific option?
 local opt = vim.opt
+
+local on_attach = require("jai.lsp.on_attach")
+local capabilities = require("jai.lsp.capabilities")
 
 -- Some LSP's are setup via other plugins:
 -- rust: setup by rust-tools. see jai/rust.lua for setup configuration
-
 
 -- After setting up mason-lspconfig you may set up servers 
 -- via lspconfig
@@ -19,7 +19,7 @@ local opt = vim.opt
 -- setup{} function, which wraps around the lsp.start_client() function.
 
 -- Lua
--- mason = lua-language-server
+-- mason package name = lua-language-server
 require("lspconfig").sumneko_lua.setup {
   on_attach=function(client, bufnr)
 
@@ -27,9 +27,9 @@ require("lspconfig").sumneko_lua.setup {
     on_attach(client, bufnr)
 
     -- update options for lua files
-    opt.shiftwidth = 2               -- num:  Size of an indent
-    opt.softtabstop = 2              -- num:  Number of spaces tabs count for in insert mode
-    opt.tabstop = 2                  -- num:  Number of spaces tabs count for
+    opt.shiftwidth = 2  -- num:  Size of an indent
+    opt.softtabstop = 2 -- num:  Number of spaces tabs count for in insert mode
+    opt.tabstop = 2     -- num:  Number of spaces tabs count for
 
     end,
     capabilities=capabilities
@@ -37,6 +37,17 @@ require("lspconfig").sumneko_lua.setup {
 
 -- Python
 require("lspconfig").pyright.setup{
+    on_attach=function(client, bufnr)
+
+    -- apply default on_attach settings
+    on_attach(client, bufnr)
+
+    -- update options for lua files
+    opt.shiftwidth = 4  -- num:  Size of an indent
+    opt.softtabstop = 4 -- num:  Number of spaces tabs count for in insert mode
+    opt.tabstop = 4     -- num:  Number of spaces tabs count for
+
+    end,
     capabilities=capabilities
 }
 
