@@ -7,7 +7,7 @@
 
 local opt = vim.opt
 
-opt.foldcolumn = "3"
+opt.foldcolumn = "4"
 opt.foldlevel = 20  -- set to a high level so that by default most folds are open
 opt.foldmethod = "expr" -- allows for structured parsing to determine folds
 opt.foldexpr = "nvim_treesitter#foldexpr()"
