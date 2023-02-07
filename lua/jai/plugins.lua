@@ -1,5 +1,8 @@
 -- [[ plugins.lua ]]
 
+-- uncomment to make use for utility functions
+-- local utils = require("jai.utils")
+
 local fn = vim.fn
 
 -- below path should resolve to '$HOME/.config/nvim/site/pack'
@@ -84,6 +87,17 @@ return require('packer').startup({function(use)
   use { 'tpope/vim-fugitive' }    -- git integration
   use { 'junegunn/gv.vim' }       -- commit history
   use { 'windwp/nvim-autopairs' } -- automatically create pair of parenthes
+
+  -- https://github.com/lewis6991/gitsigns.nvim
+  use {
+    'lewis6991/gitsigns.nvim',
+    tag = 'v0.6',
+    config = function()
+      local gitsigns_config = require("jai.plugins.gitsigns_config")
+      require('gitsigns').setup(gitsigns_config.config)
+      print("gitsigns: setup completed")
+    end,
+  }
 
   -- nvim-treesitter
   -- https://github.com/nvim-treesitter/nvim-treesitter/wiki/Installation#packernvim
