@@ -21,7 +21,7 @@ return function(client, bufnr)
   -- TODO: is this redundant with the use of nvim_cmp?
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  buf_set_keymap('n', '<space>e', vim.diagnostic.open_float, bufopts)
+  -- buf_set_keymap('n', '<space>e', vim.diagnostic.open_float, bufopts)
   buf_set_keymap('n', '[d', vim.diagnostic.goto_prev, bufopts)
   buf_set_keymap('n', ']d', vim.diagnostic.goto_next, bufopts)
   buf_set_keymap('n', '<space>q', vim.diagnostic.setloclist, bufopts)
@@ -50,6 +50,24 @@ return function(client, bufnr)
 --     --buf_set_keymap('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 --     buf_set_keymap("n", "<space>f", vim.lsp.buf.formatting(), bufopts)
 --   end
+
+  -- Show line diagnostics automatically in hover window
+  -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#show-line-diagnostics-automatically-in-hover-window
+
+  vim.api.nvim_create_autocmd("CursorHold", {
+    buffer = bufnr,
+    callback = function()
+      local opts = {
+        focusable = false,
+        close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+        border = 'rounded',
+        source = 'always',
+        prefix = '●',
+        scope = 'cursor',
+      }
+      vim.diagnostic.open_float(nil, opts)
+  end
+})
 
 end
 

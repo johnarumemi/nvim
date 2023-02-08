@@ -73,6 +73,25 @@ return require('packer').startup({function(use)
         }
   }
 
+  use {
+    "johnarumemi/toggle-lsp-diagnostics.nvim",
+    config = function()
+
+      require('toggle_lsp_diagnostics').init {
+        underline = false,
+        virtual_text = {
+          prefix = ' ',
+          spacing = 5
+        },
+        update_in_insert=false,
+        on_start=false
+      }
+
+      vim.keymap.set('n', '<space>e', [[:ToggleDiag<CR>]], {})
+
+    end
+  }
+
   -- Themes
   use 'Mofiqul/dracula.nvim'
   use 'marko-cerovac/material.nvim'
