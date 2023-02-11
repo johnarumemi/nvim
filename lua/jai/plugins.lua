@@ -62,7 +62,19 @@ return require('packer').startup({function(use)
   }
 
   -- Can't get startify to work on work computer
-  use { 'mhinz/vim-startify' }            -- start screen
+  use { 'mhinz/vim-startify', disable=true }            -- start screen
+
+  use {
+    'glepnir/dashboard-nvim',
+    disable=false,
+    event = 'VimEnter',
+    config = function()
+      local config = require('jai.plugins.dashboard_config')
+      require('dashboard').setup(config.opts)
+    end,
+    requires = {'nvim-tree/nvim-web-devicons'}
+  }
+
   use { 'DanilaMihailov/beacon.nvim' }    -- cursor jump
 
   use {
