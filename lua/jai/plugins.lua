@@ -196,16 +196,26 @@ return require('packer').startup({function(use)
 
     -- Snippet engine
     'hrsh7th/vim-vsnip',
-
+  
     after = { "hrsh7th/nvim-cmp" },
     requires = { "hrsh7th/nvim-cmp" },
   })
+  
+  use {
+    "jose-elias-alvarez/null-ls.nvim",
+    requires="nvim-lua/plenary.nvim",
+    config = function()
+      require("jai.plugins.null_ls_config")
+    end
+
+  }
 
   --- END
 
 
   -- Debugging
-  use 'nvim-lua/plenary.nvim'
+  use 'nvim-lua/plenary.nvim'    
+
   use 'mfussenegger/nvim-dap'
 
   
