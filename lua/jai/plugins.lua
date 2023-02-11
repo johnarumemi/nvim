@@ -35,6 +35,7 @@ vim.cmd([[
 -- load packer module each time Neovim is started
 -- sets package root to location where Packer repo was cloned
 return require('packer').startup({function(use)
+
   -- [[ Plugins Go Here ]]
 
   -- Packer can manage itself
@@ -108,7 +109,7 @@ return require('packer').startup({function(use)
     end
   }
 
-  -- Themes
+  -- [[ Themes ]]
   use 'Mofiqul/dracula.nvim'
   use 'marko-cerovac/material.nvim'
 
@@ -134,6 +135,15 @@ return require('packer').startup({function(use)
     end,
   }
 
+  -- https://github.com/terrortylor/nvim-comment
+  use {
+    "terrortylor/nvim-comment",
+    config = function()
+      local config = require("jai.plugins.nvim_comment_config")
+      require('nvim_comment').setup(config.opt)
+    end
+  }
+
   -- nvim-treesitter
   -- https://github.com/nvim-treesitter/nvim-treesitter/wiki/Installation#packernvim
   use {
@@ -156,7 +166,6 @@ return require('packer').startup({function(use)
   })
 
   -- Autocompletion framework
-  -- completion framework
   use("hrsh7th/nvim-cmp")
   use({
     -- cmp LSP completion
@@ -187,6 +196,7 @@ return require('packer').startup({function(use)
   use 'nvim-lua/plenary.nvim'
   use 'mfussenegger/nvim-dap'
 
+  
 end,
 config = {
   package_root = packer_path
