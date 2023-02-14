@@ -3,6 +3,12 @@ This is just a repo that stores my nvim configuration
 
 # Installation
 
+## Tagbar plugin
+For this plugin to work (especially with rust) you should install the universal 
+`ctags` binary.
+
+https://github.com/universal-ctags/homebrew-universal-ctags
+
 ## Fonts
 https://gist.github.com/davidteren/898f2dcccd42d9f8680ec69a3a5d350e?permalink_comment_id=4058108#gistcomment-4058108
 
