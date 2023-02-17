@@ -118,6 +118,7 @@ return require("packer").startup({
 		-- [[ Themes ]]
 		use("Mofiqul/dracula.nvim")
 		use("marko-cerovac/material.nvim")
+		use("shaunsingh/nord.nvim")
 
 		-- [[ Development ]]
 		use({
