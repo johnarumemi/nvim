@@ -100,7 +100,7 @@ return require("packer").startup({
 					on_start = false,
 				})
 
-				vim.keymap.set("n", "<space>e", [[:ToggleDiag<CR>]], {})
+				vim.keymap.set("n", "<leader>e", [[:ToggleDiag<CR>]], {})
 			end,
 		})
 
