@@ -1,5 +1,7 @@
 -- [[ gitsigns configuration ]]
 
+local wk = require("which-key")
+
 local config = {
 	signs = {
 		add = { text = "│" },
@@ -94,8 +96,34 @@ local function on_attach(bufnr)
 	end)
 	map("n", "<leader>td", gs.toggle_deleted)
 
-	-- Text object
-	map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+	-- which-key configuration
+	wk.register({
+		h = {
+			name = "Hunk",
+			s = { "Stage Hunk" },
+			r = { "Reset Hunk" },
+			u = { "Undo Stage Hunk" },
+			S = { "Stage Buffer" },
+			R = { "Reset Stage Buffer" },
+			p = { "Preview Hunk" },
+			b = { "Blame Line" },
+			d = { "Diff This Hunk" },
+			D = { "Diff This ~" },
+			td = { "Toggle Deleted" },
+		},
+	}, { prefix = "<leader>", mode = "n", buffer = bufnr })
+
+	wk.register({
+		["[c"] = { "Prev Hunk" },
+		["]c"] = { "Next Hunk" },
+	}, { buffer = bufnr })
+
+	-- Text object: contains actual mapping
+	wk.register({
+		h = {
+			i = { ":<C-U>Gitsigns select_hunk<CR>", "Select Hunk" },
+		},
+	}, { mode = { "o", "x" }, buffer = bufnr })
 
 	print("gitsigns: on_attach executed...")
 end

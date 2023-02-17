@@ -10,7 +10,20 @@ For this plugin to work (especially with rust) you should install the universal
 https://github.com/universal-ctags/homebrew-universal-ctags
 
 ## Fonts
+https://www.nerdfonts.com/font-downloads
+
 https://gist.github.com/davidteren/898f2dcccd42d9f8680ec69a3a5d350e?permalink_comment_id=4058108#gistcomment-4058108
+
+``````
+brew tap homebrew/cask-fonts && \
+brew install --cask font-inconsolata-nerd-font && \
+brew install --cask font-inconsolata-lgc-nerd-font && \
+brew install --cask font-roboto-mono-nerd-font && \
+brew install --cask font-droid-sans-mono-nerd-font && \
+brew install --cask font-hack-nerd-font && \
+brew install --cask font-jetbrains-mono-nerd-font
+``````
+
 
 # mason
 This is a package manager that is used for managing various development tools: it can
