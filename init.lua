@@ -2,4 +2,3 @@
 
 -- select config to use
 require("jai.init")
-
