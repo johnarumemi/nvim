@@ -100,7 +100,7 @@ return require("packer").startup({
 					on_start = false,
 				})
 
-				vim.keymap.set("n", "<space>e", [[:ToggleDiag<CR>]], {})
+				vim.keymap.set("n", "<leader>e", [[:ToggleDiag<CR>]], {})
 			end,
 		})
 
@@ -118,6 +118,8 @@ return require("packer").startup({
 		-- [[ Themes ]]
 		use("Mofiqul/dracula.nvim")
 		use("marko-cerovac/material.nvim")
+		use("shaunsingh/nord.nvim")
+		use("EdenEast/nightfox.nvim")
 
 		-- [[ Development ]]
 		use({

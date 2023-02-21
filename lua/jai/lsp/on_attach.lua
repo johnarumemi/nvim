@@ -25,7 +25,7 @@ return function(client, bufnr)
 	-- TODO: is this redundant with the use of nvim_cmp?
 	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
-	buf_set_keymap("n", "<C-e>", vim.diagnostic.open_float, bufopts)
+	buf_set_keymap("n", "<space>e", vim.diagnostic.open_float, bufopts)
 	buf_set_keymap("n", "[d", vim.diagnostic.goto_prev, bufopts)
 	buf_set_keymap("n", "]d", vim.diagnostic.goto_next, bufopts)
 	buf_set_keymap("n", "<space>q", vim.diagnostic.setloclist, bufopts)
@@ -50,7 +50,7 @@ return function(client, bufnr)
 	end, bufopts)
 
 	wk.register({
-		["<C-e>"] = { "lsp: open diagnostic float" },
+		["<space>e"] = { "lsp: open diagnostic float" },
 		["[d"] = { "got prev diagnostics" },
 		["]d"] = { "got next diagnostics" },
 		gD = { "lsp: goto declaration" },
