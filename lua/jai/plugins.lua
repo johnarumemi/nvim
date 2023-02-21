@@ -119,6 +119,7 @@ return require("packer").startup({
 		use("Mofiqul/dracula.nvim")
 		use("marko-cerovac/material.nvim")
 		use("shaunsingh/nord.nvim")
+		use("EdenEast/nightfox.nvim")
 
 		-- [[ Development ]]
 		use({
