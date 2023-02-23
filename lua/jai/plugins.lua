@@ -121,6 +121,16 @@ return require("packer").startup({
 		use("shaunsingh/nord.nvim")
 		use("EdenEast/nightfox.nvim")
 
+		-- [[ Other ]]
+		use({
+			"akinsho/bufferline.nvim",
+			tag = "v3.*",
+			requires = "nvim-tree/nvim-web-devicons",
+			config = function()
+				require("bufferline").setup({})
+			end,
+		})
+
 		-- [[ Development ]]
 		use({
 			"nvim-telescope/telescope.nvim", -- fuzzy finder
