@@ -76,40 +76,43 @@ local function on_attach(bufnr)
 		return "<Ignore>"
 	end, { expr = true })
 
+	local group_name = "hunk"
+
 	-- Actions: Normal & Visual Mode
-	map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>")
-	map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>")
-
-	-- Actions: Normal Mode
-	map("n", "<leader>hS", gs.stage_buffer)
-	map("n", "<leader>hu", gs.undo_stage_hunk)
-	map("n", "<leader>hR", gs.reset_buffer)
-	map("n", "<leader>hp", gs.preview_hunk)
-	map("n", "<leader>hb", function()
-		gs.blame_line({ full = true })
-	end)
-	-- Below conflics with TagbarToggle keymap
-	-- map('n', '<leader>tb', gs.toggle_current_line_blame)
-	map("n", "<leader>hd", gs.diffthis)
-	map("n", "<leader>hD", function()
-		gs.diffthis("~")
-	end)
-	map("n", "<leader>td", gs.toggle_deleted)
-
-	-- which-key configuration
 	wk.register({
 		h = {
-			name = "Hunk",
-			s = { "Stage Hunk" },
-			r = { "Reset Hunk" },
-			u = { "Undo Stage Hunk" },
-			S = { "Stage Buffer" },
-			R = { "Reset Stage Buffer" },
-			p = { "Preview Hunk" },
-			b = { "Blame Line" },
-			d = { "Diff This Hunk" },
-			D = { "Diff This ~" },
-			td = { "Toggle Deleted" },
+			name = group_name,
+			s = { ":Gitsigns stage_hunk<CR>", "Stage Hunk" },
+			r = { ":Gitsigns reset_hunk<CR>", "Reset Hunk" },
+		},
+	}, { prefix = "<leader>", mode = { "n", "v" }, buffer = bufnr })
+
+	-- Actions: Normal Mode
+	wk.register({
+		h = {
+			group_name = group_name,
+			u = { gs.undo_stage_hunk, "Undo Stage Hunk" },
+			S = { gs.stage_buffer, "Stage Buffer" },
+			R = { gs.reset_buffer, "Reset Stage Buffer" },
+			p = { gs.preview_hunk, "Preview Hunk" },
+			b = {
+				function()
+					gs.blame_line({ full = true })
+				end,
+				"Blame Line",
+			},
+			d = { gs.diffthis, "Diff This Hunk" },
+			D = {
+				function()
+					gs.diffthis("~")
+				end,
+				"Diff This ~",
+			},
+			t = {
+				name = "Toggle",
+				b = { gs.toggle_current_line_blame, "Current Line Blame" },
+				d = { gs.toggle_deleted, "Deleted" },
+			},
 		},
 	}, { prefix = "<leader>", mode = "n", buffer = bufnr })
 
