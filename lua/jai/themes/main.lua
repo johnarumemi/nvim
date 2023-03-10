@@ -8,4 +8,5 @@ opt.termguicolors = true -- bool: If term supports ui color then enable
 -- require("jai.themes.dracula")
 -- require("jai.themes.material_ui")
 -- require("jai.themes.nord")
-require("jai.themes.nightfox")
+-- require("jai.themes.nightfox")
+require("jai.themes.tokyonight")

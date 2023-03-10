@@ -120,6 +120,7 @@ return require("packer").startup({
 		use("marko-cerovac/material.nvim")
 		use("shaunsingh/nord.nvim")
 		use("EdenEast/nightfox.nvim")
+		use({ "folke/tokyonight.nvim", branch = "main" })
 
 		-- [[ Other ]]
 		use({
