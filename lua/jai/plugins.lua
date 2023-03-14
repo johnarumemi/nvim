@@ -115,6 +115,10 @@ return require("packer").startup({
 			end,
 		})
 
+		-- open current line in web
+		-- <leader>g to view options
+		use("ruanyl/vim-gh-line")
+
 		-- [[ Themes ]]
 		use("Mofiqul/dracula.nvim")
 		use("marko-cerovac/material.nvim")
