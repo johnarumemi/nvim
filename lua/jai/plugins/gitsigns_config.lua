@@ -90,7 +90,7 @@ local function on_attach(bufnr)
 	-- Actions: Normal Mode
 	wk.register({
 		h = {
-			group_name = group_name,
+			name = group_name,
 			u = { gs.undo_stage_hunk, "Undo Stage Hunk" },
 			S = { gs.stage_buffer, "Stage Buffer" },
 			R = { gs.reset_buffer, "Reset Stage Buffer" },
