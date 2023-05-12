@@ -60,6 +60,9 @@ return require("packer").startup({
       requires = {
         "nvim-tree/nvim-web-devicons", -- optional, for file icons
       },
+      config = function()
+        require("jai.plugins.nvim_tree_config")
+      end,
     })
 
     -- Can't get startify to work on work computer
@@ -136,10 +139,10 @@ return require("packer").startup({
       "nvim-telescope/telescope.nvim", -- fuzzy finder
       requires = { "nvim-lua/plenary.nvim" },
     })
-    use({ "majutsushi/tagbar" }) -- code structure
+    use({ "majutsushi/tagbar" })   -- code structure
     use({ "Yggdroot/indentLine" }) -- see indentation
-    use({ "tpope/vim-fugitive" }) -- git integration
-    use({ "junegunn/gv.vim" }) -- commit history
+    use({ "tpope/vim-fugitive" })  -- git integration
+    use({ "junegunn/gv.vim" })     -- commit history
     use({ "windwp/nvim-autopairs" }) -- automatically create pair of parenthes
 
     -- https://github.com/lewis6991/gitsigns.nvim
@@ -186,22 +189,22 @@ return require("packer").startup({
     -- LSP Lines
     -- repo: https://github.com/ErichDonGubler/lsp_lines.nvim
     -- Render LSP diagnostics on virtual lines
-    use({
-      "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-      config = function()
-        -- setup lsp_lines
-        local lsp_lines = require("lsp_lines")
-        lsp_lines.setup()
+    -- use({
+    --   "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    --   config = function()
+    --     -- setup lsp_lines
+    --     local lsp_lines = require("lsp_lines")
+    --     lsp_lines.setup()
 
-        -- Disable virtual_text since it's redundant due to lsp_lines.
-        vim.diagnostic.config({
-          virtual_text = false,
-        })
+    --     -- Disable virtual_text since it's redundant due to lsp_lines.
+    --     vim.diagnostic.config({
+    --       virtual_text = false,
+    --     })
 
-        -- keymap for toggling
-        vim.keymap.set("", "<leader>tl", lsp_lines.toggle, { desc = "Toggle lsp_lines" })
-      end,
-    })
+    --     -- keymap for toggling
+    --     vim.keymap.set("", "<leader>tl", lsp_lines.toggle, { desc = "Toggle lsp_lines" })
+    --   end,
+    -- })
 
     -- Autocompletion framework
     use("hrsh7th/nvim-cmp")
