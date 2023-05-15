@@ -8,7 +8,7 @@ require("jai.settings.vars") -- Variables from ./lua/vars.lua file
 require("jai.settings.opts") -- Options
 require("jai.settings.keys") -- Keymaps
 
-require("jai.plugins")       -- Plugins
+require("jai.plugins") -- Plugins
 
 -- PLUGINS
 -- Add these sections after you have updated
