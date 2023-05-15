@@ -1,5 +1,0 @@
--- [[ general configs ]]
---
--- Some plugins require minimal setup or keybindings
--- and do not require their own .lua file. Place such
--- configs and keymaps here.

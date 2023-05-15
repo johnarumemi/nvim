@@ -89,19 +89,19 @@ return require("packer").startup({
 			},
 		})
 
-		use({
-			"folke/which-key.nvim",
-			disable = false,
-			config = function()
-				vim.o.timeout = true
-				vim.o.timeoutlen = 300
-				local config = require("jai.plugins.which_key_config")
-				require("which-key").setup(config.opts)
-			end,
-		})
+    use({
+      "folke/which-key.nvim",
+      disable = false,
+      config = function()
+        vim.o.timeout = true
+        vim.o.timeoutlen = 300
+        local config = require("jai.plugins.which_key_config")
+        require("which-key").setup(config.opts)
 
-		-- open current line in web
-		-- <leader>g to view options
+        -- other generl keymappings
+        require("jai.plugins.general_keymaps")
+      end,
+    })
 		use("ruanyl/vim-gh-line")
 
 		-- [[ Themes ]]

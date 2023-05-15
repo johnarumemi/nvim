@@ -1,3 +1,8 @@
+-- [[ general configs ]]
+--
+-- Some plugins require minimal setup or keybindings
+-- and do not require their own .lua file. Place such
+-- configs and keymaps here.
 local wk = require("which-key")
 
 wk.register({
@@ -14,12 +19,3 @@ wk.register({
 		b = { [[:TagbarToggle<CR>]], "Tagbar Toggle" },
 	},
 }, { prefix = "<leader>" })
-
-local opts = {
-	update_focused_file = {
-		enable = true,
-		update_root = true,
-	},
-}
-
-require("nvim-tree").setup(opts)
