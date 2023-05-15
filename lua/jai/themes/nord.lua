@@ -2,11 +2,11 @@
 -- repo: https://github.com/shaunsingh/nord.nvim
 
 require("lualine").setup({
-	options = {
-		-- ... your lualine config
-		theme = "nord",
-		-- ... your lualine config
-	},
+  options = {
+    -- ... your lualine config
+    theme = "nord",
+    -- ... your lualine config
+  },
 })
 
 -- Example config in lua

@@ -13,7 +13,6 @@ require("jai.plugins") -- Plugins
 -- PLUGINS
 -- Add these sections after you have updated
 -- plugins.lua and run PackerInstall
-require("jai.plugins.general_configs")
 require("jai.plugins.telescope_config")
 
 -- TODO: move setup of each plugin to separate file
