@@ -186,25 +186,6 @@ return require("packer").startup({
       end,
     })
 
-    -- LSP Lines
-    -- repo: https://github.com/ErichDonGubler/lsp_lines.nvim
-    -- Render LSP diagnostics on virtual lines
-    -- use({
-    --   "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    --   config = function()
-    --     -- setup lsp_lines
-    --     local lsp_lines = require("lsp_lines")
-    --     lsp_lines.setup()
-
-    --     -- Disable virtual_text since it's redundant due to lsp_lines.
-    --     vim.diagnostic.config({
-    --       virtual_text = false,
-    --     })
-
-    --     -- keymap for toggling
-    --     vim.keymap.set("", "<leader>tl", lsp_lines.toggle, { desc = "Toggle lsp_lines" })
-    --   end,
-    -- })
 
     -- Autocompletion framework
     use("hrsh7th/nvim-cmp")
