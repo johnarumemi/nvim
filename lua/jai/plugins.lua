@@ -200,7 +200,13 @@ return require("packer").startup({
         require("neorg").setup({
           load = {
             ["core.defaults"] = {}, -- Loads default behaviour
-            ["core.concealer"] = {}, -- Adds pretty icons to your documents
+            ["core.concealer"] = {
+              config = {
+                dim_code_blocks = {
+                  conceal = false,
+                },
+              },
+            }, -- Adds pretty icons to your documents
             ["core.dirman"] = { -- Manages Neorg workspaces
               config = {
                 workspaces = {
