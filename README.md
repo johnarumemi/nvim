@@ -24,6 +24,30 @@ brew install --cask font-hack-nerd-font && \
 brew install --cask font-jetbrains-mono-nerd-font
 ``````
 
+# Neorg
+on MacOS, you will get compilation errors if using the default gcc or clang.
+You will need to install the brew gcc
+```
+brew install gcc
+```
+
+However, the above installed gcc binaries have versions as suffixes, i.e. `gcc-13`.
+What you thus need to do is create symlinks that don't have these versions as suffixes.
+
+```
+ln -s $(brew --prefix)/bin/gcc-13 $(brew --prefix)/bi/gcc
+```
+Also ensure to update the `CC` environment variable to point to your symlinked gcc.
+
+```
+# zprofile.sh
+export CC=$(brew --prefix)/bin/gcc
+```
+All the above will enable neorg to install correctly, you can test this via 
+manually running the treesitter grammer via:
+```bash
+nvim -c "TSInstallSync norg"
+```
 
 # mason
 This is a package manager that is used for managing various development tools: it can
@@ -62,10 +86,11 @@ against an lsp cient config or lsp server using the lspconfig name, not the maso
 package name.
 
 #### useful help docs
-``````
+```
 :h mason-lspconfig-automatic-server-setup
 :h mason-lspconfig-settings
 :h mason-lspconfig-server-map
+```
 
 # Troubleshooting
 

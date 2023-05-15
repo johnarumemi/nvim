@@ -186,6 +186,31 @@ return require("packer").startup({
 			end,
 		})
 
+		-- [[ Neorg ]]
+		-- repo: https://github.com/nvim-neorg/neorg
+		use({
+			"nvim-neorg/neorg",
+			tag = "v4.*",
+			after = { "nvim-treesitter" },
+			run = ":Neorg sync-parsers",
+			config = function()
+				require("neorg").setup({
+					load = {
+						["core.defaults"] = {}, -- Loads default behaviour
+						["core.concealer"] = {}, -- Adds pretty icons to your documents
+						["core.dirman"] = { -- Manages Neorg workspaces
+							config = {
+								workspaces = {
+									notes = "~/notes",
+								},
+							},
+						},
+					},
+				})
+			end,
+			requires = "nvim-lua/plenary.nvim",
+		})
+
 		-- Autocompletion framework
 		use("hrsh7th/nvim-cmp")
 		use({
