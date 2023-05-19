@@ -21,58 +21,78 @@ local capabilities = require("jai.lsp.capabilities")
 -- Lua
 -- mason package name = lua-language-server
 require("lspconfig").lua_ls.setup({
-  on_attach = function(client, bufnr)
-    -- apply default on_attach settings
-    on_attach(client, bufnr)
+	-- we will use stylua (with null-ls)
+	-- for formatting lua files
+	settings = {
+		Lua = {
 
-    -- update options for lua files
-    opt.shiftwidth = 2 -- num:  Size of an indent
-    opt.softtabstop = 2 -- num:  Number of spaces tabs count for in insert mode
-    opt.tabstop = 2 -- num:  Number of spaces tabs count for
-  end,
-  capabilities = capabilities,
+			format = { enable = false },
+		},
+	},
+	on_attach = function(client, bufnr)
+		-- apply default on_attach settings
+		on_attach(client, bufnr)
+
+		-- update options for lua files
+		opt.shiftwidth = 2 -- num:  Size of an indent
+		opt.softtabstop = 2 -- num:  Number of spaces tabs count for in insert mode
+		opt.tabstop = 2 -- num:  Number of spaces tabs count for
+	end,
+	capabilities = capabilities,
 })
 
 -- Python
 require("lspconfig").pyright.setup({
-  on_attach = function(client, bufnr)
-    -- apply default on_attach settings
-    on_attach(client, bufnr)
+	on_attach = function(client, bufnr)
+		-- apply default on_attach settings
+		on_attach(client, bufnr)
 
-    -- update options for lua files
-    opt.shiftwidth = 4 -- num:  Size of an indent
-    opt.softtabstop = 4 -- num:  Number of spaces tabs count for in insert mode
-    opt.tabstop = 4 -- num:  Number of spaces tabs count for
-  end,
-  capabilities = capabilities,
+		-- update options for lua files
+		opt.shiftwidth = 4 -- num:  Size of an indent
+		opt.softtabstop = 4 -- num:  Number of spaces tabs count for in insert mode
+		opt.tabstop = 4 -- num:  Number of spaces tabs count for
+	end,
+	capabilities = capabilities,
 })
 
 -- SQL
 require("lspconfig").sqlls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
+	on_attach = on_attach,
+	capabilities = capabilities,
 })
 
 -- Markdown
 require("lspconfig").marksman.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
+	on_attach = on_attach,
+	capabilities = capabilities,
 })
 
+-- Typescript language-server
+-- also works for any standard javascript filetype
+require("lspconfig").tsserver.setup({})
+
+-- Linting only
+-- filetypes: { "javascript", "javascriptreact", "javascript.jsx" }
 require("lspconfig").eslint.setup({
-  capabilities = capabilities,
-  on_attach = function(client, bufnr)
-    on_attach(client, bufnr)
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = bufnr,
-      command = "EslintFixAll",
-    })
-  end,
+	capabilities = capabilities,
+	on_attach = function(client, bufnr)
+		on_attach(client, bufnr)
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			buffer = bufnr,
+			command = "EslintFixAll",
+		})
+	end,
+})
+
+-- Flow
+require("lspconfig").flow.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
 })
 
 -- Json
 -- mason-lspconfig will install the mason json-ls server
 require("lspconfig").jsonls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
+	on_attach = on_attach,
+	capabilities = capabilities,
 })
