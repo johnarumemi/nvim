@@ -25,7 +25,6 @@ require("lspconfig").lua_ls.setup({
 	-- for formatting lua files
 	settings = {
 		Lua = {
-
 			format = { enable = false },
 		},
 	},
