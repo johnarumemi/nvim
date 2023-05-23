@@ -143,7 +143,13 @@ return require("packer").startup({
 			requires = { "nvim-lua/plenary.nvim" },
 		})
 		use({ "majutsushi/tagbar" }) -- code structure
-		use({ "Yggdroot/indentLine" }) -- see indentation
+		use({
+			"Yggdroot/indentLine",
+			disable = true,
+			config = function()
+				require("jai.plugins.indent_line_config")
+			end,
+		}) -- see indentation
 		use({ "tpope/vim-fugitive" }) -- git integration
 		use({ "junegunn/gv.vim" }) -- commit history
 		use({ "windwp/nvim-autopairs" }) -- automatically create pair of parenthes
@@ -194,31 +200,11 @@ return require("packer").startup({
 		use({
 			"nvim-neorg/neorg",
 			tag = "v4.*",
-			after = { "nvim-treesitter" },
+			after = { "nvim-treesitter", "which-key.nvim" },
 			run = ":Neorg sync-parsers",
 			config = function()
-				require("neorg").setup({
-					load = {
-						["core.defaults"] = {}, -- Loads default behaviour
-						["core.concealer"] = {
-							config = {
-								dim_code_blocks = {
-									conceal = false,
-								},
-							},
-						}, -- Adds pretty icons to your documents
-						["core.dirman"] = { -- Manages Neorg workspaces
-							config = {
-								workspaces = {
-									notes = "~/neorg-notes/notes",
-									rust = "~/neorg-notes/rust",
-									cs = "~/neorg-notes/cs",
-								},
-								default_workspace = "notes",
-							},
-						},
-					},
-				})
+				local config = require("jai.plugins.neorg_config")
+				require("neorg").setup(config.opts)
 			end,
 			requires = "nvim-lua/plenary.nvim",
 		})

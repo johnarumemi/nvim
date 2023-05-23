@@ -10,7 +10,10 @@ wk.register({
 	-- <leader>t
 	t = {
 		name = "Toggle",
-		i = { [[:IndentLinesToggle<CR>]], "Indent Lines Toggle" },
 		b = { [[:TagbarToggle<CR>]], "Tagbar Toggle" },
 	},
 }, { prefix = "<leader>" })
+
+-- Disabling conceal for JSON and Markdown without disabling indentLine plugin
+vim.g.vim_json_conceal = 0
+vim.g.markdown_syntax_conceal = 0
