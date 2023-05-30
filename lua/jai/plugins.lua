@@ -205,6 +205,11 @@ return require("packer").startup({
 			config = function()
 				local config = require("jai.plugins.neorg_config")
 				require("neorg").setup(config.opts)
+
+				-- update options for lua files
+				vim.opt.shiftwidth = 2 -- num:  Size of an indent
+				vim.opt.softtabstop = 2 -- num:  Number of spaces tabs count for in insert mode
+				vim.opt.tabstop = 2 -- num:  Number of spaces tabs count for
 			end,
 			requires = "nvim-lua/plenary.nvim",
 		})
