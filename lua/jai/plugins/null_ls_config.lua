@@ -7,6 +7,7 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 null_ls.setup({
 	sources = {
 		-- Lua
+		-- can get binary installed via using Mason
 		null_ls.builtins.formatting.stylua, -- An opinionated code formatter for Lua.
 
 		-- --- JS/TS
@@ -14,6 +15,8 @@ null_ls.setup({
 		-- null_ls.builtins.diagnostics.eslint,
 
 		-- Python
+		-- can get binaries installed either on your path
+		-- or via using Mason
 		null_ls.builtins.formatting.black,
 		null_ls.builtins.diagnostics.flake8,
 

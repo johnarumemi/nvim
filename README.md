@@ -1,7 +1,22 @@
 # NVIM config
 This is just a repo that stores my nvim configuration
 
+# Uninstall
+
+Since everything is insalled with `packer`, simply
+delete all installed packer plugins directly via following:
+```shell
+
+rm -rf site/pack/packer/opt/
+rm -rf site/pack/packer/start/
+```
+
 # Installation
+## Manual Steps / Caveats
+ensure you run following: 
+
+`Neorg sync-parser`
+`MasonInstall stylua`
 
 ## Tagbar plugin
 For this plugin to work (especially with rust) you should install the universal 
