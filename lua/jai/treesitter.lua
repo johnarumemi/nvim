@@ -34,6 +34,7 @@ require("nvim-treesitter.configs").setup({
 		"jq",
 		"json",
 		"html",
+		"norg",
 	},
 	-- Install parsers synchronously (only applied to `ensure_installed`)
 	sync_install = false,
