@@ -12,6 +12,7 @@ wk.register({
 local opts = {
 	load = {
 		["core.defaults"] = {}, -- Loads default behaviour
+		["core.export"] = {}, -- enable export module
 		["core.concealer"] = {
 			config = {
 				dim_code_blocks = {
@@ -31,6 +32,11 @@ local opts = {
 					cs = "~/neorg-notes/cs",
 				},
 				default_workspace = "notes",
+			},
+		},
+		["core.presenter"] = {
+			config = {
+				zen_mode = "zen-mode",
 			},
 		},
 	},
