@@ -201,7 +201,7 @@ return require("packer").startup({
 			"nvim-neorg/neorg",
 			tag = "v4.*",
 			after = { "nvim-treesitter", "which-key.nvim" },
-			run = ":Neorg sync-parsers",
+			-- run = ":Neorg sync-parsers",
 			config = function()
 				local config = require("jai.plugins.neorg_config")
 				require("neorg").setup(config.opts)
