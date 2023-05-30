@@ -47,9 +47,10 @@ local opts = {
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 	pattern = { "*.norg" },
 	-- command = "set conceallevel=3",
-	desc = "Set conceallevel to 3 on entering a norg file",
+	desc = "Setup Neorg configuration",
 	callback = function(id, event, group, match, buf, file, data)
 		vim.cmd("set conceallevel=3")
+		vim.cmd("set nowrap")
 
 		-- update options for current buffer only
 		-- num:  Size of an indent
@@ -65,6 +66,12 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 			t = {
 				name = "Toggle",
 				c = { [[:Neorg toggle-concealer<CR>]], "Toggle Neorg Concealer" },
+			},
+
+			-- link: https://github.com/nvim-neorg/neorg/wiki/Looking-Glass
+			n = {
+				name = "Neorg",
+				l = { "[[:Neorg keybind all core.looking-glass.magnify-code-block<CR>]]", "Looking Glass" },
 			},
 		}, { prefix = "<leader>" })
 	end,

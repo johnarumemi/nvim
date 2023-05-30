@@ -209,6 +209,32 @@ return require("packer").startup({
 			requires = "nvim-lua/plenary.nvim",
 		})
 
+		-- [[ Markdown Preview ]]
+		-- repo: https://github.com/iamcco/markdown-preview.nvim
+		-- ensure you have node.js and yarn installed
+		-- and available in your path
+		use({
+			"iamcco/markdown-preview.nvim",
+			run = "cd app && npm install",
+			setup = function()
+				vim.g.mkdp_filetypes = { "markdown", "norg" }
+				require("jai.plugins.markdown_preview_config")
+			end,
+			ft = { "markdown", "norg" },
+			cmd = { "MarkdownPreview" },
+
+			-- below are syntax highlighter plugins
+			-- for Mermaid and PlantUML respectively
+			--
+			-- vim-diagram is a syntax plugin for Mermaid.js diagrams.
+			-- The file type must be set to sequence or the file extensions
+			-- must be in *.seq, or *.sequence.
+			-- plantuml-syntax is a syntax plugin for PlantUML diagrams.
+			-- The file type must be set to plantuml, or the file extensions
+			-- must be in .pu,*.uml,*.plantuml,*.puml,*.iuml.
+			requires = { "zhaozg/vim-diagram", "aklt/plantuml-syntax" },
+		})
+
 		-- Autocompletion framework
 		use("hrsh7th/nvim-cmp")
 		use({
