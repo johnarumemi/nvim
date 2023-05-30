@@ -40,6 +40,20 @@ require("lspconfig").lua_ls.setup({
 	capabilities = capabilities,
 })
 
+-- Bash
+require("lspconfig").bashls.setup({
+	on_attach = function(client, bufnr)
+		-- apply default on_attach settings
+		on_attach(client, bufnr)
+
+		-- update options for lua files
+		opt.shiftwidth = 2 -- num:  Size of an indent
+		opt.softtabstop = 2 -- num:  Number of spaces tabs count for in insert mode
+		opt.tabstop = 2 -- num:  Number of spaces tabs count for
+	end,
+	capabilities = capabilities,
+})
+
 -- Python
 require("lspconfig").pyright.setup({
 	on_attach = function(client, bufnr)
