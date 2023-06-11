@@ -1,27 +1,29 @@
 local wk = require("which-key")
 
-wk.register({
-	--
-	-- <leader>t
-	t = {
-		name = "Toggle",
-		c = { [[:Neorg toggle-concealer<CR>]], "Toggle Neorg Concealer" },
-	},
-}, { prefix = "<leader>" })
-
 local opts = {
 	load = {
 		["core.defaults"] = {}, -- Loads default behaviour
 		["core.export"] = {}, -- enable export module
+		["core.completion"] = { -- interface with different completion engines
+			config = {
+				engine = "nvim-cmp",
+			},
+		},
+		["core.summary"] = {}, -- Creates links to all files in any workspace
+		["core.export.markdown"] = {
+			config = {
+				extensions = "all",
+			},
+		},
 		["core.concealer"] = {
 			config = {
-				dim_code_blocks = {
-					-- set to false to prevent concealing
-					-- code block tags
-					-- conceal = false,
-				},
 				-- basic, diamond or varied
-				icon_presets = "basic",
+				icon_preset = "basic",
+				icons = {
+					code_block = {
+						conceal = true,
+					},
+				},
 			},
 		}, -- Adds pretty icons to your documents
 		["core.dirman"] = { -- Manages Neorg workspaces
@@ -44,7 +46,28 @@ local opts = {
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 	pattern = { "*.norg" },
-	command = "set conceallevel=3",
+	-- command = "set conceallevel=3",
+	desc = "Set conceallevel to 3 on entering a norg file",
+	callback = function(id, event, group, match, buf, file, data)
+		vim.cmd("set conceallevel=3")
+
+		-- update options for current buffer only
+		-- num:  Size of an indent
+		vim.api.nvim_buf_set_option(0, "shiftwidth", 2)
+		--  num:  Number of spaces tabs count for in insert mode
+		vim.api.nvim_buf_set_option(0, "softtabstop", 2)
+		-- num:  Number of spaces tabs count for
+		vim.api.nvim_buf_set_option(0, "tabstop", 2)
+
+		wk.register({
+			--
+			-- <leader>t
+			t = {
+				name = "Toggle",
+				c = { [[:Neorg toggle-concealer<CR>]], "Toggle Neorg Concealer" },
+			},
+		}, { prefix = "<leader>" })
+	end,
 })
 
 return {

@@ -161,7 +161,6 @@ return require("packer").startup({
 			config = function()
 				local gitsigns_config = require("jai.plugins.gitsigns_config")
 				require("gitsigns").setup(gitsigns_config.config)
-				print("gitsigns: setup completed")
 			end,
 		})
 
@@ -200,16 +199,12 @@ return require("packer").startup({
 		use({
 			"nvim-neorg/neorg",
 			tag = "v4.*",
+			-- ft = "norg", -- load only on entering a .norg file
 			after = { "nvim-treesitter", "which-key.nvim" },
-			-- run = ":Neorg sync-parsers",
+			-- run = ":Neorg sync-parsers"
 			config = function()
 				local config = require("jai.plugins.neorg_config")
 				require("neorg").setup(config.opts)
-
-				-- update options for lua files
-				vim.opt.shiftwidth = 2 -- num:  Size of an indent
-				vim.opt.softtabstop = 2 -- num:  Number of spaces tabs count for in insert mode
-				vim.opt.tabstop = 2 -- num:  Number of spaces tabs count for
 			end,
 			requires = "nvim-lua/plenary.nvim",
 		})
@@ -241,6 +236,13 @@ return require("packer").startup({
 		})
 
 		--- END
+
+		use({
+			"simrat39/symbols-outline.nvim",
+			config = function()
+				require("symbols-outline").setup()
+			end,
+		})
 
 		-- Debugging
 		use("nvim-lua/plenary.nvim")

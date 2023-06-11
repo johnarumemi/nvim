@@ -127,8 +127,6 @@ local function on_attach(bufnr)
 			i = { ":<C-U>Gitsigns select_hunk<CR>", "Select Hunk" },
 		},
 	}, { mode = { "o", "x" }, buffer = bufnr })
-
-	print("gitsigns: on_attach executed...")
 end
 
 config.on_attach = on_attach
