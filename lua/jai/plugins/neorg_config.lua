@@ -70,6 +70,14 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 	end,
 })
 
+-- Use internal formatting for bindings like gq.
+vim.api.nvim_create_autocmd("LspAttach", {
+	pattern = { "*.norg" },
+	callback = function(args)
+		vim.bo[args.buf].formatexpr = nil
+	end,
+})
+
 return {
 	opts = opts,
 }

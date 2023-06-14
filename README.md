@@ -40,6 +40,12 @@ brew install --cask font-jetbrains-mono-nerd-font
 ``````
 
 # Neorg
+you require the v3.x.x for nerd fonts. Check your version in brew or just
+do an greedy update
+```
+brew upgrade --cask --greedy
+```
+
 on MacOS, you will get compilation errors if using the default gcc or clang.
 You will need to install the brew gcc
 ```
