@@ -109,3 +109,10 @@ require("lspconfig").jsonls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
+
+-- YAML
+-- mason-lspconfig will install the mason yaml-language-server
+require("lspconfig").yamlls.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
