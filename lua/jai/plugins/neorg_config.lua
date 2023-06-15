@@ -4,17 +4,17 @@ local opts = {
 	load = {
 		["core.defaults"] = {}, -- Loads default behaviour
 		["core.export"] = {}, -- enable export module
+		["core.export.markdown"] = {
+			config = {
+				extensions = "all",
+			},
+		},
 		["core.completion"] = { -- interface with different completion engines
 			config = {
 				engine = "nvim-cmp",
 			},
 		},
 		["core.summary"] = {}, -- Creates links to all files in any workspace
-		["core.export.markdown"] = {
-			config = {
-				extensions = "all",
-			},
-		},
 		["core.concealer"] = {
 			config = {
 				-- basic, diamond or varied
