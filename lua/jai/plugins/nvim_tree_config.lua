@@ -13,7 +13,7 @@ local opts = {
 	},
 	update_focused_file = {
 		enable = true,
-		update_root = true,
+		-- 	update_root = true,
 	},
 	filters = {
 		dotfiles = true,
