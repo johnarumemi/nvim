@@ -22,6 +22,10 @@ local opts = {
 				icons = {
 					code_block = {
 						conceal = true,
+						width = "content",
+						padding = {
+							right = 10,
+						},
 					},
 				},
 			},
@@ -51,6 +55,8 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 	callback = function(id, event, group, match, buf, file, data)
 		vim.cmd("set conceallevel=3")
 		vim.cmd("set nowrap")
+		vim.cmd("set textwidth=60")
+		-- vim.cmd("colorscheme terafox")
 
 		-- update options for current buffer only
 		-- num:  Size of an indent
