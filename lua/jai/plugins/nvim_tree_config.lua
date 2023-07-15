@@ -17,6 +17,8 @@ local opts = {
 	},
 	filters = {
 		dotfiles = true,
+
+		custom = { "node_modules", "__pycache__" },
 	},
 }
 
