@@ -1,4 +1,7 @@
 -- [[ LSP Setup ]]
+-- repo: https://github.com/williamboman/mason-lspconfig.nvim
+-- Use repo to see server names available
+--
 -- setup all your LSP servers here. Ensure that you have required lspconfig first
 -- Note: rust_analyzer is setup via rust-tools, so do not perform any setup
 -- functionality here for rust.
@@ -113,6 +116,13 @@ require("lspconfig").jsonls.setup({
 -- YAML
 -- mason-lspconfig will install the mason yaml-language-server
 require("lspconfig").yamlls.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
+
+-- Protobufs
+-- mason-lspconfig will install the mason Protobu language-server
+require("lspconfig").bufls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
