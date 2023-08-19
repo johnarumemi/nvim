@@ -55,7 +55,7 @@ require("nightfox").setup({
 -- nordfox
 -- terafox
 -- carbonfox
-vim.cmd("colorscheme nightfox")
+vim.cmd("colorscheme nordfox")
 
 -- Lualine checks the value of vim.g.colors_name
 -- (set when using :colorscheme command) to determine
