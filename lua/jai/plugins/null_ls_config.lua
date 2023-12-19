@@ -10,6 +10,9 @@ null_ls.setup({
 		-- can get binary installed via using Mason
 		null_ls.builtins.formatting.stylua, -- An opinionated code formatter for Lua.
 
+		-- yamlfmt from google
+		null_ls.builtins.formatting.yamlfmt,
+
 		-- --- JS/TS
 		-- we already have eslint via lspconfig
 		-- null_ls.builtins.diagnostics.eslint,
