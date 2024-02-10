@@ -1,14 +1,7 @@
--- [[ barbar ]]
--- repo: https://github.com/romgrk/barbar.ngroup_namevim
--- when using iterm2, change following:
--- 1. goto profiles -> select a profile to apply changes to
--- 2. go to 'keys' tab
--- 3. set "Left Option Key" and/or "Right Option Key" to "Esc+"
+-- Configuration setup for BarBar
 --
--- The above will ensure the correct escape sequence is sent
--- by the "Option" key on a Mac so that is acts like "Alt"
--- on other keyboards. This will enable the <A-...> keymaps
--- below to work correctly.
+-- Mainly contains keymaps, and they are only applied
+-- when this file is loaded.
 
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
@@ -53,17 +46,3 @@ map("n", "<Space>bw", "<Cmd>BufferOrderByWindowNumber<CR>", opts)
 -- Other:
 -- :BarbarEnable - enables barbar (enabled by default)
 -- :BarbarDisable - very bad command, should never be used
-
-
-return {
-
-		"romgrk/barbar.nvim",
-		version = "v1.6.*",
-        lazy = false,
-        dependencies = {
-				"lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
-				"nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
-
-        }
-}
-

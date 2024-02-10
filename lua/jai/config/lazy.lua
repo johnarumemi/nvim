@@ -7,7 +7,7 @@ end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 -- Loads plugin specs
-require("lazy").setup("jai_lazy.plugins.core", {
+require("lazy").setup("jai.plugins.core", {
   defaults = {
     -- Default to true and then manually fix broken plugins
     lazy = true,
