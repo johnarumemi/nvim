@@ -21,10 +21,10 @@ local treesitter_opts = {
     "python",
     "markdown",
     "markdown_inline",
-    "yaml",
+    -- "yaml",
     "toml",
-        "cpp",
-        "c",
+    "cpp",
+    "c",
     "javascript",
     "tsx",
     "typescript",
@@ -37,7 +37,6 @@ local treesitter_opts = {
     "jq",
     "json",
     "html",
-    -- "norg", -- no parser available, managed by neorg plugin
     "terraform",
   },
   -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -77,21 +76,22 @@ local treesitter_opts = {
 -- nvim-treesitter
 -- https://github.com/nvim-treesitter/nvim-treesitter/wiki/Installation#packernvim
 return {
-    {
+  {
 
-  "nvim-treesitter/nvim-treesitter",
+    "nvim-treesitter/nvim-treesitter",
     version = false,
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     cmd = {
       "TSInstall",
       "TSUpdate",
+      "TSInstallSync",
     },
 
-  config = function()
-    local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-    ts_update()
-    require("nvim-treesitter.configs").setup(treesitter_opts)
-  end,
+    config = function()
+      -- local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
+      -- ts_update()
+      require("nvim-treesitter.configs").setup(treesitter_opts)
+    end,
   },
 }

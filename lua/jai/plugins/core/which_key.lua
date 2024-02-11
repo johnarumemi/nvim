@@ -78,7 +78,8 @@ local opts = {
 return {
   {
     "folke/which-key.nvim",
-    branch = "master",
+    version = "main",
+    lazy = false,
     config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
@@ -87,6 +88,5 @@ return {
       -- other general keymappings
       -- require("jai.plugins.general_keymaps")
     end,
-    lazy = false,
   },
 }

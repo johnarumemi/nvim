@@ -10,23 +10,19 @@
 -- on other keyboards. This will enable the <A-...> keymaps
 -- below to work correctly.
 
-
 return {
 
-		"romgrk/barbar.nvim",
-		version = "v1.6.*",
-        lazy = false,
-        dependencies = {
-				"lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
-				"nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
+  "romgrk/barbar.nvim",
+  version = "v1.6.*",
+  lazy = false,
+  dependencies = {
+    "lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
+    "nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
+  },
+  config = function()
+    require("barbar").setup()
 
-        },
-        config = function()
-            require("barbar").setup()
-
-            -- loading in keymaps
-            require("jai.plugins.configs.barbar_config")
-
-        end
+    -- loading in keymaps
+    require("jai.plugins.configs.barbar_config")
+  end,
 }
-

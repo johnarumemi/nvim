@@ -8,7 +8,6 @@
 -- TODO: can this be scoped to a buffer specific option?
 local opt = vim.opt
 
-
 -- NOTE: Some LSP's are setup via other plugins:
 -- rust: setup by rust-tools. see jai/rust.lua for setup configuration
 
@@ -43,30 +42,30 @@ M.servers = {
   --     }
   --   }
   -- },
-  
--- TODO: scope "opts" to current buffer only
--- nvim_buf_set_option (see on_attach.lua)
 
--- Lua
--- mason package name = lua-language-server
+  -- TODO: scope "opts" to current buffer only
+  -- nvim_buf_set_option (see on_attach.lua)
+
+  -- Lua
+  -- mason package name = lua-language-server
   lua_ls = {
-                telemetry = {
+    telemetry = {
       enable = false,
     },
-    
-	-- we will use stylua (with null-ls)
-	-- for formatting lua files
-	settings = {
-		Lua = {
-			format = { enable = false },
-		},
+
+    -- we will use stylua (with null-ls)
+    -- for formatting lua files
+    settings = {
+      Lua = {
+        format = { enable = false },
+      },
     },
-	on_attach = function(client, bufnr)
-		-- update options for lua files
-		opt.shiftwidth = 2 -- num:  Size of an indent
-		opt.softtabstop = 2 -- num:  Number of spaces tabs count for in insert mode
-		opt.tabstop = 2 -- num:  Number of spaces tabs count for
-	end,
+    on_attach = function(client, bufnr)
+      -- update options for lua files
+      opt.shiftwidth = 2 -- num:  Size of an indent
+      opt.softtabstop = 2 -- num:  Number of spaces tabs count for in insert mode
+      opt.tabstop = 2 -- num:  Number of spaces tabs count for
+    end,
   },
 
   -- Python
@@ -83,28 +82,27 @@ M.servers = {
   --   }
   -- },
   pyright = {
-	on_attach = function(client, bufnr)
-		-- update options for lua files
-		opt.shiftwidth = 4 -- num:  Size of an indent
-		opt.softtabstop = 4 -- num:  Number of spaces tabs count for in insert mode
-		opt.tabstop = 4 -- num:  Number of spaces tabs count for
-	end,
-	settings = {
-		pyright = {
-			typeCheckingMode = "basic",
-		},
-	},
-
+    on_attach = function(client, bufnr)
+      -- update options for lua files
+      opt.shiftwidth = 4 -- num:  Size of an indent
+      opt.softtabstop = 4 -- num:  Number of spaces tabs count for in insert mode
+      opt.tabstop = 4 -- num:  Number of spaces tabs count for
+    end,
+    settings = {
+      pyright = {
+        typeCheckingMode = "basic",
+      },
+    },
   },
 
--- Typescript language-server
--- also works for any standard javascript filetype
+  -- Typescript language-server
+  -- also works for any standard javascript filetype
   tsserver = {
     allow_formatting = false,
   },
 
--- Linting only
--- filetypes: { "javascript", "javascriptreact", "javascript.jsx" }
+  -- Linting only
+  -- filetypes: { "javascript", "javascriptreact", "javascript.jsx" }
   eslint = {
     on_attach = function(_, bufnr)
       vim.api.nvim_create_autocmd("BufWritePre", {
@@ -118,38 +116,34 @@ M.servers = {
     cmd = { "terraform-ls", "serve" },
   },
   -- Bash
-  bashls = { 
+  bashls = {
 
-	on_attach = function(client, bufnr)
-		-- update options for lua files
-		opt.shiftwidth = 2 -- num:  Size of an indent
-		opt.softtabstop = 2 -- num:  Number of spaces tabs count for in insert mode
-		opt.tabstop = 2 -- num:  Number of spaces tabs count for
-	end,
-
+    on_attach = function(client, bufnr)
+      -- update options for lua files
+      opt.shiftwidth = 2 -- num:  Size of an indent
+      opt.softtabstop = 2 -- num:  Number of spaces tabs count for in insert mode
+      opt.tabstop = 2 -- num:  Number of spaces tabs count for
+    end,
   },
 
   -- SQL
   sqlls = {},
 
- -- Markdown
+  -- Markdown
   marksman = {},
 
+  -- Json
+  -- mason-lspconfig will install the mason json-ls server
+  jsonls = {},
 
--- Json
--- mason-lspconfig will install the mason json-ls server
-    jsonls = {},
+  -- YAML
+  -- mason-lspconfig will install the mason yaml-language-server
+  yamlls = {},
 
-
-    -- YAML
--- mason-lspconfig will install the mason yaml-language-server
-    yamlls = {},
-
-    -- Protobufs
--- mason-lspconfig will install the mason Protobu language-server
-    bufls = {}
+  -- Protobufs
+  -- mason-lspconfig will install the mason Protobu language-server
+  bufls = {},
 }
-
 
 function M.default_on_attach(client, buf)
   -- Plugin specific extensions (if applicable)]
@@ -159,7 +153,7 @@ function M.default_on_attach(client, buf)
   -- require("ldw.plugins.lsp.keymaps").on_attach(client, buf, server)
 
   -- call default on_attach
-    require("jai.plugins.core.lsp.on_attach").on_attach(client, buf)
+  require("jai.plugins.core.lsp.on_attach").on_attach(client, buf)
 
   -- if server has an on_attach already, call it
   if server.on_attach then
@@ -186,7 +180,7 @@ function M.configure_servers()
   -- local capabilities = require("cmp_nvim_lsp")
   --     .default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-    local capabilities = require("jai.plugins.core.lsp.capabilities")
+  local capabilities = require("jai.plugins.core.lsp.capabilities")
 
   -- server: name of server
   -- extra_opts: options set for the server
@@ -195,20 +189,19 @@ function M.configure_servers()
     --   capabilities = vim.deepcopy(capabilities),
     -- }, extra_options or {})
 
-    
     -- overwrite server_opts with our own capabilities
     local server_opts = vim.tbl_deep_extend("force", {
-      capabilities
+      capabilities,
     }, extra_options or {})
 
-    if server_opts['on_attach'] ~= nil then
-      local original_on_attach = server_opts['on_attach']
-      server_opts['on_attach'] = function(client, bufnr)
+    if server_opts["on_attach"] ~= nil then
+      local original_on_attach = server_opts["on_attach"]
+      server_opts["on_attach"] = function(client, bufnr)
         original_on_attach(client, bufnr)
         M.default_on_attach(client, bufnr)
       end
     else
-      server_opts['on_attach'] = M.default_on_attach
+      server_opts["on_attach"] = M.default_on_attach
     end
 
     lspconfig[server].setup(server_opts)

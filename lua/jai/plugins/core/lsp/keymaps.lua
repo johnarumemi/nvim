@@ -10,13 +10,26 @@ local server_conf_allows_formatting = require("ldw.plugins.lsp.format").server_c
 -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#serverCapabilities
 -- which lists server capabilities
 M.keybinds = {
-  { "gd",         vim.lsp.buf.definition,              desc = "Goto Definition", has = "definition" },
-  { "<leader>gr", "<cmd>Telescope lsp_references<cr>", desc = "References",      has = "references" },
-  { "<leader>ac", vim.lsp.buf.code_action,             desc = "Code action",     has = "codeAction" },
-  { "<leader>f",  format,                              desc = "Format",          has = "documentFormatting",      filter = server_conf_allows_formatting },
-  { "<leader>f",  format,                              desc = "Format (Range)",  has = "documentRangeFormatting", filter = server_conf_allows_formatting, mode = "v" },
-  { "K",          vim.lsp.buf.hover,                   desc = "Hover",           has = "hover" },
-  { "<leader>rn", vim.lsp.buf.rename,                  desc = "Rename",          has = "rename" },
+  { "gd", vim.lsp.buf.definition, desc = "Goto Definition", has = "definition" },
+  { "<leader>gr", "<cmd>Telescope lsp_references<cr>", desc = "References", has = "references" },
+  { "<leader>ac", vim.lsp.buf.code_action, desc = "Code action", has = "codeAction" },
+  {
+    "<leader>f",
+    format,
+    desc = "Format",
+    has = "documentFormatting",
+    filter = server_conf_allows_formatting,
+  },
+  {
+    "<leader>f",
+    format,
+    desc = "Format (Range)",
+    has = "documentRangeFormatting",
+    filter = server_conf_allows_formatting,
+    mode = "v",
+  },
+  { "K", vim.lsp.buf.hover, desc = "Hover", has = "hover" },
+  { "<leader>rn", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
 }
 
 function M.on_attach(client, buffer, server_conf)
@@ -33,8 +46,10 @@ function M.on_attach(client, buffer, server_conf)
   end
 
   for _, keys in pairs(keymaps) do
-    if (not keys.filter or keys.filter(server_conf))
-        and (not keys.has or client.server_capabilities[keys.has .. "Provider"]) then
+    if
+      (not keys.filter or keys.filter(server_conf))
+      and (not keys.has or client.server_capabilities[keys.has .. "Provider"])
+    then
       local opts = Keys.opts(keys)
       ---@diagnostic disable-next-line: no-unknown
       opts.has = nil

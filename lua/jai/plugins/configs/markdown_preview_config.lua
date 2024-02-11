@@ -5,17 +5,17 @@
 local wk = require("which-key")
 
 wk.register({
-	m = {
-		name = "Markdown Preview",
-		o = { "[[:MarkdownPreview<CR>]]", "Open" },
-		s = { "[[:MarkdownPreviewStop<CR>]]", "Stop" },
-	},
-	--
-	-- <leader>t
-	t = {
-		name = "Toggle",
-		m = { [[:MarkdownPreviewToggle<CR>]], "Markdown Preview Toggle" },
-	},
+  m = {
+    name = "Markdown Preview",
+    o = { "[[:MarkdownPreview<CR>]]", "Open" },
+    s = { "[[:MarkdownPreviewStop<CR>]]", "Stop" },
+  },
+  --
+  -- <leader>t
+  t = {
+    name = "Toggle",
+    m = { [[:MarkdownPreviewToggle<CR>]], "Markdown Preview Toggle" },
+  },
 }, { prefix = "<leader>" })
 
 -- set to 1, nvim will open the preview window after entering the markdown buffer

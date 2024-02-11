@@ -31,9 +31,9 @@ end
 
 function M.on_attach(client, buf, server_conf)
   if
-      client.config
-      and client.config.capabilities
-      and client.config.capabilities.documentFormattingProvider == false
+    client.config
+    and client.config.capabilities
+    and client.config.capabilities.documentFormattingProvider == false
   then
     return
   end

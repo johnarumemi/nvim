@@ -16,7 +16,7 @@ return {
     },
     config = function()
       require("ldw.plugins.lsp.servers").configure_servers()
-    end
+    end,
   },
   {
     "williamboman/mason.nvim",
@@ -26,7 +26,7 @@ return {
       ensure_installed = {
         "stylua",
         "flake8",
-        "rust-analyzer"
+        "rust-analyzer",
       },
     },
     ---@param opts MasonSettings | {ensure_installed: string[]}
@@ -45,10 +45,10 @@ return {
     "williamboman/mason-lspconfig",
     event = { "VeryLazy" },
     dependencies = {
-      "williamboman/mason.nvim"
+      "williamboman/mason.nvim",
     },
     opts = {
       automatic_installation = true,
     },
-  }
+  },
 }
