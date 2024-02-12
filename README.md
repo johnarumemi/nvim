@@ -1,22 +1,41 @@
 # NVIM config
 This is just a repo that stores my nvim configuration
 
+TODO: update this for use with Lazy.
+
 # Uninstall
+See lazyvim github for uninstall instructions.
 
-Since everything is insalled with `packer`, simply
-delete all installed packer plugins directly via following:
-```shell
+You can also delete directories via,
 
-rm -rf site/pack/packer/opt/
-rm -rf site/pack/packer/start/
-```
+`rm -rf ~/.local/share/nvim`
+`rm ~/.cache/nvim`
+`rm ~/.local/state/nvim`
+
+or move them instead (backups),
+
+`mv ~/.local/share/nvim{,.bak}`
+`mv ~/.cache/nvim{,.bak}`
+`mv ~/.local/state/nvim{,.bak}`
+
 
 # Installation
 ## Manual Steps / Caveats
 ensure you run following: 
 
-`Neorg sync-parser`
-`MasonInstall stylua`
+~`Neorg sync-parser`~
+~`MasonInstall stylua`~
+
+Add `mason/bin` to your `$PATH` environment variable. This is to enable
+finding executables installed by Mason.
+
+```bash
+# .zprofile
+
+# Neovim Mason bin directory
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+```
+
 
 ## Tagbar plugin
 For this plugin to work (especially with rust) you should install the universal 
@@ -56,7 +75,7 @@ However, the above installed gcc binaries have versions as suffixes, i.e. `gcc-1
 What you thus need to do is create symlinks that don't have these versions as suffixes.
 
 ```
-ln -s $(brew --prefix)/bin/gcc-13 $(brew --prefix)/bi/gcc
+ln -s $(brew --prefix)/bin/gcc-13 $(brew --prefix)/bin/gcc
 ```
 Also ensure to update the `CC` environment variable to point to your symlinked gcc.
 
