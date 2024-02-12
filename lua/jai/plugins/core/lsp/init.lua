@@ -1,11 +1,36 @@
+vim.g.answer = 1
 return {
 
   -- Main NeoVim LSP Client config
+  -- Order of setup matters, it should be as follows
+  -- 1. mason
+  -- 2. mason-lspconfig
+  -- 3. lspconfig (setup servers)
   {
     "neovim/nvim-lspconfig",
+    -- On attach of an LSP client to a server, mason-lspconfig will be run.
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      -- NOTE: this exact format of specifying dependencies is required.
+      -- Otherwise, I couldn't get the plugin to work.
+      {
+        "williamboman/mason-lspconfig.nvim",
+
+        opts = {
+
+          -- NOTE: use lspconfig names here.
+          -- for cases where name does not exist in lspconfig, use the "mason" equivalent custom option to install these.
+          ensure_installed = {
+            "lua_ls",
+            "jsonls",
+          },
+
+          -- if a server is configured in lsp, this will ensure that mason
+          -- installs the necessary LSP server
+          automatic_installation = true,
+        },
+      },
 
       -- TODO: Check the below dependency
       "hrsh7th/cmp-nvim-lsp",
@@ -20,8 +45,10 @@ return {
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { "j-hui/fidget.nvim", opts = {} },
 
-      -- automatically create pair of parenthes
+      -- automatically create pair of parentheses
       { "windwp/nvim-autopairs", opts = {} },
+
+      { "nvimtools/none-ls.nvim" },
     },
 
     config = function()
@@ -31,7 +58,9 @@ return {
   -- LSP Servers via Mason
   {
     "williamboman/mason.nvim",
-
+    lazy = false,
+    -- cmd = "Mason",
+    -- keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
     opts = {
       -- mason will also automatically install these LSP servers
       -- if they are not present on your computer
@@ -58,28 +87,6 @@ return {
         end
       end
     end,
-  },
-  {
-    "williamboman/mason-lspconfig",
-    event = { "VeryLazy" },
-    dependencies = {
-      "williamboman/mason.nvim",
-    },
-    opts = {
-
-      -- NOTE: use lspconfig names here.
-      -- for cases where name does not exist in lspconfig, use the "mason" equivalent custom option to install these.
-      ensure_installed = {
-        "lua_ls",
-        "jsonls",
-        -- "flake8",
-        -- "rust-analyzer"
-      },
-
-      -- if a server is configured in lsp, this will ensure that mason
-      -- installs the necessary LSP server
-      automatic_installation = true,
-    },
   },
   {
 

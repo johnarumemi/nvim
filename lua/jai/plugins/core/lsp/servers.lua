@@ -162,15 +162,15 @@ function M.default_on_attach(client, buf)
 end
 
 -- Create an autocmd to run on LspAttach that runs the default on_attach action
-function M.on_attach_autocmd(on_attach)
-  vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(args)
-      local buffer = args.buf
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
-      on_attach(client, buffer)
-    end,
-  })
-end
+-- function M.on_attach_autocmd(on_attach)
+--   vim.api.nvim_create_autocmd("LspAttach", {
+--     callback = function(args)
+--       local buffer = args.buf
+--       local client = vim.lsp.get_client_by_id(args.data.client_id)
+--       on_attach(client, buffer)
+--     end,
+--   })
+-- end
 
 -- function M.get_servers()
 -- end
@@ -184,6 +184,7 @@ function M.configure_servers()
 
   -- server: name of server
   -- extra_opts: options set for the server
+
   for server, extra_options in pairs(M.servers) do
     -- local server_opts = vim.tbl_deep_extend("force", {
     --   capabilities = vim.deepcopy(capabilities),
@@ -191,14 +192,14 @@ function M.configure_servers()
 
     -- overwrite server_opts with our own capabilities
     local server_opts = vim.tbl_deep_extend("force", {
-      capabilities,
+      capabilities = vim.deepcopy(capabilities),
     }, extra_options or {})
 
     if server_opts["on_attach"] ~= nil then
       local original_on_attach = server_opts["on_attach"]
       server_opts["on_attach"] = function(client, bufnr)
-        original_on_attach(client, bufnr)
         M.default_on_attach(client, bufnr)
+        original_on_attach(client, bufnr)
       end
     else
       server_opts["on_attach"] = M.default_on_attach

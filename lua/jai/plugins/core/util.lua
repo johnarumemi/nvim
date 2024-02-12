@@ -45,8 +45,7 @@ return {
       shell.select_executable = select_executable
       install.compilers = compilers
     end,
-    dependencies = { "nvim-cmp", "folke/which-key.nvim", "nvim-lua/plenary.nvim" },
-    -- dependencies = { "nvim-treesitter", "folke/which-key.nvim", "nvim-lua/plenary.nvim", },
+    dependencies = { "nvim-treesitter", "folke/which-key.nvim", "nvim-lua/plenary.nvim" },
     -- run = ":Neorg sync-parsers"
     config = function()
       local config = require("jai.plugins.configs.neorg_config")
