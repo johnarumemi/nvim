@@ -18,7 +18,6 @@ return {
       "hrsh7th/vim-vsnip",
     },
   },
-
   {
 
     "nvimtools/none-ls.nvim",
@@ -78,7 +77,6 @@ return {
       },
     },
   },
-
   {
 
     -- [[ nvim-comment ]]
@@ -109,6 +107,62 @@ return {
       -- need to use config for this, since module name
       -- uses underscore, rather than hyphen
       require("nvim_comment").setup(opts)
+    end,
+  },
+  {
+    -- code structure
+    -- See docs/wiki below for usage with Rust,
+    -- [1]: https://github.com/preservim/tagbar/wiki#rust
+    "majutsushi/tagbar",
+    event = { "LspAttach" },
+    ft = {"rs", ".py", ".json", ".tsx", ".jsx", ".js"},
+    config = function()
+      local wk = require("which-key")
+
+      wk.register({
+        --
+        -- <leader>t
+        t = {
+          name = "Toggle",
+          b = { [[:TagbarToggle<CR>]], "Tagbar Toggle" },
+        },
+      }, { prefix = "<leader>" })
+
+      -- vim.g.rust_use_custom_ctags_defs = 1
+
+      vim.g.tagbar_type_rust = {
+        ctagsbin = "/opt/homebrew/bin/ctags",
+        ctagstype = "rust",
+        kinds = {
+          "n:modules",
+          "s:structures:1",
+          "i:interfaces",
+          "c:implementations",
+          "f:functions:1",
+          "g:enumerations:1",
+          "t:type aliases:1:0",
+          "C:constants:1:0",
+          "M:macros:1",
+          "m:fields:1:0",
+          "e:enum variants:1:0",
+          "P:methods:1",
+        },
+        sro = "::",
+        kind2scope = {
+          n = "module",
+          s = "struct",
+          i = "interface",
+          c = "implementation",
+          f = "function",
+          g = "enum",
+          t = "typedef",
+          v = "variable",
+          M = "macro",
+          m = "field",
+          e = "enumerator",
+          P = "method",
+        },
+      }
     end,
   },
 }

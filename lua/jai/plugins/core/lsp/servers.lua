@@ -1,50 +1,21 @@
 -- [[ LSP Setup ]]
--- repo: https://github.com/williamboman/mason-lspconfig.nvim
 -- Use repo to see server names available
+-- repo: https://github.com/williamboman/mason-lspconfig.nvim
 --
--- setup all your LSP servers here. Ensure that you have required lspconfig first
--- Note: rust_analyzer is setup via rust-tools, so do not perform any setup
--- functionality here for rust.
--- TODO: can this be scoped to a buffer specific option?
-local opt = vim.opt
-
+-- Setup all your LSP servers here.
+--
 -- NOTE: Some LSP's are setup via other plugins:
--- rust: setup by rust-tools. see jai/rust.lua for setup configuration
+-- rust: setup by rust-tools. see rust.lua for setup configuration
 
--- After setting up mason-lspconfig you may set up servers
--- via lspconfig
--- Note: this means setup client configurations against a lsp server
--- after all, lspconfig is just a collection of configurations.
--- the below accesses the rust_analyzer configurtion and calls it
--- setup{} function, which wraps around the lsp.start_client() function.
-
--- Lua
--- mason package name = lua-language-server
+-- alias
+local buf_set_option = function(buf, name, value)
+  vim.api.nvim_set_option_value(name, value, { buf = buf })
+end
 
 local M = {}
 
 M.servers = {
   -- Rust: uses rust-tools
-  -- rust_analyzer = {
-  --   settings = {
-  --     ['rust-analyzer'] = {
-  --       procMacros = {
-  --         enable = true
-  --       },
-  --       cargo = {
-  --         allFeatures = true
-  --       },
-  --       checkOnSave = {
-  --         command = "clippy",
-  --         -- To prevent check on save taking a lock on the target dir (blocking cargo build/run)
-  --         extraArgs = { "--target-dir", "target/ra-check" },
-  --       }
-  --     }
-  --   }
-  -- },
-
-  -- TODO: scope "opts" to current buffer only
-  -- nvim_buf_set_option (see on_attach.lua)
 
   -- Lua
   -- mason package name = lua-language-server
@@ -60,11 +31,11 @@ M.servers = {
         format = { enable = false },
       },
     },
-    on_attach = function(client, bufnr)
+    on_attach = function(_, bufnr)
       -- update options for lua files
-      opt.shiftwidth = 2 -- num:  Size of an indent
-      opt.softtabstop = 2 -- num:  Number of spaces tabs count for in insert mode
-      opt.tabstop = 2 -- num:  Number of spaces tabs count for
+      buf_set_option(bufnr, "shiftwidth", 2) -- Size of an indent
+      buf_set_option(bufnr, "softtabstop", 2) -- Number of spaces tabs count for in insert mode
+      buf_set_option(bufnr, "tabstop", 2) -- Number of spaces tabs count for
     end,
   },
 
@@ -82,11 +53,11 @@ M.servers = {
   --   }
   -- },
   pyright = {
-    on_attach = function(client, bufnr)
-      -- update options for lua files
-      opt.shiftwidth = 4 -- num:  Size of an indent
-      opt.softtabstop = 4 -- num:  Number of spaces tabs count for in insert mode
-      opt.tabstop = 4 -- num:  Number of spaces tabs count for
+    on_attach = function(_, bufnr)
+      -- update options for python files
+      buf_set_option(bufnr, "shiftwidth", 4) -- Size of an indent
+      buf_set_option(bufnr, "softtabstop", 4) -- Number of spaces tabs count for in insert mode
+      buf_set_option(bufnr, "tabstop", 4) -- Number of spaces tabs count for
     end,
     settings = {
       pyright = {
@@ -118,11 +89,11 @@ M.servers = {
   -- Bash
   bashls = {
 
-    on_attach = function(client, bufnr)
-      -- update options for lua files
-      opt.shiftwidth = 2 -- num:  Size of an indent
-      opt.softtabstop = 2 -- num:  Number of spaces tabs count for in insert mode
-      opt.tabstop = 2 -- num:  Number of spaces tabs count for
+    on_attach = function(_, bufnr)
+      -- update options for bash files
+      buf_set_option(bufnr, "shiftwidth", 4) -- Size of an indent
+      buf_set_option(bufnr, "softtabstop", 4) -- Number of spaces tabs count for in insert mode
+      buf_set_option(bufnr, "tabstop", 4) -- Number of spaces tabs count for
     end,
   },
 

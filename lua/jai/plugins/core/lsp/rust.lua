@@ -1,31 +1,33 @@
 -- [[ rust-tools configuration ]]
 -- https://github.com/simrat39/rust-tools.nvim
 
--- Set completeopt to have a better completion experience
--- :help completeopt
--- menuone: popup even when there's only one match
--- noinsert: Do not insert text until a selection is made
--- noselect: Do not auto-select, nvim-cmp plugin will handle this for us.
--- TODO: can this be scoped to a buffer specific option?
-vim.o.completeopt = "menuone,noinsert,noselect"
+local rt = require("rust-tools")
 
--- Avoid showing extra messages when using completion
-vim.opt.shortmess = vim.opt.shortmess + "c"
-
-local M = require("jai.plugins.core.lsp.on_attach")
 local capabilities = require("jai.plugins.core.lsp.capabilities")
 
 -- custom on_attach for rust LSP
-local function on_attach(client, bufnr)
-  -- apply default key mappings first
-
-  M.on_attach(client, bufnr)
+local function core_on_attach(client, bufnr)
+  -- apply default on_attach first
+  require("jai.plugins.core.lsp.on_attach").on_attach(client, bufnr)
 
   -- Hover actions
   vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
 
   -- Code action groups
   vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+
+  -- Set completeopt to have a better completion experience
+  -- :help completeopt
+  -- menuone: popup even when there's only one match
+  -- noinsert: Do not insert text until a selection is made
+  -- noselect: Do not auto-select, nvim-cmp plugin will handle this for us.
+  vim.api.nvim_set_option_value("completeopt", "menuone,noinsert,noselect", { buf = bufnr })
+
+  -- -- Avoid showing extra messages when using completion
+  local current_shortmess = vim.api.nvim_get_option_value("shortmess", { buf = bufnr })
+  vim.api.nvim_set_option_value("shortmess", current_shortmess + "c", { buf = bufnr })
+  -- vim.opt.shortmess = vim.opt.shortmess + "c"
+
 end
 
 -- rust-tools options
@@ -47,16 +49,25 @@ local opts = {
   server = {
     capabilities = capabilities,
     on_attach = function(client, bufnr)
-      on_attach(client, bufnr)
+      core_on_attach(client, bufnr)
       local bufopts = { noremap = true, silent = true, buffer = bufnr }
+      -- TODO: should this be shifted to whichkey?
       vim.keymap.set("n", "<leader>rr", [[:RustRunnables<CR>]], bufopts)
     end,
     settings = {
       -- Server-specific settings for rust-analyzer LSP
       ["rust-analyzer"] = {
+        procMacros = {
+          enable = true,
+        },
+        cargo = {
+          allFeatures = true,
+        },
         -- enable clippy on save
         checkOnSave = {
           command = "clippy",
+          -- To prevent check on save taking a lock on the target dir (blocking cargo build/run)
+          extraArgs = { "--target-dir", "target/ra-check" },
         },
       },
     },

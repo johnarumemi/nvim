@@ -1,15 +1,24 @@
 -- plugins related to git / versioning
 
 return {
-  { "tpope/vim-fugitive" }, -- git integration
-  { "junegunn/gv.vim" }, -- commit history
-
-  -- Gitsigns depends on which-key due to various keymaps
-  -- that I have setup.
   {
+    -- git integration
+    "tpope/vim-fugitive",
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+  },
+  {
+    -- commit history
+    "junegunn/gv.vim",
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+  },
+  {
+    -- Gitsigns depends on which-key due to various keymaps
+    -- that I have setup.
 
     "lewis6991/gitsigns.nvim",
-    tag = "v0.6",
+    version = false,
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    -- event = "LazyFile",
     dependencies = { "folke/which-key.nvim" },
     config = function()
       local gitsigns_config = require("jai.plugins.configs.gitsigns_config")
@@ -19,5 +28,8 @@ return {
 
   -- open current line in web
   -- <leader>g to view options
-  { "ruanyl/vim-gh-line" },
+  {
+    "ruanyl/vim-gh-line",
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+  },
 }

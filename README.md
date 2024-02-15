@@ -3,6 +3,12 @@ This is just a repo that stores my nvim configuration
 
 TODO: update this for use with Lazy.
 
+# Useful links
+
+Neovim rust setup and guide
+- https://rsdlt.github.io/posts/rust-nvim-ide-guide-walkthrough-development-debug/
+
+
 # Uninstall
 See lazyvim github for uninstall instructions.
 
@@ -38,11 +44,22 @@ export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 
 
 ## Tagbar plugin
-For this plugin to work (especially with rust) you should install the universal 
-`ctags` binary.
+For this plugin to work (especially with rust) you should install the `universal 
+ctags` binary. It conflicts with exuberant ctags and 
 
 https://github.com/universal-ctags/homebrew-universal-ctags
 
+see [wiki](https://github.com/preservim/tagbar/wiki#rust) for how to set this up.
+
+Note that if you have exuberant-ctags etc installed, this conflicts with
+universal-ctags, since installing universal-ctags creates / aliases `$(brew
+--prefix)/bin/ctags`.
+
+```bash
+brew uninstall ctags 
+brew install universal-ctags
+
+```
 ## Fonts
 https://www.nerdfonts.com/font-downloads
 

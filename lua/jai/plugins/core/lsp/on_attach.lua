@@ -56,7 +56,6 @@ function M.on_attach(client, bufnr)
   end, bufopts)
 
   wk.register({
-    ["<space>e"] = { "lsp: open diagnostic float" },
     ["[d"] = { "got prev diagnostics" },
     ["]d"] = { "got next diagnostics" },
     gD = { "lsp: goto declaration" },
@@ -68,6 +67,7 @@ function M.on_attach(client, bufnr)
   }, { buffer = bufnr })
 
   wk.register({
+    e = { "lsp: open diagnostic float" },
     wa = { "lsp: add workspace folder" },
     wr = { "lsp: remove workspace folder" },
     wl = { "lsp: list workspace folders" },
@@ -88,6 +88,7 @@ function M.on_attach(client, bufnr)
   -- Show line diagnostics automatically in hover window
   -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#show-line-diagnostics-automatically-in-hover-window
 
+  -- 
   vim.api.nvim_create_autocmd("CursorHold", {
     buffer = bufnr,
     callback = function()
