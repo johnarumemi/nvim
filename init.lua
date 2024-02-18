@@ -1,3 +1,2 @@
---[[ init.lua ]]
--- select config to use
-require("jai.init")
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("jai.config")

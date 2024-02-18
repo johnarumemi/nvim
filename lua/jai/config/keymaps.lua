@@ -1,7 +1,13 @@
 -- [[ keys.lua ]]
 
 -- no meta-accessor, but just remap the setter directly instead
-local map = vim.api.nvim_set_keymap
+-- local map = vim.api.nvim_set_keymap
+
+local function map(mode, lhs, rhs, opts)
+  opts = opts or {}
+  opts.silent = opts.silent ~= false
+  vim.keymap.set(mode, lhs, rhs, opts)
+end
 
 -- Open url/path under cursor
 -- [[
@@ -33,3 +39,5 @@ map("i", "jj", "<Esc>", {})
 -- sequence is 'jk'
 -- the 'escape command' (returning us to normal mode) is called
 -- no additional options configured here, pass in an empty table
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here

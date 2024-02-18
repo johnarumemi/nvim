@@ -1,5 +1,9 @@
 -- [[ opts.lua ]]
 -- Default global options
+--
+-- Options are automatically loaded before lazy.nvim startup
+-- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
+-- Add any additional options here
 
 -- alias the vim.opt meta-accessor
 local opt = vim.opt
@@ -35,9 +39,9 @@ opt.splitbelow = true -- bool: Place new window below the current one
 -- auto format on save
 local format_sync_grp = vim.api.nvim_create_augroup("Format", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*.rs",
-	callback = function()
-		vim.lsp.buf.format({ timeout_ms = 200 })
-	end,
-	group = format_sync_grp,
+  pattern = "*.rs",
+  callback = function()
+    vim.lsp.buf.format({ timeout_ms = 200 })
+  end,
+  group = format_sync_grp,
 })
