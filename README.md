@@ -106,6 +106,17 @@ manually running the treesitter grammer via:
 nvim -c "TSInstallSync norg"
 ```
 
+# Copilot
+
+see `:help copilot` for further information.
+Requires node >= v18
+
+# BitoAI
+
+`:help vim-bitoai-usage`
+`:help vim-bitoai-custom`
+`:help vim-bitoai-install`
+
 # mason
 This is a package manager that is used for managing various development tools: it can
 be installed and managed via Packer. Development tools can include LSP **servers**,
