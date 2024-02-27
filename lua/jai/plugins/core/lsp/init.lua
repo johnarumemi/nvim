@@ -69,6 +69,7 @@ return {
         -- note that we actually use stylua through none-ls
         "stylua",
         "flake8",
+        "black",
         -- "rust-analyzer" -- Hanled by "rust-tools"
       },
     },
