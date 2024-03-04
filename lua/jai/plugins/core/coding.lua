@@ -92,7 +92,10 @@ return {
   },
   {
 
+    -- TODO: there is a problem with support for flake8 being removed here:
+    -- https://github.com/nvimtools/none-ls.nvim/issues/58
     "nvimtools/none-ls.nvim",
+    commit = "1dad329b3899413e7e8e03412b2489dbcda5f7e4",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "nvim-lua/plenary.nvim", "mason.nvim" },
     opts = function()
