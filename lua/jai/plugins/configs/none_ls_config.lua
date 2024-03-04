@@ -21,6 +21,19 @@ return {
       null_ls.builtins.formatting.black,
       null_ls.builtins.diagnostics.flake8,
       null_ls.builtins.code_actions.gitsigns,
+
+      -- NOTE: if you have the below builtin source enabled, it will
+      -- also populate nvim-cmp completion window with all
+      -- spelling suggestions. This can add alot of noise the the
+      -- autocompletion and I suggest disabling it for now, until
+      -- we can find a way to reduce the noise from this.
+      --
+      -- Use the builtin spellchecker instead via:
+      -- `:set spell` -> disable via `set nospell`
+      -- `unset spell`
+      -- `noset spell`
+      --
+      -- null_ls.builtins.completion.spell,
     },
     on_attach = function(client, bufnr)
       -- Enable formatting on sync

@@ -32,7 +32,9 @@ return {
         },
       },
 
-      -- TODO: Check the below dependency
+      "hrsh7th/nvim-cmp",
+
+      -- -- TODO: Check the below dependency
       "hrsh7th/cmp-nvim-lsp",
 
       -- Due to `on_attach` keymaps
