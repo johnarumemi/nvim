@@ -3,7 +3,14 @@
 
 local rt = require("rust-tools")
 
-local capabilities = require("jai.plugins.core.lsp.capabilities")
+local function create_capabilities()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+  -- for cpm_nvim_lsp
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+  capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+end
 
 -- custom on_attach for rust LSP
 local function core_on_attach(client, bufnr)
@@ -27,7 +34,6 @@ local function core_on_attach(client, bufnr)
   local current_shortmess = vim.api.nvim_get_option_value("shortmess", { buf = bufnr })
   vim.api.nvim_set_option_value("shortmess", current_shortmess + "c", { buf = bufnr })
   -- vim.opt.shortmess = vim.opt.shortmess + "c"
-
 end
 
 -- rust-tools options
@@ -47,7 +53,7 @@ local opts = {
   -- these override the defaults set by rust-tools.nvim
   -- see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#rust_analyzer
   server = {
-    capabilities = capabilities,
+    capabilities = create_capabilities(),
     on_attach = function(client, bufnr)
       core_on_attach(client, bufnr)
       local bufopts = { noremap = true, silent = true, buffer = bufnr }

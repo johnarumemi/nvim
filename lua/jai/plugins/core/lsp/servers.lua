@@ -148,19 +148,18 @@ end
 
 function M.configure_servers()
   local lspconfig = require("lspconfig")
-  -- local capabilities = require("cmp_nvim_lsp")
-  --     .default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-  local capabilities = require("jai.plugins.core.lsp.capabilities")
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+  -- for cpm_nvim_lsp
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+  capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
   -- server: name of server
   -- extra_opts: options set for the server
 
   for server, extra_options in pairs(M.servers) do
-    -- local server_opts = vim.tbl_deep_extend("force", {
-    --   capabilities = vim.deepcopy(capabilities),
-    -- }, extra_options or {})
-
     -- overwrite server_opts with our own capabilities
     local server_opts = vim.tbl_deep_extend("force", {
       capabilities = vim.deepcopy(capabilities),

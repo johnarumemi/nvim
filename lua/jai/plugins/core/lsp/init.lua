@@ -98,5 +98,11 @@ return {
       local config = require("jai.plugins.core.lsp.rust")
       require("rust-tools").setup(config.opts)
     end,
+    dependencies = {
+      "hrsh7th/nvim-cmp",
+
+      -- -- TODO: Check the below dependency
+      "hrsh7th/cmp-nvim-lsp",
+    },
   },
 }
