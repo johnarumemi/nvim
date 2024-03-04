@@ -49,18 +49,13 @@ return {
   {
     -- [[ Markdown Preview ]]
     -- repo: https://github.com/iamcco/markdown-preview.nvim
-    -- ensure you have node.js and yarn installed
-    -- and available in your path
-
     "iamcco/markdown-preview.nvim",
-    build = "cd app && npm install",
     -- Lazy-load on command
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     -- Lazy-load on filetype
     ft = { "markdown", "norg" },
-
-    init = function()
-      vim.g.mkdp_filetypes = { "markdown", "norg" }
+    build = function()
+      vim.fn["mkdp#util#install"]()
     end,
     config = function()
       require("jai.plugins.configs.markdown_preview_config")
@@ -75,6 +70,6 @@ return {
     -- plantuml-syntax is a syntax plugin for PlantUML diagrams.
     -- The file type must be set to plantuml, or the file extensions
     -- must be in .pu,*.uml,*.plantuml,*.puml,*.iuml.
-    dependencies = { "zhaozg/vim-diagram", "aklt/plantuml-syntax" },
+    dependencies = { "zhaozg/vim-diagram", "aklt/plantuml-syntax", "folke/which-key.nvim" },
   },
 }
