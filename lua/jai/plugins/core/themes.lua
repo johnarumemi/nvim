@@ -1,4 +1,3 @@
-
 return {
 
   -- [[ Themes ]]
@@ -8,11 +7,12 @@ return {
   { "EdenEast/nightfox.nvim", priority = 1000, lazy = false },
   {
     "folke/tokyonight.nvim",
-    version = "main",
+    branch = "main",
     lazy = false,
     priority = 1000,
     config = function()
       require("jai.plugins.configs.themes.main")
     end,
+    dependencies = { "folke/which-key.nvim" },
   },
 }
