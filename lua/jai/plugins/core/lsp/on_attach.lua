@@ -88,7 +88,7 @@ function M.on_attach(client, bufnr)
   -- Show line diagnostics automatically in hover window
   -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#show-line-diagnostics-automatically-in-hover-window
 
-  -- 
+  --
   vim.api.nvim_create_autocmd("CursorHold", {
     buffer = bufnr,
     callback = function()

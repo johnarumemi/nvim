@@ -190,7 +190,7 @@ return {
     -- [1]: https://github.com/preservim/tagbar/wiki#rust
     "majutsushi/tagbar",
     event = { "LspAttach" },
-    ft = {"rs", ".py", ".json", ".tsx", ".jsx", ".js"},
+    ft = { "rs", ".py", ".json", ".tsx", ".jsx", ".js" },
     config = function()
       local wk = require("which-key")
 
