@@ -2,7 +2,9 @@ return {
   {
     "zhenyangze/vim-bitoai",
     version = false,
-    event = "VeryLazy",
+    lazy = true,
+    -- event = "VeryLazy",
+    cmd = { "BitoAi start" },
     dependencies = { "folke/which-key.nvim" },
     config = function()
       local wk = require("which-key")
@@ -27,11 +29,12 @@ return {
   },
   {
     "github/copilot.vim",
-    event = "VeryLazy",
+    cmd = { "Copilot enable" },
+    lazy = true,
+    -- event = "VeryLazy",
     build = function()
       -- Not 100% sure if this is needed
       vim.cmd("Copilot setup")
     end,
-    conf,
   },
 }
