@@ -55,9 +55,8 @@ return {
 
   {
     "folke/which-key.nvim",
-    version = "main",
+    branch = "main",
     lazy = false,
-
     opts = {
       plugins = {
         marks = true, -- shows a list of your marks on ' and `
