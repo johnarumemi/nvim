@@ -92,12 +92,12 @@ return {
   },
   {
 
-    -- TODO: there is a problem with support for flake8 being removed here:
+    -- Note: there is a problem with support for flake8 being removed here:
     -- https://github.com/nvimtools/none-ls.nvim/issues/58
+    -- Update: it ended being moved to none-ls-extras
     "nvimtools/none-ls.nvim",
-    commit = "1dad329b3899413e7e8e03412b2489dbcda5f7e4",
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "nvim-lua/plenary.nvim", "mason.nvim" },
+    dependencies = { "nvimtools/none-ls-extras.nvim", "nvim-lua/plenary.nvim", "mason.nvim" },
     opts = function()
       local config = require("jai.plugins.configs.none_ls_config")
       return config.opts
