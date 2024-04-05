@@ -27,6 +27,26 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   end,
 })
 
+--[[
+-- Autocommand for setting concealcursor within norg files
+--
+-- see docs for info,
+-- docs: https://neovim.io/doc/user/options.html#'concealcursor'
+--
+-- For a value of "nc", so long as you are moving around text is concealed, but
+-- when starting to insert text or selecting a Visual area the concealed text
+-- is displayed, so that you can see what you are doing.
+--]]
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+  group = augroup("norg_concealcursor"),
+  desc = "Set norg concealcursor to nc",
+  callback = function(opts)
+    if vim.bo[opts.buf].filetype == "norg" then
+      vim.cmd("set cocu=nc")
+    end
+  end,
+})
+
 -- [[ The below were copied from LazyVim's `autocmds.lua` file ]]
 -- This file is automatically loaded by lazyvim.config.init.
 
