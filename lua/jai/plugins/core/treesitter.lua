@@ -16,6 +16,7 @@ local treesitter_opts = {
   -- Below are mainly default settings
   -- A list of parser names, or "all" (the listed parsers should always be installed)
   ensure_installed = {
+    "sql",
     "lua",
     "rust",
     "python",
