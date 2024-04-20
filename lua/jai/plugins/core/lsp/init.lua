@@ -1,4 +1,3 @@
-vim.g.answer = 1
 return {
 
   -- Main NeoVim LSP Client config
@@ -39,9 +38,6 @@ return {
 
       -- Due to `on_attach` keymaps
       "folke/which-key.nvim",
-
-      -- Manages rust lsp (repo is archived)
-      "simrat39/rust-tools.nvim",
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -93,17 +89,113 @@ return {
     end,
   },
   {
+    -- repo: https://github.com/mrcjkb/rustaceanvim
+    "mrcjkb/rustaceanvim",
+    version = "^4", -- Recommended
+    ft = { "rust" },
+    lazy = false, -- plugin is already lazy
+    opts = {
+      capabilities = function()
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-    "simrat39/rust-tools.nvim",
-    config = function(_, _)
-      local config = require("jai.plugins.core.lsp.rust")
-      require("rust-tools").setup(config.opts)
-    end,
-    dependencies = {
-      "hrsh7th/nvim-cmp",
+        -- for cpm_nvim_lsp
+        capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-      -- -- TODO: Check the below dependency
-      "hrsh7th/cmp-nvim-lsp",
+        capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+      end,
+      server = {
+        on_attach = function(client, bufnr)
+          -- apply default on_attach first
+          require("jai.plugins.core.lsp.on_attach").on_attach(client, bufnr)
+
+          -- -- Hover actions
+          -- vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+
+          -- -- Code action groups
+          -- vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+
+          -- Set completeopt to have a better completion experience
+          -- :help completeopt
+          -- menuone: popup even when there's only one match
+          -- noinsert: Do not insert text until a selection is made
+          -- noselect: Do not auto-select, nvim-cmp plugin will handle this for us.
+          vim.api.nvim_set_option_value("completeopt", "menuone,noinsert,noselect", { buf = bufnr })
+
+          -- -- Avoid showing extra messages when using completion
+          local current_shortmess = vim.api.nvim_get_option_value("shortmess", { buf = bufnr })
+          vim.api.nvim_set_option_value("shortmess", current_shortmess + "c", { buf = bufnr })
+          -- vim.opt.shortmess = vim.opt.shortmess + "c"
+
+          -- register which-key mappings + add keymaps aswell
+          local wk = require("which-key")
+
+          wk.register({
+            name = "Rust",
+            r = {
+              a = {
+                function()
+                  vim.cmd.RustLsp("codeAction")
+                end,
+                "Code Action",
+              },
+              d = {
+                function()
+                  vim.cmd.RustLsp("debuggables")
+                end,
+                "Rust debuggables",
+              },
+              r = {
+                function()
+                  vim.cmd.RustLsp("runnables")
+                end,
+                "Rust runnables",
+              },
+              t = {
+                function()
+                  vim.cmd.RustLsp("testables")
+                end,
+                "Rust testables",
+              },
+            },
+          }, {
+            prefix = "<leader>",
+            mode = "n",
+            buffer = bufnr,
+            noremap = true,
+            silent = true,
+          })
+        end,
+
+        default_settings = {
+          -- rust-analyzer language server configuration
+          ["rust-analyzer"] = {
+            cargo = {
+              allFeatures = true,
+              loadOutDirsFromCheck = true,
+              runBuildScripts = true,
+            },
+            -- Add clippy lints for Rust.
+            checkOnSave = {
+              allFeatures = true,
+              command = "clippy",
+              -- To prevent check on save taking a lock on the target dir
+              -- (blocking cargo build/run)
+              extraArgs = { "--target-dir", "target/ra-check", "--no-deps" },
+            },
+            procMacro = {
+              enable = true,
+              ignored = {
+                ["async-trait"] = { "async_trait" },
+                ["napi-derive"] = { "napi" },
+                ["async-recursion"] = { "async_recursion" },
+              },
+            },
+          },
+        },
+      },
     },
+    config = function(_, opts)
+      vim.g.rustaceanvim = vim.tbl_deep_extend("force", {}, opts or {})
+    end,
   },
 }
