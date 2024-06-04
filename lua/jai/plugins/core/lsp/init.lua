@@ -94,7 +94,17 @@ return {
     version = "^4", -- Recommended
     ft = { "rust" },
     lazy = false, -- plugin is already lazy
+    dependencies = {
+
+      {
+        "lvimuser/lsp-inlayhints.nvim",
+        opts = {},
+      },
+    },
     opts = {
+      inlay_hints = {
+        highlight = "NonText",
+      },
       capabilities = function()
         local capabilities = vim.lsp.protocol.make_client_capabilities()
 
@@ -107,6 +117,10 @@ return {
         on_attach = function(client, bufnr)
           -- apply default on_attach first
           require("jai.plugins.core.lsp.on_attach").on_attach(client, bufnr)
+
+          -- Use below to get inlayhints for neovim 0.9
+          -- discussion: https://github.com/mrcjkb/rustaceanvim/discussions/46#discussioncomment-7620822
+          require("lsp-inlayhints").on_attach(client, bufnr)
 
           -- -- Hover actions
           -- vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
