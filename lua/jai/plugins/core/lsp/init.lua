@@ -115,6 +115,7 @@ return {
       end,
       server = {
         on_attach = function(client, bufnr)
+          print("Calling rust on_attach")
           -- apply default on_attach first
           require("jai.plugins.core.lsp.on_attach").on_attach(client, bufnr)
 
@@ -136,11 +137,13 @@ return {
           vim.api.nvim_set_option_value("completeopt", "menuone,noinsert,noselect", { buf = bufnr })
 
           -- -- Avoid showing extra messages when using completion
-          local current_shortmess = vim.api.nvim_get_option_value("shortmess", { buf = bufnr })
-          vim.api.nvim_set_option_value("shortmess", current_shortmess + "c", { buf = bufnr })
+          -- TODO: below seems to be breaking
+          -- local current_shortmess = vim.api.nvim_get_option_value("shortmess", { buf = bufnr })
+          -- vim.api.nvim_set_option_value("shortmess", current_shortmess + "c", { buf = bufnr })
           -- vim.opt.shortmess = vim.opt.shortmess + "c"
 
           -- register which-key mappings + add keymaps aswell
+          print("Setting keymaps for rust")
           local wk = require("which-key")
 
           wk.register({
@@ -178,6 +181,7 @@ return {
             noremap = true,
             silent = true,
           })
+          print("Completed rust on_attach")
         end,
 
         default_settings = {
@@ -209,6 +213,7 @@ return {
       },
     },
     config = function(_, opts)
+      print("Starting rust lsp")
       vim.g.rustaceanvim = vim.tbl_deep_extend("force", {}, opts or {})
     end,
   },
