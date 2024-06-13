@@ -25,9 +25,10 @@ return {
     },
     opts = {
       sections = {
-        lualine_c = {
-          "lsp_progress",
-        },
+        lualine_c = { "lsp_progress" },
+
+        -- copilot status within lualine
+        lualine_x = { { "copilot", show_colors = true }, "encoding", "fileformat", "filetype" },
       },
     },
   },

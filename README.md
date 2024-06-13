@@ -109,13 +109,44 @@ nvim -c "TSInstallSync norg"
 # Copilot
 
 see `:help copilot` for further information.
-Requires node >= v18
 
-# BitoAI
+**Requires node >= v18**
 
-`:help vim-bitoai-usage`
-`:help vim-bitoai-custom`
-`:help vim-bitoai-install`
+other resources:
+- [Main github copilot repo](https://github.com/github/copilot.vim) but
+community also mentions the pure lua version found [here](https://github.com/zbirenbaum/copilot.lua)
+- [Copilot completion](https://github.com/zbirenbaum/copilot-cmp)
+- https://tamerlan.dev/setting-up-copilot-in-neovim-with-sane-settings/
+- [CopilotChat](https://github.com/CopilotC-Nvim/CopilotChat.nvim)
+- [Copilot lualine status symbol](https://github.com/AndreM222/copilot-lualine)
+- [Learn copilot prompts](https://support.microsoft.com/en-gb/topic/learn-about-copilot-prompts-f6c3b467-f07c-4db1-ae54-ffac96184dd5)
+
+
+# CopilotChat
+Commands
+```
+:CopilotChat <input>? - Open chat window with optional input
+:CopilotChatOpen - Open chat window
+:CopilotChatClose - Close chat window
+:CopilotChatToggle - Toggle chat window
+:CopilotChatStop - Stop current copilot output
+:CopilotChatReset - Reset chat window
+:CopilotChatSave <name>? - Save chat history to file
+:CopilotChatLoad <name>? - Load chat history from file
+:CopilotChatDebugInfo - Show debug information
+```
+Commands coming from default prompts
+```
+:CopilotChatExplain - Write an explanation for the active selection as paragraphs of text
+:CopilotChatReview - Review the selected code
+:CopilotChatFix - There is a problem in this code. Rewrite the code to show it with the bug fixed
+:CopilotChatOptimize - Optimize the selected code to improve performance and readablilty
+:CopilotChatDocs - Please add documentation comment for the selection
+:CopilotChatTests - Please generate tests for my code
+:CopilotChatFixDiagnostic - Please assist with the following diagnostic issue in file
+:CopilotChatCommit - Write commit message for the change with commitizen convention
+:CopilotChatCommitStaged - Write commit message for the change with commitizen convention
+```
 
 # mason
 This is a package manager that is used for managing various development tools: it can
