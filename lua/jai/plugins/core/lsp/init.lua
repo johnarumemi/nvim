@@ -95,16 +95,13 @@ return {
     ft = { "rust" },
     lazy = false, -- plugin is already lazy
     dependencies = {
-
       {
-        "lvimuser/lsp-inlayhints.nvim",
-        opts = {},
+        "MysticalDevil/inlay-hints.nvim",
+        event = "LspAttach",
+        dependencies = { "neovim/nvim-lspconfig" },
       },
     },
     opts = {
-      inlay_hints = {
-        highlight = "NonText",
-      },
       capabilities = function()
         local capabilities = vim.lsp.protocol.make_client_capabilities()
 
@@ -117,10 +114,7 @@ return {
         on_attach = function(client, bufnr)
           -- apply default on_attach first
           require("jai.plugins.core.lsp.on_attach").on_attach(client, bufnr)
-
-          -- Use below to get inlayhints for neovim 0.9
-          -- discussion: https://github.com/mrcjkb/rustaceanvim/discussions/46#discussioncomment-7620822
-          require("lsp-inlayhints").on_attach(client, bufnr)
+          require("inlay-hints").on_attach(client, bufnr)
 
           -- -- Hover actions
           -- vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
@@ -133,7 +127,12 @@ return {
           -- menuone: popup even when there's only one match
           -- noinsert: Do not insert text until a selection is made
           -- noselect: Do not auto-select, nvim-cmp plugin will handle this for us.
-          vim.api.nvim_set_option_value("completeopt", "menuone,noinsert,noselect", { buf = bufnr })
+          if vim.fn.has("nvim-0.10") == 0 then
+            -- only use below in neo-vim < 0.10 
+            -- It does not appear to work in 0.10 or we get below error:
+            -- Error: 'buf' cannot be passed for global option 'completeopt'"
+            vim.api.nvim_set_option_value("completeopt", "menuone,noinsert,noselect", { buf = bufnr })
+          end
 
           -- -- Avoid showing extra messages when using completion
           -- TODO: below seems to be breaking
@@ -183,20 +182,24 @@ return {
 
         default_settings = {
           -- rust-analyzer language server configuration
+          -- For detailed descriptions of the language server configs, see the
+          -- rust-analyzer documentation below:
+          --
+          -- https://rust-analyzer.github.io/manual.html#configuration
+          --
           ["rust-analyzer"] = {
             cargo = {
-              allFeatures = true,
-              loadOutDirsFromCheck = true,
-              runBuildScripts = true,
-            },
+              features = { "all" },
+            }, -- End of cargo settingsj
             -- Add clippy lints for Rust.
-            checkOnSave = {
-              allFeatures = true,
-              command = "clippy",
+            checkOnSave = true,
+            check = {
+              features = { "all" },
+              command = "clippy", -- use `cargo clippy` rather than `cargo check`
               -- To prevent check on save taking a lock on the target dir
               -- (blocking cargo build/run)
               extraArgs = { "--target-dir", "target/ra-check", "--no-deps" },
-            },
+            }, -- End of check settings
             procMacro = {
               enable = true,
               ignored = {
@@ -204,9 +207,41 @@ return {
                 ["napi-derive"] = { "napi" },
                 ["async-recursion"] = { "async_recursion" },
               },
-            },
-          },
-        },
+            }, -- End of procMacro settings
+            inlayHints = {
+              bindingModeHints = {
+                enable = false,
+              },
+              chainingHints = {
+                enable = true,
+              },
+              closingBraceHints = {
+                enable = true,
+                minLines = 25,
+              },
+              closureReturnTypeHints = {
+                enable = "never",
+              },
+              lifetimeElisionHints = {
+                enable = "never",
+                useParameterNames = false,
+              },
+              maxLength = 25,
+              parameterHints = {
+                enable = true,
+              },
+              reborrowHints = {
+                enable = "never",
+              },
+              renderColons = true,
+              typeHints = {
+                enable = true,
+                hideClosureInitialization = false,
+                hideNamedConstructor = false,
+              },
+            }, -- End of inlayHints settings
+          }, -- End of rust-analyzer settings
+        }, -- End of default_settings
       },
     },
     config = function(_, opts)

@@ -196,3 +196,15 @@ package name.
 ## Corrupted Sessions
 sometimes sessions are corrupted, and while there might be better ways of resolving this;
 for now the best way is to just delete sessions found in `~/.local/share/nvim/sessions/`
+
+## rust-analyzer issues
+rust-analyzer only supports the `stable` toolchain. If you have an override in
+place from using `rustup default <some-non-stable-toolchain>` then it will fail
+to understand the rust source. See `docs` link below for further information.
+
+The only way I know to fix this is to explicitly set the below environment variable
+```bash
+$ RUSTUP_TOOLCHAIN=stable nvim
+```
+
+- [rust-analyzer toolchain](https://rust-analyzer.github.io/manual.html#toolchain)
