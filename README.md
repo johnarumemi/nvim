@@ -26,6 +26,23 @@ or move them instead (backups),
 
 
 # Installation
+## Requirements
+
+- Yarn
+```bash
+npm install --global yarn
+```
+- Luarocks
+```bash
+brew install luarocks
+```
+
+- Stylua
+```bash
+brew install stylua
+```
+Alternatively Mason should install it for you.
+
 ## Manual Steps / Caveats
 ensure you run following: 
 
