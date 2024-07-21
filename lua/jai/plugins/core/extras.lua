@@ -19,9 +19,11 @@ return {
     -- Lazy-load on command
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     -- Lazy-load on filetype
-    ft = { "markdown", "norg" },
-    build = function()
-      vim.fn["mkdp#util#install"]()
+    ft = { "markdown" },
+    -- install with yarn
+    build = "cd app && yarn install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
     end,
     config = function()
       require("jai.plugins.configs.markdown_preview_config")

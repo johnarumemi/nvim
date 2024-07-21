@@ -15,8 +15,8 @@ See lazyvim github for uninstall instructions.
 You can also delete directories via,
 
 `rm -rf ~/.local/share/nvim`
-`rm ~/.cache/nvim`
-`rm ~/.local/state/nvim`
+`rm -rf ~/.cache/nvim`
+`rm -rf ~/.local/state/nvim`
 
 or move them instead (backups),
 

@@ -15,7 +15,7 @@ end
 local M = {}
 
 M.servers = {
-  -- Rust: uses rust-tools
+  -- Rust: uses a specific plugin
 
   -- Lua
   -- mason package name = lua-language-server
@@ -111,9 +111,10 @@ M.servers = {
   -- mason-lspconfig will install the mason yaml-language-server
   yamlls = {},
 
-  -- Protobufs
+  -- Protobufs:
+  -- ERROR: appears to be broken at the moment and fails to install
   -- mason-lspconfig will install the mason Protobu language-server
-  bufls = {},
+  -- bufls = {},
 }
 
 function M.default_on_attach(client, buf)

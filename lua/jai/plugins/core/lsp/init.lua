@@ -128,7 +128,7 @@ return {
           -- noinsert: Do not insert text until a selection is made
           -- noselect: Do not auto-select, nvim-cmp plugin will handle this for us.
           if vim.fn.has("nvim-0.10") == 0 then
-            -- only use below in neo-vim < 0.10 
+            -- only use below in neo-vim < 0.10
             -- It does not appear to work in 0.10 or we get below error:
             -- Error: 'buf' cannot be passed for global option 'completeopt'"
             vim.api.nvim_set_option_value("completeopt", "menuone,noinsert,noselect", { buf = bufnr })
