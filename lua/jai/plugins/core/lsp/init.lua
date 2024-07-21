@@ -115,7 +115,6 @@ return {
       end,
       server = {
         on_attach = function(client, bufnr)
-          print("Calling rust on_attach")
           -- apply default on_attach first
           require("jai.plugins.core.lsp.on_attach").on_attach(client, bufnr)
 
@@ -143,7 +142,6 @@ return {
           -- vim.opt.shortmess = vim.opt.shortmess + "c"
 
           -- register which-key mappings + add keymaps aswell
-          print("Setting keymaps for rust")
           local wk = require("which-key")
 
           wk.register({
@@ -181,7 +179,6 @@ return {
             noremap = true,
             silent = true,
           })
-          print("Completed rust on_attach")
         end,
 
         default_settings = {
@@ -213,7 +210,6 @@ return {
       },
     },
     config = function(_, opts)
-      print("Starting rust lsp")
       vim.g.rustaceanvim = vim.tbl_deep_extend("force", {}, opts or {})
     end,
   },
