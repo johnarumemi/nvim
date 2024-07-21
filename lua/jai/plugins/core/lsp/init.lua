@@ -64,12 +64,9 @@ return {
       -- if they are not present on your computer
       -- NOTE: use mason names here
       ensure_installed = {
-        -- note that we actually use stylua through none-ls
-        "stylua",
         "flake8",
         -- "ruff", -- ruff can replace flake8 and black
         "black",
-        -- "rust-analyzer" -- Hanled by "rust-tools"
       },
     },
 

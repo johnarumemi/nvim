@@ -44,14 +44,6 @@ brew install stylua
 Alternatively Mason should install it for you.
 
 ## Manual Steps / Caveats
-ensure you run following: 
-
-~`MasonInstall stylua`~
-
-or for `stylua` install via homebrew
-```bash
-brew install stylua
-```
 
 Add `mason/bin` to your `$PATH` environment variable. This is to enable
 finding executables installed by Mason.

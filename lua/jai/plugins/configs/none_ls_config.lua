@@ -8,7 +8,7 @@ return {
   opts = {
     sources = {
       -- Lua
-      -- can get binary installed via using Mason
+      -- can get binary installed via using homebrew, see README.md
       null_ls.builtins.formatting.stylua, -- An opinionated code formatter for Lua.
 
       -- yamlfmt from google
