@@ -32,6 +32,11 @@ ensure you run following:
 ~`Neorg sync-parser`~
 ~`MasonInstall stylua`~
 
+or for `stylua` install via homebrew
+```bash
+brew install stylua
+```
+
 Add `mason/bin` to your `$PATH` environment variable. This is to enable
 finding executables installed by Mason.
 
