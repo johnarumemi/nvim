@@ -29,7 +29,6 @@ or move them instead (backups),
 ## Manual Steps / Caveats
 ensure you run following: 
 
-~`Neorg sync-parser`~
 ~`MasonInstall stylua`~
 
 or for `stylua` install via homebrew
@@ -80,13 +79,14 @@ brew install --cask font-hack-nerd-font && \
 brew install --cask font-jetbrains-mono-nerd-font
 ``````
 
-# Neorg
+# Neorg fonts
 you require the v3.x.x for nerd fonts. Check your version in brew or just
 do an greedy update
 ```
 brew upgrade --cask --greedy
 ```
 
+# Neorg (possibly deprecated with 9.0.0)
 on MacOS, you will get compilation errors if using the default gcc or clang.
 You will need to install the brew gcc
 ```

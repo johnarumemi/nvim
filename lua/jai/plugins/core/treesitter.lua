@@ -39,6 +39,8 @@ local treesitter_opts = {
     "json",
     "html",
     "terraform",
+    "norg",
+    "vimdoc",
   },
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
