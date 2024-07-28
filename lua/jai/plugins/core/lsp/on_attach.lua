@@ -55,27 +55,27 @@ function M.on_attach(client, bufnr)
     vim.lsp.buf.format({ async = true })
   end, bufopts)
 
-  wk.register({
-    ["[d"] = { "got prev diagnostics" },
-    ["]d"] = { "got next diagnostics" },
-    gD = { "lsp: goto declaration" },
-    gd = { "lsp: goto definition" },
-    K = { "lsp: hover" },
-    gi = { "lsp: goto implementation" },
-    gr = { "lsp: references" },
-    ["<C-k>"] = { "lsp: signature help" },
-  }, { buffer = bufnr })
+  wk.add({
+    { "<C-k>", buffer = bufnr, desc = "lsp: signature help" },
+    { "K", buffer = bufnr, desc = "lsp: hover" },
+    { "[d", buffer = bufnr, desc = "got prev diagnostics" },
+    { "]d", buffer = bufnr, desc = "got next diagnostics" },
+    { "gD", buffer = bufnr, desc = "lsp: goto declaration" },
+    { "gd", buffer = bufnr, desc = "lsp: goto definition" },
+    { "gi", buffer = bufnr, desc = "lsp: goto implementation" },
+    { "gr", buffer = bufnr, desc = "lsp: references" },
+  })
 
-  wk.register({
-    e = { "lsp: open diagnostic float" },
-    wa = { "lsp: add workspace folder" },
-    wr = { "lsp: remove workspace folder" },
-    wl = { "lsp: list workspace folders" },
-    D = { "lsp: type definition" },
-    rn = { "lsp: rename" },
-    ca = { "lsp: code action" },
-    f = { "format" },
-  }, { prefix = "<space>", buffer = bufnr })
+  wk.add({
+    { "<space>D", buffer = bufnr, desc = "lsp: type definition" },
+    { "<space>ca", buffer = bufnr, desc = "lsp: code action" },
+    { "<space>e", buffer = bufnr, desc = "lsp: open diagnostic float" },
+    { "<space>f", buffer = bufnr, desc = "format" },
+    { "<space>rn", buffer = bufnr, desc = "lsp: rename" },
+    { "<space>wa", buffer = bufnr, desc = "lsp: add workspace folder" },
+    { "<space>wl", buffer = bufnr, desc = "lsp: list workspace folders" },
+    { "<space>wr", buffer = bufnr, desc = "lsp: remove workspace folder" },
+  })
 
   --   -- Set some keybinds conditional on server capabilities
   --   if client.server_capabilities.document_formatting then

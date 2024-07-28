@@ -143,40 +143,44 @@ return {
           -- register which-key mappings + add keymaps aswell
           local wk = require("which-key")
 
-          wk.register({
-            name = "Rust",
-            r = {
-              a = {
-                function()
-                  vim.cmd.RustLsp("codeAction")
-                end,
-                "Code Action",
-              },
-              d = {
-                function()
-                  vim.cmd.RustLsp("debuggables")
-                end,
-                "Rust debuggables",
-              },
-              r = {
-                function()
-                  vim.cmd.RustLsp("runnables")
-                end,
-                "Rust runnables",
-              },
-              t = {
-                function()
-                  vim.cmd.RustLsp("testables")
-                end,
-                "Rust testables",
-              },
+          wk.add({
+            { "<leader>r ", buffer = bufnr, group = "Rust", remap = false },
+            {
+              "<leader>ra",
+              function()
+                vim.cmd.RustLsp("codeAction")
+              end,
+              buffer = bufnr,
+              desc = "Code Action",
+              remap = false,
             },
-          }, {
-            prefix = "<leader>",
-            mode = "n",
-            buffer = bufnr,
-            noremap = true,
-            silent = true,
+            {
+              "<leader>rd",
+              function()
+                vim.cmd.RustLsp("debuggables")
+              end,
+              buffer = bufnr,
+              desc = "Rust debuggables",
+              remap = false,
+            },
+            {
+              "<leader>rr",
+              function()
+                vim.cmd.RustLsp("runnables")
+              end,
+              buffer = bufnr,
+              desc = "Rust runnables",
+              remap = false,
+            },
+            {
+              "<leader>rt",
+              function()
+                vim.cmd.RustLsp("testables")
+              end,
+              buffer = bufnr,
+              desc = "Rust testables",
+              remap = false,
+            },
           })
         end,
 

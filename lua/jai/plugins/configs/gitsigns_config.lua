@@ -76,54 +76,56 @@ local function on_attach(bufnr)
   local group_name = "hunk"
 
   -- Actions: Normal & Visual Mode
-  wk.register({
-    h = {
-      name = group_name,
-      s = { ":Gitsigns stage_hunk<CR>", "Stage Hunk" },
-      r = { ":Gitsigns reset_hunk<CR>", "Reset Hunk" },
+  wk.add({
+    {
+      mode = { "n", "v" },
+      { "<leader>h", buffer = bufnr, group = group_name },
+      { "<leader>hr", ":Gitsigns reset_hunk<CR>", buffer = bufnr, desc = "Reset Hunk" },
+      { "<leader>hs", ":Gitsigns stage_hunk<CR>", buffer = bufnr, desc = "Stage Hunk" },
     },
-  }, { prefix = "<leader>", mode = { "n", "v" }, buffer = bufnr })
+  })
 
   -- Actions: Normal Mode
-  wk.register({
-    h = {
-      name = group_name,
-      u = { gs.undo_stage_hunk, "Undo Stage Hunk" },
-      S = { gs.stage_buffer, "Stage Buffer" },
-      R = { gs.reset_buffer, "Reset Stage Buffer" },
-      p = { gs.preview_hunk, "Preview Hunk" },
-      b = {
-        function()
-          gs.blame_line({ full = true })
-        end,
-        "Blame Line",
-      },
-      d = { gs.diffthis, "Diff This Hunk" },
-      D = {
-        function()
-          gs.diffthis("~")
-        end,
-        "Diff This ~",
-      },
-      t = {
-        name = "Toggle",
-        b = { gs.toggle_current_line_blame, "Current Line Blame" },
-        d = { gs.toggle_deleted, "Deleted" },
-      },
+  wk.add({
+    mode = { "n" },
+    -- { "<leader>h", buffer = bufnr, group = group_name },
+    { "<leader>hu", gs.undo_stage_hunk, buffer = bufnr, desc = "Undo Stage Hunk" },
+    { "<leader>hS", gs.stage_buffer, buffer = bufnr, desc = "Stage Buffer" },
+    { "<leader>hR", gs.reset_buffer, buffer = bufnr, desc = "Reset Stage Buffer" },
+    { "<leader>hp", gs.preview_hunk, buffer = bufnr, desc = "Preview Hunk" },
+    {
+      "<leader>hb",
+      function()
+        gs.blame_line({ full = true })
+      end,
+      buffer = bufnr,
+      desc = "Blame Line",
     },
-  }, { prefix = "<leader>", mode = "n", buffer = bufnr })
+    { "<leader>hd", gs.diffthis, buffer = bufnr, desc = "Diff This Hunk" },
+    {
+      "<leader>hD",
+      function()
+        gs.diffthis("~")
+      end,
+      buffer = bufnr,
+      desc = "Diff This ~",
+    },
+    {
+      { "<leader>ht", buffer = bufnr, group = "Toggle" },
+      { "<leader>htb", gs.toggle_current_line_blame, buffer = bufnr, desc = "Current Line Blame" },
+      { "<leader>htd", gs.toggle_deleted, buffer = bufnr, desc = "Deleted" },
+    },
+  })
 
-  wk.register({
-    ["[c"] = { "Prev Hunk" },
-    ["]c"] = { "Next Hunk" },
-  }, { buffer = bufnr })
+  wk.add({
+    { "[c", buffer = bufnr, desc = "Prev Hunk" },
+    { "]c", buffer = bufnr, desc = "Next Hunk" },
+  })
 
   -- Text object: contains actual mapping
-  wk.register({
-    h = {
-      i = { ":<C-U>Gitsigns select_hunk<CR>", "Select Hunk" },
-    },
-  }, { mode = { "o", "x" }, buffer = bufnr })
+  wk.add({
+    { "hi", ":<C-U>Gitsigns select_hunk<CR>", buffer = bufnr, desc = "Select Hunk", mode = { "o", "x" } },
+  })
 end
 
 config.on_attach = on_attach
