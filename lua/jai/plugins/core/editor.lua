@@ -21,12 +21,9 @@ return {
       require("nvim-tree").setup(opts)
       local wk = require("which-key")
 
-      wk.register({
-        --
-        -- <leader>n
-        --
-        n = { [[:NvimTreeToggle<CR>]], "Toggle Tree" },
-      }, { prefix = "<leader>" })
+      wk.add({
+        { "<leader>n", ":NvimTreeToggle<CR>", desc = "Toggle Tree" },
+      })
     end,
   },
   {
@@ -37,19 +34,14 @@ return {
     config = function()
       local wk = require("which-key")
 
-      wk.register({
-        t = {
-          name = "Toggle",
-          s = { [[:Telescope<CR>]], "Open Telescope" }, -- create finding
-        },
-        f = {
-          name = "Files",
-          f = { [[:Telescope find_files<CR>]], "Find File" }, -- create "folke/which-key.nvim"finding
-          g = { [[:Telescope live_grep<CR>]], "Grep In Files" }, -- create finding
-          b = { [[:Telescope buffers<CR>]], "Buffers" }, -- create finding
-          h = { [[:Telescope help_tags<CR>]], "Help Tags" }, -- create finding
-        },
-      }, { prefix = "<leader>" })
+      wk.add({
+        { "<leader>f", group = "Files" },
+        { "<leader>fb", ":Telescope buffers<CR>", desc = "Buffers" },
+        { "<leader>ff", ":Telescope find_files<CR>", desc = "Find File" },
+        { "<leader>fg", ":Telescope live_grep<CR>", desc = "Grep In Files" },
+        { "<leader>fh", ":Telescope help_tags<CR>", desc = "Help Tags" },
+        { "<leader>ts", ":Telescope<CR>", desc = "Open Telescope" },
+      })
     end,
   },
 
@@ -80,49 +72,16 @@ return {
       },
       -- add operators that will trigger motion and text object completion
       -- to enable all native operators, set the preset / operators plugin above
-      operators = { gc = "Comments" },
-      key_labels = {
-        -- override the label used to display some keys. It doesn't effect WK in any other way.
-        -- For example:
-        -- ["<space>"] = "SPC",
-        -- ["<cr>"] = "RET",
-        -- ["<tab>"] = "TAB",
-      },
       icons = {
         breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
         separator = "➜", -- symbol used between a key and it's label
         group = "+", -- symbol prepended to a group
-      },
-      popup_mappings = {
-        scroll_down = "<c-d>", -- binding to scroll down inside the popup
-        scroll_up = "<c-u>", -- binding to scroll up inside the popup
-      },
-      window = {
-        border = "none", -- none, single, double, shadow
-        position = "bottom", -- bottom, top
-        margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
-        padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
-        winblend = 0,
       },
       layout = {
         height = { min = 4, max = 25 }, -- min and max height of the columns
         width = { min = 20, max = 50 }, -- min and max width of the columns
         spacing = 3, -- spacing between columns
         align = "left", -- align columns left, center or right
-      },
-      -- TODO: below might be useful to set to true
-      ignore_missing = false, -- enable this to hide mappings for which you didn't specify a label
-      hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
-      show_help = true, -- show help message on the command line when the popup is visible
-      show_keys = true, -- show the currently pressed key and its label as a message in the command line
-      triggers = "auto", -- automatically setup triggers
-      -- triggers = {"<leader>"} -- or specify a list manually
-      triggers_blacklist = {
-        -- list of mode / prefixes that should never be hooked by WhichKey
-        -- this is mostly relevant for key maps that start with a native binding
-        -- most people should not need to change this
-        i = { "j", "k" },
-        v = { "j", "k" },
       },
       -- disable the WhichKey popup for certain buf types and file types.
       -- Disabled by deafult for Telescope
@@ -134,10 +93,14 @@ return {
     config = function(_, opts)
       vim.o.timeout = true
       vim.o.timeoutlen = 300
-      require("which-key").setup(opts)
+      local wk = require("which-key")
 
-      -- other general keymappings
-      -- require("jai.plugins.general_keymaps")
+      wk.setup(opts)
+
+      -- Global groups
+      wk.add({
+        { "<leader>t", group = "Toggle" },
+      })
     end,
   },
   -- Automatically highlights other instances of the word under your cursor.

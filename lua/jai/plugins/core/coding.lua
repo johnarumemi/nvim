@@ -246,14 +246,9 @@ return {
     config = function()
       local wk = require("which-key")
 
-      wk.register({
-        --
-        -- <leader>t
-        t = {
-          name = "Toggle",
-          b = { [[:TagbarToggle<CR>]], "Tagbar Toggle" },
-        },
-      }, { prefix = "<leader>" })
+      wk.add({
+        { "<leader>tb", ":TagbarToggle<CR>", desc = "Tagbar Toggle" },
+      })
 
       -- vim.g.rust_use_custom_ctags_defs = 1
 
