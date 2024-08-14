@@ -180,7 +180,6 @@ return {
             },
           })
         end,
-
         default_settings = {
           -- rust-analyzer language server configuration
           -- For detailed descriptions of the language server configs, see the
@@ -190,12 +189,15 @@ return {
           --
           ["rust-analyzer"] = {
             cargo = {
-              features = { "all" },
+              features = "all", -- or a set of specific features i.e. { "feature-x" }
+              buildScripts = {
+                enable = true,
+              },
             }, -- End of cargo settingsj
             -- Add clippy lints for Rust.
             checkOnSave = true,
             check = {
-              features = { "all" },
+              features = "all", -- or a set of specific features i.e. { "feature-x" }
               command = "clippy", -- use `cargo clippy` rather than `cargo check`
               -- To prevent check on save taking a lock on the target dir
               -- (blocking cargo build/run)
@@ -246,7 +248,8 @@ return {
       },
     },
     config = function(_, opts)
-      vim.g.rustaceanvim = vim.tbl_deep_extend("force", {}, opts or {})
+      vim.g.rustaceanvim = vim.tbl_deep_extend("keep", vim.g.rustaceanvim or {}, opts or {})
+      -- vim.g.rustaceanvim = vim.tbl_deep_extend("force", {}, opts or {})
     end,
   },
 }
