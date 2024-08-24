@@ -73,20 +73,10 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
     -- num:  Number of spaces tabs count for
     vim.api.nvim_buf_set_option(0, "tabstop", 2)
 
-    wk.register({
-      --
-      -- <leader>t
-      t = {
-        name = "Toggle",
-        c = { [[:Neorg toggle-concealer<CR>]], "Toggle Neorg Concealer" },
-      },
-
-      -- link: https://github.com/nvim-neorg/neorg/wiki/Looking-Glass
-      n = {
-        name = "Neorg",
-        l = { "[[:Neorg keybind all core.looking-glass.magnify-code-block<CR>]]", "Looking Glass" },
-      },
-    }, { prefix = "<leader>" })
+    wk.add({
+      -- { "<leader>nl", "[[:Neorg keybind all core.looking-glass.magnify-code-block<CR>]]", buffer = buf, desc = "Looking Glass" },
+      { "<leader>tc", ":Neorg toggle-concealer<CR>", buffer = buf, desc = "Toggle Neorg Concealer" },
+    })
   end,
 })
 
