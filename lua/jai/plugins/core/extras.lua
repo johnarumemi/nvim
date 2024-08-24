@@ -11,7 +11,14 @@ return {
       require("neorg").setup(config.opts)
     end,
   },
-
+  {
+    "max397574/neorg-contexts",
+    dependencies = { "nvim-neorg/neorg" },
+  },
+  {
+    "benlubas/neorg-conceal-wrap",
+    dependencies = { "nvim-neorg/neorg" },
+  },
   {
     -- [[ Markdown Preview ]]
     -- repo: https://github.com/iamcco/markdown-preview.nvim

@@ -29,6 +29,8 @@
   "mini.indentscope": { "branch": "main", "commit": "1222393d9c5e8d92b913ccab6701a7164b21781c" },
   "neodev.nvim": { "branch": "main", "commit": "46aa467dca16cf3dfe27098042402066d2ae242d" },
   "neorg": { "branch": "main", "commit": "306728d1a60b3e5c88eedde310513a43f1c6d9de" },
+  "neorg-conceal-wrap": { "branch": "main", "commit": "4e74be759de502bea1027b1a815667039bb2ec10" },
+  "neorg-contexts": { "branch": "master", "commit": "8ae58b646700b8bc2d3bc1346c96835ceb71d884" },
   "nightfox.nvim": { "branch": "main", "commit": "df75a6a94910ae47854341d6b5a6fd483192c0eb" },
   "none-ls-extras.nvim": { "branch": "main", "commit": "059bb6561b8f5ff99a7acc9262b557ebbe5c34ec" },
   "none-ls.nvim": { "branch": "main", "commit": "2870f66b1cb263f6e0bfffdb089739b874343a3a" },
