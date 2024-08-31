@@ -24,6 +24,13 @@ or move them instead (backups),
 `mv ~/.cache/nvim{,.bak}`
 `mv ~/.local/state/nvim{,.bak}`
 
+# Swap files
+
+These can be found at:
+
+```bash
+cd ~/.local/state/nvim/swap/
+```
 
 # Installation
 ## Requirements
