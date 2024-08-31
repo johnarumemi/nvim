@@ -32,33 +32,81 @@ return {
       },
     },
   },
+  -- [[ Tabline ]]
   {
-
-    -- [[ barbar ]]
-    -- repo: https://github.com/romgrk/barbar.ngroup_namevim
-    -- when using iterm2, change following:
-    -- 1. goto profiles -> select a profile to apply changes to
-    -- 2. go to 'keys' tab
-    -- 3. set "Left Option Key" and/or "Right Option Key" to "Esc+"
-    --
-    -- The above will ensure the correct escape sequence is sent
-    -- by the "Option" key on a Mac so that is acts like "Alt"
-    -- on other keyboards. This will enable the <A-...> keymaps
-    -- below to work correctly.
-
-    "romgrk/barbar.nvim",
-    version = "v1.6.*",
-    lazy = false,
-    dependencies = {
-      "lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
-      "nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
+    -- Note: Config taken from LazyVim
+    -- LazyVim config: http://www.lazyvim.org/plugins/ui#bufferlinenvim
+    -- repo: https://github.com/akinsho/bufferline.nvim
+    "akinsho/bufferline.nvim",
+    version = "^v4.7",
+    event = "VeryLazy",
+    dependencies = "nvim-tree/nvim-web-devicons",
+    keys = {
+      -- TODO: Shift to separate config file and use which-key to create a `buffer` group
+      { "<leader>bc", "<Cmd>BufferLinePickClose<CR>", desc = "Pick Buffer to Close" },
+      { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle Pin" },
+      { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete Non-Pinned Buffers" },
+      { "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "Delete Other Buffers" },
+      { "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete Buffers to the Right" },
+      { "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete Buffers to the Left" },
+      -- Hold Shift and use h and l.
+      { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+      { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+      -- Hold Option and use , and .
+      { "<A-,>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+      { "<A-.>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+      -- Use below to shift buffer order manually
+      { "[b", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer prev" },
+      { "]b", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer next" },
     },
-    config = function()
-      require("barbar").setup()
-
-      -- loading in keymaps
-      require("jai.plugins.configs.barbar_config")
+    opts = {
+      options = {
+      -- stylua: ignore
+      close_command = function(n)
+        local M = require("jai.util.ui")
+        M.bufremove(n)
+      end,
+      -- stylua: ignore
+      right_mouse_command = function(n)
+        local M = require("jai.util.ui")
+        M.bufremove(n)
+      end,
+        diagnostics = "nvim_lsp",
+        always_show_bufferline = false,
+      },
+    },
+    config = function(_, opts)
+      require("bufferline").setup(opts)
+      -- Fix bufferline when restoring a session
+      vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {
+        callback = function()
+          vim.schedule(function()
+            pcall(nvim_bufferline)
+          end)
+        end,
+      })
     end,
+  },
+  {
+    -- Delete current buffer
+    -- repo: https://github.com/famiu/bufdelete.nvim
+    "famiu/bufdelete.nvim",
+    keys = {
+      {
+        "<leader>bd",
+        function()
+          require("bufdelete").bufdelete(0, true)
+        end,
+        desc = "Delete Current Buffer",
+      },
+      {
+        "<A-c>",
+        function()
+          require("bufdelete").bufdelete(0, true)
+        end,
+        desc = "Delete Current Buffer",
+      },
+    },
   },
 
   -- Active indent guide and indent text objects. When you're browsing
