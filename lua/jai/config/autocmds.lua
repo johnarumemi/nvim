@@ -1,5 +1,5 @@
 -- my custom augroups
-local function augroup(name)
+local function jai_augroup(name)
   return vim.api.nvim_create_augroup("jai_" .. name, { clear = true })
 end
 
@@ -8,22 +8,23 @@ end
 -- set line length
 --]]
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-  group = augroup("gitcommit_linewrap"),
+  group = jai_augroup("gitcommit_linewrap"),
   pattern = { "COMMIT_EDITMSG" },
   desc = "Setup gitcommit linewraps",
-  callback = function()
+  callback = function(opts)
     vim.cmd("set conceallevel=3")
     vim.cmd("set wrap")
     vim.cmd("set textwidth=55")
+    vim.opt_local.spell = true
     -- vim.cmd("colorscheme terafox")
 
     -- update options for current buffer only
     -- num:  Size of an indent
-    vim.api.nvim_set_option_value("shiftwidth", 2, { buf = 0 })
+    vim.api.nvim_set_option_value("shiftwidth", 2, { buf = opts.buf })
     --  num:  Number of spaces tabs count for in insert mode
-    vim.api.nvim_set_option_value("softtabstop", 2, { buf = 0 })
+    vim.api.nvim_set_option_value("softtabstop", 2, { buf = opts.buf })
     -- num:  Number of spaces tabs count for
-    vim.api.nvim_set_option_value("tabstop", 2, { buf = 0 })
+    vim.api.nvim_set_option_value("tabstop", 2, { buf = opts.buf })
   end,
 })
 
@@ -38,7 +39,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 -- is displayed, so that you can see what you are doing.
 --]]
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-  group = augroup("norg_concealcursor"),
+  group = jai_augroup("norg_concealcursor"),
   desc = "Set norg concealcursor to nc",
   callback = function(opts)
     if vim.bo[opts.buf].filetype == "norg" then
@@ -83,22 +84,22 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 })
 
 -- go to last loc when opening a buffer
-vim.api.nvim_create_autocmd("BufReadPost", {
-  group = lazy_augroup("last_loc"),
-  callback = function(event)
-    local exclude = { "gitcommit" }
-    local buf = event.buf
-    if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].lazyvim_last_loc then
-      return
-    end
-    vim.b[buf].lazyvim_last_loc = true
-    local mark = vim.api.nvim_buf_get_mark(buf, '"')
-    local lcount = vim.api.nvim_buf_line_count(buf)
-    if mark[1] > 0 and mark[1] <= lcount then
-      pcall(vim.api.nvim_win_set_cursor, 0, mark)
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("BufReadPost", {
+--   group = lazy_augroup("last_loc"),
+--   callback = function(event)
+--     local exclude = { "gitcommit" }
+--     local buf = event.buf
+--     if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].lazyvim_last_loc then
+--       return
+--     end
+--     vim.b[buf].lazyvim_last_loc = true
+--     local mark = vim.api.nvim_buf_get_mark(buf, '"')
+--     local lcount = vim.api.nvim_buf_line_count(buf)
+--     if mark[1] > 0 and mark[1] <= lcount then
+--       pcall(vim.api.nvim_win_set_cursor, 0, mark)
+--     end
+--   end,
+-- })
 
 -- close some filetypes with <q>
 vim.api.nvim_create_autocmd("FileType", {
@@ -126,23 +127,23 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- wrap and check for spell in text filetypes
-vim.api.nvim_create_autocmd("FileType", {
-  group = lazy_augroup("wrap_spell"),
-  pattern = { "gitcommit", "markdown" },
-  callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.spell = true
-  end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   group = lazy_augroup("wrap_spell"),
+--   pattern = { "gitcommit", "markdown" },
+--   callback = function()
+--     vim.opt_local.wrap = true
+--     vim.opt_local.spell = true
+--   end,
+-- })
 
 -- Fix conceallevel for json files
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = lazy_augroup("json_conceal"),
-  pattern = { "json", "jsonc", "json5" },
-  callback = function()
-    vim.opt_local.conceallevel = 0
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "FileType" }, {
+--   group = lazy_augroup("json_conceal"),
+--   pattern = { "json", "jsonc", "json5" },
+--   callback = function()
+--     vim.opt_local.conceallevel = 0
+--   end,
+-- })
 
 -- Auto create dir when saving a file, in case some intermediate directory does not exist
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
