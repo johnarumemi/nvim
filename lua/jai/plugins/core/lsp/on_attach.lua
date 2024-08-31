@@ -51,10 +51,6 @@ function M.on_attach(client, bufnr)
   buf_set_keymap("n", "<space>rn", vim.lsp.buf.rename, bufopts)
   buf_set_keymap("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
 
-  buf_set_keymap("n", "<space>f", function()
-    vim.lsp.buf.format({ async = true })
-  end, bufopts)
-
   wk.add({
     { "<C-k>", buffer = bufnr, desc = "lsp: signature help" },
     { "K", buffer = bufnr, desc = "lsp: hover" },
@@ -70,7 +66,6 @@ function M.on_attach(client, bufnr)
     { "<space>D", buffer = bufnr, desc = "lsp: type definition" },
     { "<space>ca", buffer = bufnr, desc = "lsp: code action" },
     { "<space>e", buffer = bufnr, desc = "lsp: open diagnostic float" },
-    { "<space>f", buffer = bufnr, desc = "format" },
     { "<space>rn", buffer = bufnr, desc = "lsp: rename" },
     { "<space>wa", buffer = bufnr, desc = "lsp: add workspace folder" },
     { "<space>wl", buffer = bufnr, desc = "lsp: list workspace folders" },
