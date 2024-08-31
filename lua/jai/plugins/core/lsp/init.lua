@@ -21,6 +21,7 @@ return {
           -- NOTE: use lspconfig names here.
           -- for cases where name does not exist in lspconfig, use the "mason" equivalent custom option to install these.
           ensure_installed = {
+            "asm_lsp",
             "lua_ls",
             "jsonls",
           },
@@ -67,6 +68,10 @@ return {
         "flake8",
         -- "ruff", -- ruff can replace flake8 and black
         "black",
+
+        -- repo: https://github.com/klauspost/asmfmt#formatting
+        -- blog: https://blog.klauspost.com/asmfmt-assembler-formatter/
+        "asmfmt",
       },
     },
 
