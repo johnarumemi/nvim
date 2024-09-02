@@ -22,8 +22,6 @@ return {
       -- can get binaries installed either on your path
       -- or via using Mason
       null_ls.builtins.formatting.black,
-      require("none-ls.diagnostics.flake8"), -- uses none-ls-extras
-      -- require("none-ls.diagnostics.ruff"), -- uses none-ls-extras
       null_ls.builtins.code_actions.gitsigns,
 
       -- NOTE: if you have the below builtin source enabled, it will

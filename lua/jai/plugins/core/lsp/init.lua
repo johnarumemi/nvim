@@ -77,8 +77,7 @@ return {
       -- if they are not present on your computer
       -- NOTE: use mason names here
       ensure_installed = {
-        "flake8",
-        -- "ruff", -- ruff can replace flake8 and black
+        "ruff", -- ruff can replace flake8 and black
         "black",
 
         -- repo: https://github.com/klauspost/asmfmt#formatting

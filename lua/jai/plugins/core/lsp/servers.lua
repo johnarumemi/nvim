@@ -66,6 +66,8 @@ M.servers = {
     },
   },
 
+  ruff = {},
+
   -- Typescript language-server
   -- also works for any standard javascript filetype
   tsserver = {

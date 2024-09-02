@@ -144,9 +144,7 @@ return {
   },
   {
 
-    -- Note: there is a problem with support for flake8 being removed here:
     -- https://github.com/nvimtools/none-ls.nvim/issues/58
-    -- Update: it ended being moved to none-ls-extras
     "nvimtools/none-ls.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "nvimtools/none-ls-extras.nvim", "nvim-lua/plenary.nvim", "mason.nvim" },
