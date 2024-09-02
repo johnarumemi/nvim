@@ -20,6 +20,7 @@ local treesitter_opts = {
     "sql",
     "lua",
     "rust",
+    "ron", -- Rusty Object Notation
     "python",
     "markdown",
     "markdown_inline",
