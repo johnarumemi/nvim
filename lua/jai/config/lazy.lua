@@ -6,6 +6,18 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
+-- NOTE: Below must be done after initial bootstrap of lazy above
+
+-- Set global state to include the table
+-- from the jai.util module.
+--
+-- Note that this automatically loads the
+-- other modules wihin jai.util directory.
+-- Access via JUtil.<module-name>
+-- functions defined in jai.util/init.lua
+-- are available at JUtil.<function-name>
+_G.JUtil = require("jai.util")
+
 -- Loads plugin specs
 require("lazy").setup("jai.plugins.core", {
   defaults = {
