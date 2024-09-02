@@ -34,6 +34,9 @@ return {
 
       { -- optional completion source for require statements and module annotations
         "hrsh7th/nvim-cmp",
+        dependencies = {
+          "Saecki/crates.nvim",
+        },
         opts = function(_, opts)
           opts.sources = opts.sources or {}
           table.insert(opts.sources, {
@@ -265,5 +268,16 @@ return {
       vim.g.rustaceanvim = vim.tbl_deep_extend("keep", vim.g.rustaceanvim or {}, opts or {})
       -- vim.g.rustaceanvim = vim.tbl_deep_extend("force", {}, opts or {})
     end,
+  },
+  {
+    -- Utility for managing dependencies in Cargo.toml file
+    -- repo: https://github.com/Saecki/crates.nvim
+    "Saecki/crates.nvim",
+    event = { "BufRead Cargo.toml" },
+    opts = {
+      completion = {
+        cmp = { enabled = true },
+      },
+    },
   },
 }
