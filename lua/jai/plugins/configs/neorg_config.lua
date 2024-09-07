@@ -45,13 +45,14 @@ local opts = {
         zen_mode = "zen-mode",
       },
     },
-    -- Neorg-Contexts module
-    -- repo: https://github.com/max397574/neorg-contexts
-    ["external.context"] = {},
 
     -- neorg-conceal-wrap module
     -- repo: https://github.com/benlubas/neorg-conceal-wrap
     ["external.conceal-wrap"] = {},
+
+    -- Neorg-Contexts module
+    -- repo: https://github.com/max397574/neorg-contexts
+    ["external.context"] = {},
   },
 }
 

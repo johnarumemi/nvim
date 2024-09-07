@@ -26,7 +26,7 @@ return {
 
       -- NOTE: if you have the below builtin source enabled, it will
       -- also populate nvim-cmp completion window with all
-      -- spelling suggestions. This can add alot of noise the the
+      -- spelling suggestions. This can add alot of noise to the
       -- autocompletion and I suggest disabling it for now, until
       -- we can find a way to reduce the noise from this.
       --

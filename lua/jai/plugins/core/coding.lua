@@ -108,17 +108,6 @@ return {
             -- when popup menu exceed maxwidth, the truncated part would show
             -- ellipsis_char instead
           }),
-          -- fields = { "menu", "abbr", "kind" },
-          -- format = function(entry, item)
-          --   local menu_icon = {
-          --     nvim_lsp = "λ",
-          --     vsnip = "⋗",
-          --     buffer = "Ω",
-          --     path = "🖫",
-          --   }
-          --   item.menu = menu_icon[entry.source.name]
-          --   return item
-          -- end,
         },
         sorting = {
           priority_weight = 2,

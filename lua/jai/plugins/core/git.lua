@@ -28,8 +28,17 @@ return {
 
   -- open current line in web
   -- <leader>g to view options
+  -- repo: https://github.com/ruanyl/vim-gh-line
   {
     "ruanyl/vim-gh-line",
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    dependencies = { "folke/which-key.nvim" },
+    config = function()
+      local wk = require("which-key")
+
+      wk.add({
+        { "<leader>g", group = "GitHub", mode = { "n", "v" } },
+      })
+    end,
   },
 }

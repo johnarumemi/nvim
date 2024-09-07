@@ -73,7 +73,7 @@ local function on_attach(bufnr)
     return "<Ignore>"
   end, { expr = true })
 
-  local group_name = "hunk"
+  local group_name = "Git Hunk"
 
   -- Actions: Normal & Visual Mode
   wk.add({
