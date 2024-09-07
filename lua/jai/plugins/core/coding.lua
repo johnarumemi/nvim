@@ -169,43 +169,56 @@ return {
     --- repo: https://github.com/folke/trouble.nvim
     -- NOTE: below config was taken from LazyVim
     "folke/trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    cmd = { "TroubleToggle", "Trouble" },
-    opts = { use_diagnostic_signs = true },
-    keys = {
-      { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
-      { "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
-      { "<leader>xL", "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
-      { "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
-      {
-        "[q",
-        function()
-          if require("trouble").is_open() then
-            require("trouble").previous({ skip_groups = true, jump = true })
-          else
-            local ok, err = pcall(vim.cmd.cprev)
-            if not ok then
-              vim.notify(err, vim.log.levels.ERROR)
-            end
-          end
-        end,
-        desc = "Previous trouble/quickfix item",
-      },
-      {
-        "]q",
-        function()
-          if require("trouble").is_open() then
-            require("trouble").next({ skip_groups = true, jump = true })
-          else
-            local ok, err = pcall(vim.cmd.cnext)
-            if not ok then
-              vim.notify(err, vim.log.levels.ERROR)
-            end
-          end
-        end,
-        desc = "Next trouble/quickfix item",
+    cmd = { "Trouble" },
+    dependencies = { "folke/which-key.nvim" },
+    opts = {
+      modes = {
+        lsp = {
+          win = { position = "right" },
+        },
       },
     },
+    init = function()
+      local wk = require("which-key")
+
+      wk.add({
+        { "<leader>x", group = "Trouble Diagnostics" },
+        { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
+        { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+        { "<leader>xs", "<cmd>Trouble symbols toggle<cr>", desc = "Symbols (Trouble)" },
+        { "<leader>xS", "<cmd>Trouble lsp toggle<cr>", desc = "LSP references/definitions/... (Trouble)" },
+        { "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
+        { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
+        {
+          "[q",
+          function()
+            if require("trouble").is_open() then
+              require("trouble").prev({ skip_groups = true, jump = true })
+            else
+              local ok, err = pcall(vim.cmd.cprev)
+              if not ok then
+                vim.notify(err, vim.log.levels.ERROR)
+              end
+            end
+          end,
+          desc = "Previous Trouble/Quickfix Item",
+        },
+        {
+          "]q",
+          function()
+            if require("trouble").is_open() then
+              require("trouble").next({ skip_groups = true, jump = true })
+            else
+              local ok, err = pcall(vim.cmd.cnext)
+              if not ok then
+                vim.notify(err, vim.log.levels.ERROR)
+              end
+            end
+          end,
+          desc = "Next Trouble/Quickfix Item",
+        },
+      })
+    end,
   },
   {
 
