@@ -61,6 +61,7 @@
   "rustaceanvim": { "branch": "master", "commit": "047f9c9d8cd2861745eb9de6c1570ee0875aa795" },
   "tagbar": { "branch": "master", "commit": "d55d454bd3d5b027ebf0e8c75b8f88e4eddad8d8" },
   "telescope.nvim": { "branch": "master", "commit": "5972437de807c3bc101565175da66a1aa4f8707a" },
+  "todo-comments.nvim": { "branch": "main", "commit": "319c01b99b7a8c9ac2066bf0efd4d6ec68fef444" },
   "tokyonight.nvim": { "branch": "main", "commit": "4b386e66a9599057587c30538d5e6192e3d1c181" },
   "trouble.nvim": { "branch": "main", "commit": "6efc446226679fda0547c0fd6a7892fd5f5b15d8" },
   "vim-diagram": { "branch": "master", "commit": "bd94f79ac6d701caf52a1b5547069c7b93cf6acf" },
