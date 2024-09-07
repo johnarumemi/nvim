@@ -15,34 +15,47 @@ opt.foldexpr = "nvim_treesitter#foldexpr()"
 local treesitter_opts = {
   -- Below are mainly default settings
   -- A list of parser names, or "all" (the listed parsers should always be installed)
+
   ensure_installed = {
     "asm", -- Assembly
-    "sql",
-    "lua",
-    "rust",
-    "ron", -- Rusty Object Notation
-    "python",
-    "markdown",
-    "markdown_inline",
-    -- "yaml",
-    "toml",
-    "cpp",
+    "bash",
     "c",
-    "javascript",
-    "tsx",
-    "typescript",
-    "help",
-    "go",
+    "comment",
+    "cpp",
+    "diff", -- .diff files
+    "disassembly", -- repo: https://github.com/ColinKennedy/tree-sitter-disassembly
+    "dockerfile",
+    "git_rebase",
     "gitcommit",
     "gitignore",
-    "git_rebase",
-    "dockerfile",
-    "jq",
-    "json",
+    "go",
+    "help",
     "html",
-    "terraform",
+    "javascript",
+    "json",
+    "jq",
+    "lua",
+    "make",
+    "markdown",
+    "markdown_inline",
+    "nasm",
     "norg",
+    "objdump", -- repo: https://github.com/ColinKennedy/tree-sitter-objdump
+    "proto", -- Protocol Buffers
+    "python",
+    "regex",
+    "ron", -- Rusty Object Notation
+    "rust",
+    "ssh_config", -- ssh config files
+    "solidity",
+    "sql",
+    "terraform",
+    "tmux",
+    "toml",
+    "tsx",
+    "typescript",
     "vimdoc",
+    "yaml",
   },
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
