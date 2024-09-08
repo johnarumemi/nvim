@@ -1,25 +1,26 @@
 local prompts = {
   -- Code related prompts
+  BetterNamings = "Provide better names for the following variables, functions, types and modules.",
+  Documentation = "Provide documentation for the following code.",
   Explain = {
-    prompt = "Please explain how the following code works.",
+    prompt = "Explain how the following code works.",
   },
-  Review = "Please review the following code and provide suggestions for improvement.",
-  Tests = "Please explain how the selected code works, then generate unit tests for it.",
-  Refactor = "Please refactor the following code to improve its clarity and readability.",
-  FixCode = "Please fix the following code to make it work as intended.",
-  FixError = "Please explain the error in the following text and provide a solution.",
-  BetterNamings = "Please provide better names for the following variables and functions.",
-  Documentation = "Please provide documentation for the following code.",
-  SwaggerApiDocs = "Please provide documentation for the following API using Swagger.",
-  SwaggerJsDocs = "Please write JSDoc for the following API using Swagger.",
+  FixCode = "Fix the following code to make it work as intended.",
+  FixError = "Explain the error in the following text and provide a solution.",
+  Refactor = "Refactor the following code to improve its clarity and readability.",
+  Review = "Review the following code and provide suggestions for improvement.",
+  SwaggerApiDocs = "Provide documentation for the following API using Swagger.",
+  SwaggerJsDocs = "Write JSDoc for the following API using Swagger.",
+  Tests = "Explain how the selected code works, then generate unit tests for it.",
   -- Text related prompts
-  Summarize = "Please summarize the following text.",
-  Spelling = "Please correct any grammar and spelling errors in the following text.",
-  Wording = "Please improve the grammar and wording of the following text.",
-  Concise = "Please rewrite the following text to make it more concise.",
+  Concise = "Rewrite the following text to make it more concise.",
+  Spelling = "Correct any grammar and spelling errors in the following text.",
+  Summarize = "Summarize the following text.",
+  Wording = "Improve the grammar and wording of the following text.",
 }
 
 return {
+
   {
     -- repo: https://github.com/zbirenbaum/copilot.lua
     "zbirenbaum/copilot.lua",
@@ -128,16 +129,21 @@ return {
       -- Use unnamed register for the selection
       opts.selection = select.unnamed
 
-      -- Override the git prompts message
+      -- Override / Extend the git prompts message
       opts.prompts.Commit = {
-        prompt = "Write commit message for the change with commitizen convention",
+        prompt = "Write commit message for all changes with commitizen convention",
         selection = select.gitdiff,
       }
       opts.prompts.CommitStaged = {
-        prompt = "Write commit message for the change with commitizen convention",
+        prompt = "Write commit message for staged changes with commitizen convention",
         selection = function(source)
           return select.gitdiff(source, true)
         end,
+      }
+      opts.prompts.SortByKeys = {
+        description = "Sort by keys alphabetically.",
+        prompt = "Please sort the following by keys alphabetically, in ascending order.",
+        selection = select.visual,
       }
 
       chat.setup(opts)

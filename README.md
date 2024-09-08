@@ -24,7 +24,7 @@ or move them instead (backups),
 `mv ~/.cache/nvim{,.bak}`
 `mv ~/.local/state/nvim{,.bak}`
 
-# Swap files
+## Swap files
 
 These can be found at:
 
@@ -96,8 +96,8 @@ brew install --cask font-jetbrains-mono-nerd-font
 ``````
 
 # Neorg fonts
-you require the v3.x.x for nerd fonts. Check your version in brew or just
-do an greedy update
+The required version of these fonts is at least v3.x.x for nerd fonts. Check
+your version in brew or just do a greedy update:
 ```
 brew upgrade --cask --greedy
 ```
