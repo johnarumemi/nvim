@@ -1,7 +1,7 @@
--- Set logging level to debug
+-- Set LSP logging level to debug
 vim.lsp.set_log_level("debug")
 
--- bootstrap lazy.nvim, LazyVim and your plugins
+-- bootstrap lazy.nvim and plugins
 require("jai.config")
 
 -- Print message if VSCode neovim extension is activated

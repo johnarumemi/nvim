@@ -35,6 +35,10 @@ opt.tabstop = 4 -- num:  Number of spaces tabs count for
 opt.splitright = true -- bool: Place new window to right of current one
 opt.splitbelow = true -- bool: Place new window below the current one
 
+-- [[ Global Theme Settings ]]
+opt.syntax = "ON" -- str:  Allow syntax highlighting
+opt.termguicolors = true -- bool: If term supports ui color then enable
+
 -- [[ Extras ]]
 -- auto format on save
 local format_sync_grp = vim.api.nvim_create_augroup("Format", {})

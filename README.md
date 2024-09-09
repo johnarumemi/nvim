@@ -8,6 +8,7 @@ TODO: update this for use with Lazy.
 Neovim rust setup and guide
 - https://rsdlt.github.io/posts/rust-nvim-ide-guide-walkthrough-development-debug/
 
+- [Lua Neovim Guide](https://neovim.io/doc/user/lua-guide.html#_introduction)
 
 # Uninstall
 See lazyvim github for uninstall instructions.
@@ -168,6 +169,9 @@ Commands coming from default prompts
 :CopilotChatCommit - Write commit message for the change with commitizen convention
 :CopilotChatCommitStaged - Write commit message for the change with commitizen convention
 ```
+
+# DAP
+- [nimv-dap getting started](https://davelage.com/posts/nvim-dap-getting-started/)
 
 # mason
 This is a package manager that is used for managing various development tools: it can

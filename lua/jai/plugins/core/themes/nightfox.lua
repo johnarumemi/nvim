@@ -2,7 +2,7 @@
 -- repo: https://github.com/EdenEast/nightfox.nvim
 
 -- Default options
-require("nightfox").setup({
+return {
   options = {
     -- Compiled file's destination location
     compile_path = vim.fn.stdpath("cache") .. "/nightfox",
@@ -44,7 +44,7 @@ require("nightfox").setup({
   palettes = {},
   specs = {},
   groups = {},
-})
+}
 
 -- setup must be called before loading
 -- Themes:
@@ -55,9 +55,9 @@ require("nightfox").setup({
 -- nordfox
 -- terafox
 -- carbonfox
-vim.cmd("colorscheme nordfox")
+-- vim.cmd("colorscheme nordfox")
 
 -- Lualine checks the value of vim.g.colors_name
 -- (set when using :colorscheme command) to determine
 -- the theme to load. Set your colorscheme before calling setup.
-require("lualine").setup()
+-- require("lualine").setup()

@@ -1,22 +1,17 @@
 -- [[ Configuring Material UI ]]
 -- https://github.com/marko-cerovac/material.nvim
 
+local M = {}
+
 -- set style to one of:
 -- 1. darker
 -- 2. lighter
 -- 3. oceanic (default)
 -- 4. palenight
 -- 5. deep ocean
-vim.g.material_style = "deep ocean"
+M.material_style = "deep ocean"
 
--- enable lualine themes
-require("lualine").setup({
-  options = {
-    theme = "material",
-  },
-})
-
-require("material").setup({
+M.opts = {
   contrast = {
     terminal = true, -- Enable contrast for the built-in terminal
     sidebars = true, -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
@@ -72,10 +67,12 @@ require("material").setup({
   async_loading = true, -- Load parts of the theme asyncronously for faster startup (turned on by default)
   custom_colors = nil, -- If you want to everride the default colors, set this to a function
   custom_highlights = {}, -- Overwrite highlights with your own
-})
+}
+
+return M
 
 -- According to github documentation, we must issue the command
 -- to set the theme AFTER we have executed the setup function above.
 -- You won't see your settings applied on startup of the theme otherwise.
 -- All you will see is the default oceanic theme.
-vim.cmd("colorscheme material") -- cmd:  Set colorscheme to use dracula pluginh
+-- vim.cmd("colorscheme material") -- cmd:  Set colorscheme to use dracula plugin

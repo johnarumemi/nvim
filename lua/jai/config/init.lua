@@ -5,3 +5,6 @@ require("jai.config.vars")
 
 -- It's important that options is loaded before lazy (for mapleader)
 require("jai.config.lazy")
+
+-- set colorscheme using custom command
+vim.cmd("ColorschemeAuto tokyonight")

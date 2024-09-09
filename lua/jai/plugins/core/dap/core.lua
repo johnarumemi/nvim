@@ -7,7 +7,7 @@ return {
     desc = "Debugging support. Requires language specific adapters to be configured. (see lang extras)",
 
     dependencies = {
-      -- facny ui for the debugger
+      -- fancy ui for the debugger
       "rcarriga/nvim-dap-ui",
       {
         -- [[ nvim-dap-virtual-text ]]

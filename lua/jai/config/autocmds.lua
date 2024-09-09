@@ -16,7 +16,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
     vim.cmd("set wrap")
     vim.cmd("set textwidth=55")
     vim.opt_local.spell = true
-    -- vim.cmd("colorscheme terafox")
 
     -- update options for current buffer only
     -- num:  Size of an indent
@@ -45,6 +44,140 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
     if vim.bo[opts.buf].filetype == "norg" then
       vim.cmd("set cocu=nc")
     end
+  end,
+})
+
+-- Create a global variable to store the colorscheme name
+vim.g.colorscheme_name = "auto"
+
+-- Create a new command that wraps the colorscheme command
+--
+--  Now, instead of using the `colorscheme` command,
+--  use `colorscheme-auto` to change the
+--  colorscheme. This will store the name of the
+--  colorscheme in `g:colorscheme_name` before
+--  applying it, allowing the autocommand to access
+--  the name.
+-- vim.api.nvim_command("command! -nargs=1 ColorschemeAuto let g:colorscheme_name = <q-args> | colorscheme <q-args>")
+
+-- vim.api.nvim_exec("command! -nargs=1 ColorschemeAuto let g:colorscheme_name = <q-args> | colorscheme <q-args>", false)
+
+local function fn_colorscheme_auto(opts)
+  local notify_title = "Cmd - ColorschemeAuto"
+
+  vim.g.colorscheme_name = opts.args
+
+  vim.notify("Setting terminal colorscheme to " .. opts.args, vim.log.levels.INFO, { title = notify_title })
+
+  vim.cmd("colorscheme " .. opts.args)
+
+  vim.notify("Completed setting colorscheme to " .. opts.args, vim.log.levels.DEBUG, { title = notify_title })
+end
+
+-- usage = "ColorschemeAuto <colorscheme>",
+vim.api.nvim_create_user_command("ColorschemeAuto", fn_colorscheme_auto, {
+  nargs = 1,
+  complete = "color",
+})
+
+local function convert_to_lualine_theme(theme_name)
+  if theme_name == "auto" or theme_name == "default" then
+    return "auto"
+  elseif theme_name:match("tokyonight") then
+    return "auto"
+  elseif theme_name:match("dracula") then
+    return "dracula-nvim"
+  elseif theme_name:match("material") then
+    return "material"
+  elseif theme_name:match("nord") then
+    return "nord"
+  elseif theme_name:match("catppuccin") then
+    return "auto"
+  elseif theme_name:match("nightfox") then
+    return "nightfox"
+  else
+    return theme_name
+  end
+end
+
+-- Usage of this should be paired with the `ColorschemeAuto` command
+vim.api.nvim_create_autocmd({ "ColorSchemePre" }, {
+  group = jai_augroup("set_lualine_theme"),
+  desc = "Set lualine theme on change in colorscheme",
+  callback = function()
+    local notify_title = "Autocmd - Lualine Theme"
+
+    ---@param msg string
+    ---@param level integer
+    local notify = function(msg, level)
+      vim.notify(msg, level, { title = notify_title })
+    end
+
+    local debug = function(msg)
+      notify(msg, vim.log.levels.DEBUG)
+    end
+
+    local info = function(msg)
+      notify(msg, vim.log.levels.INFO)
+    end
+
+    local warn = function(msg)
+      notify(msg, vim.log.levels.WARN)
+    end
+
+    debug("Autocommand to set theme for lualine triggered")
+
+    -- Get current lualine config
+    local config = require("lualine").get_config()
+
+    local current_ui_theme = vim.g.colors_name
+    local expected_lualine_theme = nil
+
+    if current_ui_theme then
+      expected_lualine_theme = convert_to_lualine_theme(vim.g.colors_name)
+    else
+      expected_lualine_theme = config.options.theme
+    end
+
+    local current_lualine_theme = config.options.theme
+
+    if current_ui_theme then
+      debug("Current ui theme is " .. current_ui_theme)
+    else
+      debug("ui theme is not set")
+    end
+
+    if expected_lualine_theme ~= current_lualine_theme then
+      warn("Lualine theme has diverged from expected theme")
+    end
+
+    debug("Actual current lualine theme is " .. current_lualine_theme)
+    debug("Expected current lualine theme is " .. expected_lualine_theme)
+
+    -- Use the stored colorscheme name
+    local incoming_theme = vim.g.colorscheme_name
+
+    debug("Requesting lualine theme be set to " .. incoming_theme)
+
+    -- Adjustments to convert the colorscheme name
+    -- to a lualine theme name
+    incoming_theme = convert_to_lualine_theme(incoming_theme)
+
+    debug("Converted lualine theme name is " .. incoming_theme)
+
+    -- if the new lualine theme is the same as the current one, then return
+    if incoming_theme == current_lualine_theme then
+      debug("Lualine theme already set to " .. incoming_theme)
+      return
+    end
+
+    info("Setting lualine theme to " .. incoming_theme)
+
+    -- Update the theme in the lualine configuration
+    config.options.theme = incoming_theme
+
+    -- Setup lualine with the updated configuration
+    require("lualine").setup(config)
   end,
 })
 
