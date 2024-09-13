@@ -7,4 +7,4 @@ require("jai.config.vars")
 require("jai.config.lazy")
 
 -- set colorscheme using custom command
-vim.cmd("ColorschemeAuto tokyonight")
+vim.cmd("ColorschemeAuto catppuccin-mocha")

@@ -1,3 +1,6 @@
+-- [[ catppuccino.nvim ]] --
+-- repo: https://github.com/catppuccin/nvim
+
 local opts = {
   flavour = "auto", -- latte, frappe, macchiato, mocha
   background = { -- :h background
@@ -19,8 +22,6 @@ local opts = {
     comments = { "italic" }, -- Change the style of comments
     conditionals = { "italic" },
     loops = {},
-    functions = {},
-    keywords = {},
     strings = {},
     variables = {},
     numbers = {},
@@ -33,17 +34,53 @@ local opts = {
   color_overrides = {},
   custom_highlights = {},
   default_integrations = true,
+
+  -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
   integrations = {
+
+    -- TODO: below are interesting plugins to consider installing
+    -- headlines = true,
+    -- neotest = true,
+    -- neotree = true,
+    -- noice = true,
+    -- diffview = true,
+    beacon = true,
+    bufferline = true,
     cmp = true,
+    dashboard = true,
+    dap = true,
+    dap_ui = true,
+    fidget = true,
     gitsigns = true,
-    nvimtree = true,
-    treesitter = true,
-    notify = false,
+    illuminate = {
+      enabled = true,
+      lsp = false,
+    },
+    lsp_trouble = true,
+    markdown = true,
+    mason = true,
     mini = {
       enabled = true,
       indentscope_color = "",
     },
-    -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+    native_lsp = {
+      enabled = true,
+      inlay_hints = {
+        background = true,
+      },
+      underlines = {
+        errors = { "undercurl" },
+        hints = { "undercurl" },
+        information = { "undercurl" },
+        warnings = { "undercurl" },
+      },
+    },
+    notify = true,
+    nvimtree = true,
+    telescope = true,
+    treesitter = true,
+    treesitter_context = true,
+    which_key = true,
   },
 }
 

@@ -71,9 +71,10 @@ return {
     -- repo: https://github.com/catppuccin/nvim
     "catppuccin/nvim",
     name = "catppuccin",
+    lazy = false,
     priority = 1000,
     opts = function()
-      return require("jai.plugins.configs.themes.catppuccin")
+      return require("jai.plugins.core.themes.catppuccin")
     end,
   },
 }

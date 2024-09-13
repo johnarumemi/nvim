@@ -85,16 +85,16 @@ local function convert_to_lualine_theme(theme_name)
     return "auto"
   elseif theme_name:match("tokyonight") then
     return "auto"
-  elseif theme_name:match("dracula") then
-    return "dracula-nvim"
+  elseif theme_name:match("nightfox") then
+    return "nightfox"
+  elseif theme_name:match("catppuccin") then
+    return "catppuccin"
   elseif theme_name:match("material") then
     return "material"
   elseif theme_name:match("nord") then
     return "nord"
-  elseif theme_name:match("catppuccin") then
-    return "auto"
-  elseif theme_name:match("nightfox") then
-    return "nightfox"
+  elseif theme_name:match("dracula") then
+    return "dracula-nvim"
   else
     return theme_name
   end
@@ -166,7 +166,7 @@ vim.api.nvim_create_autocmd({ "ColorSchemePre" }, {
     debug("Converted lualine theme name is " .. incoming_theme)
 
     -- if the new lualine theme is the same as the current one, then return
-    if incoming_theme == current_lualine_theme then
+    if incoming_theme == current_lualine_theme and incoming_theme ~= "auto" then
       debug("Lualine theme already set to " .. incoming_theme)
       return
     end
