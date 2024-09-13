@@ -156,14 +156,14 @@ return {
   { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
   {
     --- repo: https://github.com/folke/trouble.nvim
-    -- NOTE: below config was taken from LazyVim
+    -- NOTE: originally, the below config was taken from LazyVim
     "folke/trouble.nvim",
     cmd = { "Trouble" },
     dependencies = { "folke/which-key.nvim" },
     opts = {
       modes = {
         lsp = {
-          win = { position = "right" },
+          win = { position = "bottom" },
         },
       },
     },
