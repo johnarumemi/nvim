@@ -24,11 +24,31 @@ return {
       { "arkav/lualine-lsp-progress", opts = {} },
     },
     opts = {
-      sections = {
-        lualine_c = { "lsp_progress" },
+      options = {
+        disabled_filetypes = {
+          -- "dapui_watches",
+          -- "dapui_breakpoints",
+          -- "dapui_scopes",
+          -- "dapui_console",
+          -- "dapui_stacks",
+          -- "dap-repl",
+          "NvimTree",
+        },
+        ignore_focus = {
+          "dapui_watches",
+          "dapui_breakpoints",
+          "dapui_scopes",
+          "dapui_console",
+          "dapui_stacks",
+          "dap-repl",
+          "NvimTree",
+        },
+        sections = {
+          lualine_c = { "lsp_progress" },
 
-        -- copilot status within lualine
-        lualine_x = { { "copilot", show_colors = true }, "encoding", "fileformat", "filetype" },
+          -- copilot status within lualine
+          lualine_x = { { "copilot", show_colors = true }, "encoding", "fileformat", "filetype" },
+        },
       },
     },
   },

@@ -238,6 +238,7 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 vim.api.nvim_create_autocmd("FileType", {
   group = lazy_augroup("close_with_q"),
   pattern = {
+    "dap-float",
     "PlenaryTestPopup",
     "help",
     "lspinfo",

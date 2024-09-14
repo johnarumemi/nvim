@@ -216,6 +216,10 @@ package name.
 :h mason-lspconfig-server-map
 ```
 
+#### Finding file type
+You can find the filetype ("dapui_watches", "dapui_breakpoints", etc.) by
+moving the cursor to the window in question and running `:echo &ft`
+
 # Troubleshooting
 
 ## Corrupted Sessions
