@@ -70,7 +70,7 @@ M.servers = {
 
   -- Typescript language-server
   -- also works for any standard javascript filetype
-  tsserver = {
+  ts_ls = {
     allow_formatting = false,
   },
 
