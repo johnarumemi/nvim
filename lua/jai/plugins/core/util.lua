@@ -27,16 +27,24 @@ return {
     event = "BufReadPre",
     opts = { options = vim.opt.sessionoptions:get() },
     -- stylua: ignore
-    keys = {
-      { "<leader>h", group = "Persistence" },
-      -- load the session for the current directory
-      { "<leader>qs", function() require("persistence").load() end, desc = "Restore Session" },
-      -- select a session to load
-      { "<leader>qS", function() require("persistence").select() end, desc = "Select Session to restore" },
-      -- load the last session
-      { "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
-      -- stop Persistence => session won't be saved on exit
-      { "<leader>qd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
-    },
+    config = function(_, opts)
+      require("persistence").setup(opts)
+
+      local wk = require("which-key")
+
+    -- stylua: ignore
+      wk.add({
+        { "<leader>q", group = "Persistence" },
+        -- load the session for the current directory
+        { "<leader>qs", function() require("persistence").load() end, desc = "Restore Session" },
+        -- select a session to load
+        { "<leader>qS", function() require("persistence").select() end, desc = "Select Session to restore" },
+        -- load the last session
+        { "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
+        -- stop Persistence => session won't be saved on exit
+        { "<leader>qd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
+      })
+
+    end,
   },
 }

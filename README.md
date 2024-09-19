@@ -216,9 +216,53 @@ package name.
 :h mason-lspconfig-server-map
 ```
 
-#### Finding file type
+# How-to
+General helpful guidance.
+
+### Finding file type
 You can find the filetype ("dapui_watches", "dapui_breakpoints", etc.) by
 moving the cursor to the window in question and running `:echo &ft`
+
+### Changing highlights
+Move your cursor under the text you want to alter the
+highlight. Enter command mode and use `:Inspect` to get the
+name of group. 
+
+e.g.
+```
+:Inspect
+
+# Output
+
+Treesitter
+  - @spell.norg links to @spell norg
+  - @neorg.markup.italic.norg links to @markup.italic norg
+  - @neorg.markup.italic.norg links to @markup.italic norg
+```
+group name = @neorg.markup.italic.norg
+highlight group linked to = @markup.italic
+
+So if we want to create a new highlight group we can use the
+following:
+
+```lua
+vim.cmd([[ highlight NeorgVerbatim guifg=cyan ]])
+```
+
+Above creates a highlight grouped called `NeorgVerbatim`.
+
+we now need to link the group to it
+```lua
+vim.cmd([[
+  autocmd FileType norg
+  highlight link @neorg.markup.verbatim.norg NeorgVerbatim
+]])
+```
+Above creates an autocommand triggered on entering a norg
+file. The autocommand will then call the following command,
+`:highlight link @neorg.markup.verbatim.norg NeorgVerbatim`
+
+
 
 # Troubleshooting
 

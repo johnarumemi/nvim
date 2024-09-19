@@ -67,7 +67,7 @@ local function fn_colorscheme_auto(opts)
 
   vim.g.colorscheme_name = opts.args
 
-  vim.notify("Setting terminal colorscheme to " .. opts.args, vim.log.levels.INFO, { title = notify_title })
+  vim.notify("Setting terminal colorscheme to " .. opts.args, vim.log.levels.DEBUG, { title = notify_title })
 
   vim.cmd("colorscheme " .. opts.args)
 
@@ -115,10 +115,6 @@ vim.api.nvim_create_autocmd({ "ColorSchemePre" }, {
 
     local debug = function(msg)
       notify(msg, vim.log.levels.DEBUG)
-    end
-
-    local info = function(msg)
-      notify(msg, vim.log.levels.INFO)
     end
 
     local warn = function(msg)
@@ -171,7 +167,7 @@ vim.api.nvim_create_autocmd({ "ColorSchemePre" }, {
       return
     end
 
-    info("Setting lualine theme to " .. incoming_theme)
+    debug("Setting lualine theme to " .. incoming_theme)
 
     -- Update the theme in the lualine configuration
     config.options.theme = incoming_theme
@@ -257,6 +253,17 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function(event)
     vim.bo[event.buf].buflisted = false
     vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = lazy_augroup("close_with_q_force"),
+  pattern = {
+    "TelescopePrompt",
+  },
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+    vim.keymap.set("n", "q", "<cmd>q!<cr>", { buffer = event.buf, silent = true })
   end,
 })
 

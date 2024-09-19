@@ -62,6 +62,7 @@ return {
     event = "VeryLazy",
     dependencies = "nvim-tree/nvim-web-devicons",
     keys = {
+      { "<leader>b", group = "Bufferline" },
       -- TODO: Shift to separate config file and use which-key to create a `buffer` group
       { "<leader>bc", "<Cmd>BufferLinePickClose<CR>", desc = "Pick Buffer to Close" },
       { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle Pin" },

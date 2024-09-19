@@ -107,9 +107,18 @@ return {
     },
 
     config = function()
-      -- local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-      -- ts_update()
       require("nvim-treesitter.configs").setup(treesitter_opts)
+
+      -- Define a new highlight group for Neorg verbatim markups
+      -- orange = "#FFA500"
+      vim.cmd([[ highlight NeorgVerbatim guifg=cyan ]])
+
+      -- Finally, link the Neorg verbatim syntax element to
+      -- the new highlight group via use of an autocmd that
+      -- triggers when entering a norg file.
+      vim.cmd([[
+  autocmd FileType norg highlight link @neorg.markup.verbatim.norg NeorgVerbatim
+]])
     end,
   },
 }
