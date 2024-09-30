@@ -3,6 +3,13 @@ This is just a repo that stores my nvim configuration
 
 TODO: update this for use with Lazy.
 
+# TODO Items
+- Install `diffview`:  https://github.com/sindrets/diffview.nvim?tab=readme-ov-file
+# Environment Variables
+```NEORG_ENVIRONMENT= HOME | WORK```
+Sets default workspace when using `:Neorg workspace` with no specific 
+workspace specified.
+
 # Useful links
 
 Neovim rust setup and guide

@@ -1,4 +1,5 @@
 require("jai.config.options")
+require("jai.config.commands")
 require("jai.config.autocmds")
 require("jai.config.keymaps")
 require("jai.config.vars")

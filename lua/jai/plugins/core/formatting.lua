@@ -1,4 +1,5 @@
 return {
+  -- repo: https://github.com/stevearc/conform.nvim
   "stevearc/conform.nvim",
   version = "^8.0.0",
   event = { "BufWritePre" },

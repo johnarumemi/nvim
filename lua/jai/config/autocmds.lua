@@ -47,39 +47,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   end,
 })
 
--- Create a global variable to store the colorscheme name
-vim.g.colorscheme_name = "auto"
-
--- Create a new command that wraps the colorscheme command
---
---  Now, instead of using the `colorscheme` command,
---  use `colorscheme-auto` to change the
---  colorscheme. This will store the name of the
---  colorscheme in `g:colorscheme_name` before
---  applying it, allowing the autocommand to access
---  the name.
--- vim.api.nvim_command("command! -nargs=1 ColorschemeAuto let g:colorscheme_name = <q-args> | colorscheme <q-args>")
-
--- vim.api.nvim_exec("command! -nargs=1 ColorschemeAuto let g:colorscheme_name = <q-args> | colorscheme <q-args>", false)
-
-local function fn_colorscheme_auto(opts)
-  local notify_title = "Cmd - ColorschemeAuto"
-
-  vim.g.colorscheme_name = opts.args
-
-  vim.notify("Setting terminal colorscheme to " .. opts.args, vim.log.levels.DEBUG, { title = notify_title })
-
-  vim.cmd("colorscheme " .. opts.args)
-
-  vim.notify("Completed setting colorscheme to " .. opts.args, vim.log.levels.DEBUG, { title = notify_title })
-end
-
--- usage = "ColorschemeAuto <colorscheme>",
-vim.api.nvim_create_user_command("ColorschemeAuto", fn_colorscheme_auto, {
-  nargs = 1,
-  complete = "color",
-})
-
 local function convert_to_lualine_theme(theme_name)
   if theme_name == "auto" or theme_name == "default" then
     return "auto"
@@ -99,6 +66,33 @@ local function convert_to_lualine_theme(theme_name)
     return theme_name
   end
 end
+
+-- Autocommand triggered after a colorscheme is loaded
+vim.api.nvim_create_autocmd({ "ColorScheme" }, {
+  group = jai_augroup("set_neorg_custom_verbatim_higlight"),
+  desc = "create highlight link to NeorgCustomVerbatim on change in colorscheme",
+  callback = function(opts)
+    -- should only execute if the current buffer is a norg file
+    if vim.bo[opts.buf].filetype ~= "norg" then
+      return
+    end
+
+    local title = "Autocmd - NeorgCustomVerbatim"
+
+    vim.notify("Creating NeorgCustomVerbatim highlight group", vim.log.levels.DEBUG, {
+      title = title,
+    })
+    vim.cmd([[ highlight NeorgCustomVerbatim guifg=cyan ]])
+
+    -- link the Neorg verbatim syntax element to
+    -- the new highlight group via use of an autocmd that
+    -- triggers when entering a norg file.
+    vim.notify("Linking NeorgCustomVerbatim to @neorg.markup.verbatim.norg", vim.log.levels.DEBUG, {
+      title = title,
+    })
+    vim.cmd([[ highlight link @neorg.markup.verbatim.norg NeorgCustomVerbatim ]])
+  end,
+})
 
 -- Usage of this should be paired with the `ColorschemeAuto` command
 vim.api.nvim_create_autocmd({ "ColorSchemePre" }, {

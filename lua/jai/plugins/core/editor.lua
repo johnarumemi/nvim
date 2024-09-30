@@ -35,12 +35,14 @@ return {
       local wk = require("which-key")
 
       wk.add({
-        { "<leader>f", group = "Files" },
+        -- Find [operation]
         { "<leader>fb", ":Telescope buffers<CR>", desc = "Buffers" },
         { "<leader>ff", ":Telescope find_files<CR>", desc = "Find File" },
         { "<leader>fg", ":Telescope live_grep<CR>", desc = "Grep In Files" },
         { "<leader>fh", ":Telescope help_tags<CR>", desc = "Help Tags" },
-        { "<leader>ts", ":Telescope<CR>", desc = "Open Telescope" },
+
+        -- Open [operation]
+        { "<leader>ot", ":Telescope<CR>", desc = "Open Telescope" },
       })
     end,
   },
@@ -99,6 +101,8 @@ return {
 
       -- Global groups
       wk.add({
+        { "<leader>f", group = "Find" },
+        { "<leader>o", group = "Open" },
         { "<leader>t", group = "Toggle" },
       })
     end,

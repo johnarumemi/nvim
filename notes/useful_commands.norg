@@ -1,0 +1,19 @@
+* Resize Windows
+
+  This can be used to resize the buffer with id `<number>`,
+  or `0` for current buffer.
+
+  @code bash
+  :echo winwidth(<number>)
+  :echo winheight(<number>)
+  
+  # for example
+  :echo winwidth(0)
+  :echo winheight(0)
+  @end
+
+  @code vim
+  :lua print(vim.api.nvim_win_get_width(<number>))
+  @end
+
+  `hello-world`

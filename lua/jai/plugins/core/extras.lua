@@ -6,9 +6,23 @@ return {
     "nvim-neorg/neorg",
     lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
     version = "*", -- Pin Neorg to the latest stable release
+    init = function()
+      local wk = require("which-key")
+      -- This should ensure the keymaps are available in every buffer/file type
+      wk.add({
+        { "<leader>w", group = "[neorg] Workspace" },
+        { "<leader>wd", ":Neorg workspace<CR>", desc = "Open Default Workspace" },
+        { "<leader>ww", ":Neorg workspace todo-work<CR>", desc = "Open Todo - Work" },
+        { "<leader>wp", ":Neorg workspace todo-private<CR>", desc = "Open Todo - Private" },
+        { "<leader>wr", ":Neorg workspace rust<CR>", desc = "Open Rust " },
+      })
+      -- create new highlight group for Neorg verbatim markups
+      -- vim.cmd([[ highlight NeorgCustomVerbatim guifg=cyan ]])
+    end,
     config = function()
       local config = require("jai.plugins.configs.neorg_config")
       require("neorg").setup(config.opts)
+      -- vim.cmd([[ highlight link @neorg.markup.verbatim.norg NeorgCustomVerbatim ]])
     end,
   },
   {

@@ -1,5 +1,15 @@
 local wk = require("which-key")
 
+local default_workspace = nil
+
+if _G.neorg_env == "WORK" then
+  default_workspace = "todo-work"
+elseif _G.neorg_env == "HOME" then
+  default_workspace = "todo-private"
+else
+  default_workspace = "notes"
+end
+
 local opts = {
   load = {
     ["core.defaults"] = {}, -- Loads default behaviour
@@ -40,7 +50,7 @@ local opts = {
           rust = "~/neorg-notes/rust",
           ["computer-architecture"] = "~/neorg-notes/computer-architecture",
         },
-        default_workspace = "notes",
+        default_workspace = default_workspace,
       },
     },
     ["core.presenter"] = {
@@ -90,22 +100,15 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
     vim.api.nvim_buf_set_option(0, "tabstop", 2)
 
     wk.add({
-
-      { "<localleader>tt", "<Plug>(neorg.qol.todo-items.todo.task-cycle)", desc = "Cycle State" },
-    })
-    wk.add({
       -- { "<leader>nl", "[[:Neorg keybind all core.looking-glass.magnify-code-block<CR>]]", buffer = buf, desc = "Looking Glass" },
       { "<leader>N", group = "Neorg" },
       { "<leader>Nt", ":Neorg toc<CR>", buffer = buf, desc = "Open Table of Contents" },
       { "<leader>Nc", ":Neorg context toggle<CR>", buffer = buf, desc = "Toggle Neorg Context" },
-      {
-        { "<leader>Nw", group = "Workspaces" },
-        { "<leader>Nww", ":Neorg workspace todo-work<CR>", buffer = buf, desc = "Open Todo - Work" },
-        { "<leader>Nwp", ":Neorg workspace todo-private<CR>", buffer = buf, desc = "Open Todo - Private" },
-        { "<leader>Nwr", ":Neorg workspace rust<CR>", buffer = buf, desc = "Open Rust " },
-      },
-
       { "<leader>tc", ":Neorg toggle-concealer<CR>", buffer = buf, desc = "Toggle Neorg Concealer" },
+    })
+
+    wk.add({
+      { "<localleader>tt", "<Plug>(neorg.qol.todo-items.todo.task-cycle)", desc = "Cycle State" },
       -- related to core.qol.todo_items
       -- <Plug>(neorg.qol.todo-items.todo.task-done) (<LocalLeader>td)
       -- <Plug>(neorg.qol.todo-items.todo.task-undone) (<LocalLeader>tu)
@@ -114,7 +117,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
       -- <Plug>(neorg.qol.todo-items.todo.task-cancelled) (<LocalLeader>tc)
       -- <Plug>(neorg.qol.todo-items.todo.task-recurring) (<LocalLeader>tr)
       -- <Plug>(neorg.qol.todo-items.todo.task-important) (<LocalLeader>ti)
-      -- <Plug>(neorg.qol.todo-items.todo.task-cycle) (<C-Space>)
+      -- <Plug>(neorg.qol.todo-items.todo.task-cycle) (<C-Space>) & <LocalLeader>tt
       -- <Plug>(neorg.qol.todo-items.todo.task-cycle-reverse)
     })
   end,

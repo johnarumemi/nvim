@@ -1,8 +1,12 @@
 -- Set LSP logging level to debug
 vim.lsp.set_log_level(vim.log.levels.INFO)
 
+_G.neorg_env = os.getenv("NEORG_ENVIRONMENT") or "DEFAULT"
+
 -- bootstrap lazy.nvim and plugins
 require("jai.config")
+
+vim.notify("neorg environment: " .. _G.neorg_env, vim.log.levels.DEBUG, { title = "Init" })
 
 -- set colorscheme using custom command
 vim.cmd("ColorschemeAuto catppuccin-mocha")

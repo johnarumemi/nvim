@@ -15,7 +15,6 @@ opt.foldexpr = "nvim_treesitter#foldexpr()"
 local treesitter_opts = {
   -- Below are mainly default settings
   -- A list of parser names, or "all" (the listed parsers should always be installed)
-
   ensure_installed = {
     "asm", -- Assembly
     "bash",
@@ -25,10 +24,16 @@ local treesitter_opts = {
     "diff", -- .diff files
     "disassembly", -- repo: https://github.com/ColinKennedy/tree-sitter-disassembly
     "dockerfile",
+    "gitattributes",
+    "git_config",
     "git_rebase",
     "gitcommit",
     "gitignore",
     "go",
+    "gomod",
+    "gosum",
+    "gotmpl",
+    "gowork",
     "help",
     "html",
     "javascript",
@@ -105,20 +110,8 @@ return {
       "TSUpdate",
       "TSInstallSync",
     },
-
     config = function()
       require("nvim-treesitter.configs").setup(treesitter_opts)
-
-      -- Define a new highlight group for Neorg verbatim markups
-      -- orange = "#FFA500"
-      vim.cmd([[ highlight NeorgVerbatim guifg=cyan ]])
-
-      -- Finally, link the Neorg verbatim syntax element to
-      -- the new highlight group via use of an autocmd that
-      -- triggers when entering a norg file.
-      vim.cmd([[
-  autocmd FileType norg highlight link @neorg.markup.verbatim.norg NeorgVerbatim
-]])
     end,
   },
 }
