@@ -61,4 +61,35 @@ return {
     -- must be in .pu,*.uml,*.plantuml,*.puml,*.iuml.
     dependencies = { "zhaozg/vim-diagram", "aklt/plantuml-syntax", "folke/which-key.nvim" },
   },
+  {
+    -- repo: https://github.com/Allaman/emoji.nvim
+    "allaman/emoji.nvim",
+    version = "1.0.0", -- optionally pin to a tag
+    ft = { "markdown", "norg" }, -- adjust to your needs
+    dependencies = {
+      -- optional for nvim-cmp integration
+      "hrsh7th/nvim-cmp",
+      -- optional for telescope integration
+      "nvim-telescope/telescope.nvim",
+      -- for keymaps
+      "folke/which-key.nvim",
+    },
+    opts = {
+      -- default is false
+      enable_cmp_integration = true,
+      -- optional if your plugin installation directory
+      -- is not vim.fn.stdpath("data") .. "/lazy/
+      -- plugin_path = vim.fn.expand("$HOME/plugins/"),
+    },
+    config = function(_, opts)
+      require("emoji").setup(opts)
+      local wk = require("which-key")
+      -- optional for telescope integration
+      local ts = require("telescope").load_extension("emoji")
+
+      wk.add({
+        { "<leader>fe", ts.emoji, desc = "[F]ind [E]moji", mode = "n" },
+      })
+    end,
+  },
 }

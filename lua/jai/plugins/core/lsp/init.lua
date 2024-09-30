@@ -43,6 +43,10 @@ return {
             name = "lazydev",
             group_index = 0, -- set group index to 0 to skip loading LuaLS completions
           })
+
+          table.insert(opts.sources, {
+            name = "emoji",
+          })
         end,
       },
 
