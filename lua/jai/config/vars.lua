@@ -1,9 +1,6 @@
 -- [[ vars.lua ]]
 -- Default global variable settings
 
--- below is just to stop errors that say "missing vim global variable"
-vim = vim
-
 -- LEADER
 -- These keybindings need to be defined before the first /
 -- is called; otherwise, it will default to "\"
@@ -37,3 +34,21 @@ g.background = "dark"
 -- This is where neovim will search for packages
 local package_path = vim.fn.stdpath("config") .. "/site"
 vim.o.packpath = vim.o.packpath .. "," .. package_path
+
+--- Displays a notification to the user, with log level of DEBUG
+---
+---@param msg string Content of the notification to show to the user.
+---@param opts table|nil Optional parameters. Unused by default.
+---@diagnostic disable-next-line: unused-local
+function vim.debug(msg, opts) -- luacheck: no unused args
+  vim.notify(msg, vim.log.levels.DEBUG, opts)
+end
+
+--- Displays a notification to the user, with log level of WARN
+---
+---@param msg string Content of the notification to show to the user.
+---@param opts table|nil Optional parameters. Unused by default.
+---@diagnostic disable-next-line: unused-local
+function vim.warn(msg, opts) -- luacheck: no unused args
+  vim.notify(msg, vim.log.levels.DEBUG, opts)
+end

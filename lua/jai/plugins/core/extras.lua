@@ -11,18 +11,20 @@ return {
       -- This should ensure the keymaps are available in every buffer/file type
       wk.add({
         { "<leader>w", group = "[neorg] Workspace" },
-        { "<leader>wd", ":Neorg workspace<CR>", desc = "Open Default Workspace" },
         { "<leader>ww", ":Neorg workspace todo-work<CR>", desc = "Open Todo - Work" },
         { "<leader>wp", ":Neorg workspace todo-private<CR>", desc = "Open Todo - Private" },
         { "<leader>wr", ":Neorg workspace rust<CR>", desc = "Open Rust " },
+
+        {
+          { "<leadner>wn", group = "Notes", desc = "Neorg Notes" },
+          { "<leader>wn", ":Neorg workspace notes-private<CR>", desc = "Open Private Notes " },
+          { "<leader>wn", ":Neorg workspace notes-work<CR>", desc = "Open Work Notes " },
+        },
       })
-      -- create new highlight group for Neorg verbatim markups
-      -- vim.cmd([[ highlight NeorgCustomVerbatim guifg=cyan ]])
     end,
     config = function()
       local config = require("jai.plugins.configs.neorg_config")
       require("neorg").setup(config.opts)
-      -- vim.cmd([[ highlight link @neorg.markup.verbatim.norg NeorgCustomVerbatim ]])
     end,
   },
   {
@@ -77,9 +79,6 @@ return {
     opts = {
       -- default is false
       enable_cmp_integration = true,
-      -- optional if your plugin installation directory
-      -- is not vim.fn.stdpath("data") .. "/lazy/
-      -- plugin_path = vim.fn.expand("$HOME/plugins/"),
     },
     config = function(_, opts)
       require("emoji").setup(opts)

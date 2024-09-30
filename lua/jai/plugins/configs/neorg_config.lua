@@ -1,13 +1,21 @@
 local wk = require("which-key")
 
 local default_workspace = nil
+local base_dir = os.getenv("HOME") .. "/neorg-notes/"
 
+vim.debug("Neorg base workspace directory is " .. base_dir, { title = "Neorg" })
+
+-- NOTE: when using the `<locallleader>n` keymap to create a
+-- new notes, this will be created within your currently set
+-- default workspace. Hence why this is scoped to different
+-- sections to ensure work and personal notes are not
+-- grouped together.
 if _G.neorg_env == "WORK" then
-  default_workspace = "todo-work"
+  default_workspace = "notes-work"
 elseif _G.neorg_env == "HOME" then
-  default_workspace = "todo-private"
+  default_workspace = "notes-private"
 else
-  default_workspace = "notes"
+  default_workspace = "notes-private"
 end
 
 local opts = {
@@ -44,11 +52,13 @@ local opts = {
     ["core.dirman"] = { -- Manages Neorg workspaces
       config = {
         workspaces = {
-          notes = "~/neorg-notes/notes",
-          ["todo-work"] = "~/neorg-notes/todo/work",
-          ["todo-private"] = "~/neorg-notes/todo/private",
-          rust = "~/neorg-notes/rust",
-          ["computer-architecture"] = "~/neorg-notes/computer-architecture",
+          ["notes-private"] = base_dir .. "notes/private",
+          ["notes-work"] = base_dir .. "notes/work",
+          ["todo-work"] = base_dir .. "todo/work",
+          ["todo-private"] = base_dir .. "todo/private",
+          rust = base_dir .. "rust",
+          ["computer-architecture"] = base_dir .. "computer-architecture",
+          ["arm"] = base_dir .. "arm",
         },
         default_workspace = default_workspace,
       },
@@ -89,7 +99,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
     vim.cmd("set conceallevel=3")
     vim.cmd("set nowrap")
     vim.cmd("set textwidth=60")
-    -- vim.cmd("colorscheme terafox")
 
     -- update options for current buffer only
     -- num:  Size of an indent
