@@ -16,4 +16,26 @@
   :lua print(vim.api.nvim_win_get_width(<number>))
   @end
 
-  `hello-world`
+* No Wrap
+
+  `:set nowrap` only prevents it from wrapping the display
+  of lines, not from inserting linebreaks.
+
+  Use `set formatoptions-=t` to actually stop wrapping of
+  lines completely.
+
+* Create autocommands
+  @code lua
+  vim.api.nvim_create_autocmd({ events }, {
+    -- find current windows filetype via using `:echo &ft`
+    pattern = { "*.norg" },
+    -- command = "set conceallevel=3",
+    desc = "Setup Neorg configuration",
+    callback = function(id, event, group, match, buf, file, data)
+      -- find current values via `:set nowrap?`
+    end,
+  })
+  @end
+
+  ~ _pattern_: find via `:echo &ft`
+

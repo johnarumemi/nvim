@@ -96,9 +96,14 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   -- command = "set conceallevel=3",
   desc = "Setup Neorg configuration",
   callback = function(id, event, group, match, buf, file, data)
+    -- find current values via `:set nowrap?`
     vim.cmd("set conceallevel=3")
+    -- only prevents it from wrapping the display of lines, not from inserting linebreaks.
+    -- use `set formatoptions-=t` to actually stop wrapping of lines completely
     vim.cmd("set nowrap")
-    vim.cmd("set textwidth=60")
+    vim.cmd("set textwidth=75")
+    -- enable spell checking by default
+    vim.cmd("set spell")
 
     -- update options for current buffer only
     -- num:  Size of an indent

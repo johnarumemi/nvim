@@ -71,12 +71,7 @@ end
 vim.api.nvim_create_autocmd({ "ColorScheme" }, {
   group = jai_augroup("set_neorg_custom_verbatim_higlight"),
   desc = "create highlight link to NeorgCustomVerbatim on change in colorscheme",
-  callback = function(opts)
-    -- should only execute if the current buffer is a norg file
-    if vim.bo[opts.buf].filetype ~= "norg" then
-      return
-    end
-
+  callback = function()
     local title = "Autocmd - NeorgCustomVerbatim"
 
     vim.notify("Creating NeorgCustomVerbatim highlight group", vim.log.levels.DEBUG, {
