@@ -45,6 +45,9 @@ local opts = {
               right = 10,
             },
           },
+          list = {
+            icons = { "❖", "♦" },
+          },
         },
       },
     }, -- Adds pretty icons to your documents
