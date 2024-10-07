@@ -177,6 +177,11 @@ return {
         end,
         desc = "Dismiss all Notifications",
       },
+      {
+        "<leader>on",
+        ":Notifications<CR>",
+        desc = "Open all notifications",
+      },
     },
     opts = {
       timeout = 3000,
