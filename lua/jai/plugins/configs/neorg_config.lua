@@ -1,3 +1,8 @@
+-- my custom augroups
+local function jai_augroup(name)
+  return vim.api.nvim_create_augroup("jai_" .. name, { clear = true })
+end
+
 local wk = require("which-key")
 
 local default_workspace = nil
@@ -22,6 +27,9 @@ local opts = {
   load = {
     ["core.defaults"] = {}, -- Loads default behaviour
     ["core.export"] = {}, -- enable export module
+    ["core.esupports.metagen"] = {
+      author = "john",
+    },
     ["core.export.markdown"] = {
       config = {
         extensions = "all",
@@ -94,19 +102,45 @@ local opts = {
   },
 }
 
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+-- documenation: https://neovim.io/doc/user/api.html#nvim_create_autocmd()
+-- Use BufNew to trigger on new buffers only. BufEnter triggers each time
+-- we switched to a new or exisiting buffer.
+vim.api.nvim_create_autocmd({ "BufNew" }, {
+  group = jai_augroup("neorg_setup_config"),
   pattern = { "*.norg" },
   -- command = "set conceallevel=3",
   desc = "Setup Neorg configuration",
-  callback = function(id, event, group, match, buf, file, data)
+
+  -- param is a single table with following keys:
+  -- id: (number) autocommand id
+  -- event: (string) name of the triggered event autocmd-events
+  -- group: (number|nil) autocommand group id, if any
+  -- match: (string) expanded value of <amatch>
+  -- buf: (number) expanded value of <abuf>
+  -- file: (string) expanded value of <afile>
+  -- data: (any) arbitrary data passed from nvim_exec_autocmds()
+  callback = function(args)
+    local title = "Autocmd - Neorg - Setup Config"
+
+    if args.buf == nil then
+      vim.error(string.format("%s: failed setup as received a nill buffer", args.event), { title = title })
+      return
+    end
+
+    -- only really applies when using Filetype and a pattern of { "norg" }
+    if args.match ~= args.file then
+      local fmatch_msg = string.format("%s: <amatch>=%s | <afile>=%s", args.event, args.match, args.file)
+      vim.debug(fmatch_msg, { title = title })
+    end
+
     -- find current values via `:set nowrap?`
-    vim.cmd("set conceallevel=3")
+    vim.cmd("setlocal conceallevel=3")
     -- only prevents it from wrapping the display of lines, not from inserting linebreaks.
     -- use `set formatoptions-=t` to actually stop wrapping of lines completely
-    vim.cmd("set nowrap")
-    vim.cmd("set textwidth=75")
+    vim.cmd("setlocal nowrap")
+    vim.cmd("setlocal textwidth=75")
     -- enable spell checking by default
-    vim.cmd("set spell")
+    vim.cmd("setlocal spell")
 
     -- update options for current buffer only
     -- num:  Size of an indent
@@ -119,13 +153,14 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
     wk.add({
       -- { "<leader>nl", "[[:Neorg keybind all core.looking-glass.magnify-code-block<CR>]]", buffer = buf, desc = "Looking Glass" },
       { "<leader>N", group = "Neorg" },
-      { "<leader>Nt", ":Neorg toc<CR>", buffer = buf, desc = "Open Table of Contents" },
-      { "<leader>Nc", ":Neorg context toggle<CR>", buffer = buf, desc = "Toggle Neorg Context" },
-      { "<leader>tc", ":Neorg toggle-concealer<CR>", buffer = buf, desc = "Toggle Neorg Concealer" },
+      { "<leader>Nt", ":Neorg toc<CR>", buffer = args.buf, desc = "Open Table of Contents" },
+      { "<leader>Nc", ":Neorg context toggle<CR>", buffer = args.buf, desc = "Toggle Neorg Context" },
+      { "<leader>tc", ":Neorg toggle-concealer<CR>", buffer = args.buf, desc = "Toggle Neorg Concealer" },
     })
 
     wk.add({
-      { "<localleader>tt", "<Plug>(neorg.qol.todo-items.todo.task-cycle)", desc = "Cycle State" },
+      { "<localleader>t", group = "Todo", buffer = args.buf },
+      { "<localleader>tt", "<Plug>(neorg.qol.todo-items.todo.task-cycle)", buffer = args.buf, desc = "Cycle State" },
       -- related to core.qol.todo_items
       -- <Plug>(neorg.qol.todo-items.todo.task-done) (<LocalLeader>td)
       -- <Plug>(neorg.qol.todo-items.todo.task-undone) (<LocalLeader>tu)
@@ -137,6 +172,10 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
       -- <Plug>(neorg.qol.todo-items.todo.task-cycle) (<C-Space>) & <LocalLeader>tt
       -- <Plug>(neorg.qol.todo-items.todo.task-cycle-reverse)
     })
+
+    local msg = string.format("%s: settings applied for buffer: %d", args.event, args.buf)
+
+    vim.debug(msg, { title = title })
   end,
 })
 
