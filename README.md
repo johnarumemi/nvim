@@ -5,6 +5,7 @@ TODO: update this for use with Lazy.
 
 # TODO Items
 - Install `diffview`:  https://github.com/sindrets/diffview.nvim?tab=readme-ov-file
+
 # Environment Variables
 ```NEORG_ENVIRONMENT= HOME | WORK```
 Sets default workspace when using `:Neorg workspace` with no specific 
@@ -16,6 +17,7 @@ Neovim rust setup and guide
 - https://rsdlt.github.io/posts/rust-nvim-ide-guide-walkthrough-development-debug/
 
 - [Lua Neovim Guide](https://neovim.io/doc/user/lua-guide.html#_introduction)
+- [vim.tbl_deep_extend](https://neovim.io/doc/user/lua.html#vim.tbl_deep_extend%28%29)
 
 # Uninstall
 See lazyvim github for uninstall instructions.
@@ -182,7 +184,7 @@ Commands coming from default prompts
 
 # mason
 This is a package manager that is used for managing various development tools: it can
-be installed and managed via Packer. Development tools can include LSP **servers**,
+be installed and managed via Lazy. Development tools can include LSP **servers**,
 which perform static analysis on the code sent into it by an LSP client. 
 
 ### nvim-lspconfig
@@ -196,8 +198,8 @@ the nvim lsp client itself!
 
 ### mason-lspconfig
 So we have mason that can install various LSP servers, Neovim with an in-built
-LSP client for communicating with a server and finally,  nvim-lspconfig for actually
-holding configurations for how the inbuilt LSP client can configured to communicate
+LSP client for communicating with a server and finally, nvim-lspconfig for actually
+holding configurations for how the inbuilt LSP client can be configured to communicate
 with a specific LSP server. mason-lspconfig acts as a bridge between mason and 
 nvim-lspconfig. It says "Hey! nvim-lspconfig has been configured to communicate with
 the rust-analyzer lsp server! lets use mason to ensure this server is installed, 
