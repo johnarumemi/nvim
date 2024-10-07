@@ -3,6 +3,30 @@ local function jai_augroup(name)
   return vim.api.nvim_create_augroup("jai_" .. name, { clear = true })
 end
 
+-- e.g. opt.colorcolumn = "88" -- str:  Show col for max line length
+local colorcolumn_ftype_map = {
+  python = "88",
+  rust = "100",
+  gitcommit = "72",
+  COMMIT_EDITMSG = "72",
+}
+
+vim.api.nvim_create_autocmd({ "BufNew", "FileType" }, {
+  group = jai_augroup("buf_colorcolumn"),
+  desc = "setup colorcolumn for filetype",
+  callback = function(opts)
+    local title = "Autocmd - Setup Colorcolumn"
+
+    local colorcolumn = colorcolumn_ftype_map[vim.bo[opts.buf].filetype]
+
+    if colorcolumn then
+      local msg = string.format("%s: setting colorcolumn for filetype %s", opts.event, opts.match)
+      vim.debug(msg, { title = title })
+      vim.opt_local.colorcolumn = colorcolumn
+    end
+  end,
+})
+
 --[[
 -- Autocommand for git linewraps to occur at
 -- set line length
@@ -12,9 +36,9 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   pattern = { "COMMIT_EDITMSG" },
   desc = "Setup gitcommit linewraps",
   callback = function(opts)
-    vim.cmd("set conceallevel=3")
-    vim.cmd("set wrap")
-    vim.cmd("set textwidth=55")
+    vim.cmd("setlocal conceallevel=3")
+    vim.cmd("setlocal wrap")
+    vim.cmd("setlocal textwidth=72")
     vim.opt_local.spell = true
 
     -- update options for current buffer only

@@ -9,7 +9,6 @@
 local opt = vim.opt
 
 -- [[ Context ]]
-opt.colorcolumn = "88" -- str:  Show col for max line length
 opt.number = true -- bool: Show line numbers
 opt.relativenumber = false -- bool: Show relative line numbers (relative to position of cursor)
 opt.scrolloff = 4 -- int:  Min num lines of context
