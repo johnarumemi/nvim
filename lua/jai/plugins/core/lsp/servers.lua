@@ -1,11 +1,10 @@
--- [[ LSP Setup ]]
--- Use repo to see server names available
+-- [[ LSP Client Setup ]]
+-- NOTE: Use repo to see server names available
 -- repo: https://github.com/williamboman/mason-lspconfig.nvim
+-- Some LSP's are setup via other plugins:
+-- rust: setup by rust-tools. see rust.lua for setup configuration
 --
 -- Setup all your LSP servers here.
---
--- NOTE: Some LSP's are setup via other plugins:
--- rust: setup by rust-tools. see rust.lua for setup configuration
 
 -- alias
 local buf_set_option = function(buf, name, value)
@@ -15,6 +14,9 @@ end
 local M = {}
 
 M.servers = {
+  -- Assembly
+  asm_lsp = {},
+
   -- Rust: uses a specific plugin
 
   -- Lua
@@ -40,18 +42,6 @@ M.servers = {
   },
 
   -- Python
-  -- pylsp = {
-  --   settings = {
-  --     pylsp = {
-  --       plugins = {
-  --         pycodestyle = {
-  --           ignore = {},
-  --           maxLineLength = 200
-  --         }
-  --       }
-  --     }
-  --   }
-  -- },
   pyright = {
     on_attach = function(_, bufnr)
       -- update options for python files
@@ -113,10 +103,53 @@ M.servers = {
   -- mason-lspconfig will install the mason yaml-language-server
   yamlls = {},
 
+  -- TOML
+  -- repo: https://github.com/tamasfe/taplo
+  taplo = {},
+
   -- Protobufs:
   -- ERROR: appears to be broken at the moment and fails to install
   -- mason-lspconfig will install the mason Protobu language-server
   -- bufls = {},
+
+  -- C/C++
+  neocmake = {},
+  -- Ensure mason installs the server
+  clangd = {
+    keys = {
+      { "<localleader>ch", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
+    },
+    root_dir = function(fname)
+      return require("lspconfig.util").root_pattern(
+        "Makefile",
+        "configure.ac",
+        "configure.in",
+        "config.h.in",
+        "meson.build",
+        "meson_options.txt",
+        "build.ninja"
+      )(fname) or require("lspconfig.util").root_pattern("compile_commands.json", "compile_flags.txt")(fname) or require(
+        "lspconfig.util"
+      ).find_git_ancestor(fname)
+    end,
+    capabilities = {
+      offsetEncoding = { "utf-16" },
+    },
+    cmd = {
+      "clangd",
+      "--background-index",
+      "--clang-tidy",
+      "--header-insertion=iwyu",
+      "--completion-style=detailed",
+      "--function-arg-placeholders",
+      "--fallback-style=llvm",
+    },
+    init_options = {
+      usePlaceholders = true,
+      completeUnimported = true,
+      clangdFileStatus = true,
+    },
+  },
 }
 
 function M.default_on_attach(client, buf)

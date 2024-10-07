@@ -1,7 +1,11 @@
--- [[ null-ls setup ]]
--- repo: https://github.com/jose-elias-alvarez/null-ls.nvim
+-- [[ none-ls setup ]]
+-- repo: https://github.com/nvimtools/none-ls.nvim
+-- based on null-ls.nvim [deprecated]
+--
+-- sources: https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
+-- configuring sources: https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
 
-local null_ls = require("null-ls")
+local none_ls = require("null-ls")
 
 return {
 
@@ -9,10 +13,16 @@ return {
     sources = {
       -- Lua
       -- can get binary installed via using homebrew, see README.md
-      null_ls.builtins.formatting.stylua, -- An opinionated code formatter for Lua.
+      -- An opinionated code formatter for Lua.
+      none_ls.builtins.formatting.stylua.with({
+        column_width = 100,
+      }),
 
       -- yamlfmt from google
-      null_ls.builtins.formatting.yamlfmt,
+      -- Moved to using conform
+      -- null_ls.builtins.formatting.yamlfmt,
+
+      none_ls.builtins.diagnostics.yamllint,
 
       -- --- JS/TS
       -- we already have eslint via lspconfig
@@ -21,8 +31,8 @@ return {
       -- Python
       -- can get binaries installed either on your path
       -- or via using Mason
-      null_ls.builtins.formatting.black,
-      null_ls.builtins.code_actions.gitsigns,
+      -- null_ls.builtins.formatting.black,
+      none_ls.builtins.code_actions.gitsigns,
 
       -- NOTE: if you have the below builtin source enabled, it will
       -- also populate nvim-cmp completion window with all

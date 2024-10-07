@@ -21,6 +21,7 @@ local treesitter_opts = {
     "c",
     "comment",
     "cpp",
+    "cmake",
     "diff", -- .diff files
     "disassembly", -- repo: https://github.com/ColinKennedy/tree-sitter-disassembly
     "dockerfile",
