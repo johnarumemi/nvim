@@ -112,6 +112,8 @@ return {
       "TSInstallSync",
     },
     config = function()
+      require("nvim-treesitter.install").compilers = { "gcc-12" }
+
       require("nvim-treesitter.configs").setup(treesitter_opts)
     end,
   },

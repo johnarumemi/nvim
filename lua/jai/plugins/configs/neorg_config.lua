@@ -28,7 +28,13 @@ local opts = {
     ["core.defaults"] = {}, -- Loads default behaviour
     ["core.export"] = {}, -- enable export module
     ["core.esupports.metagen"] = {
-      author = "john",
+      config = {
+        author = "john",
+
+        -- WARNING: Causing plugins to fail on nightly
+        -- issue: https://github.com/nvim-neorg/neorg/issues/1579
+        update_date = false,
+      },
     },
     ["core.export.markdown"] = {
       config = {
