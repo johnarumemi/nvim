@@ -35,6 +35,7 @@ return {
           "Saecki/crates.nvim",
         },
         opts = function(_, opts)
+          vim.debug("Running nvim-cmp lsp setup", { title = "Completion" })
           opts.sources = opts.sources or {}
           table.insert(opts.sources, {
             name = "lazydev",

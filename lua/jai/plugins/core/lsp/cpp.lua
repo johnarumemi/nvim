@@ -1,6 +1,55 @@
-return {
+local title = "C/C++ LSP"
+
+-- lsp config for C/C++ using clangd
+-- ensure to have this added to table of servers in `../servers.lua`
+local clangd = {
+  keys = {
+    { "<localleader>ch", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
+  },
+  root_dir = function(fname)
+    return require("lspconfig.util").root_pattern(
+      "Makefile",
+      "configure.ac",
+      "configure.in",
+      "config.h.in",
+      "meson.build",
+      "meson_options.txt",
+      "build.ninja"
+    )(fname) or require("lspconfig.util").root_pattern("compile_commands.json", "compile_flags.txt")(fname) or require(
+      "lspconfig.util"
+    ).find_git_ancestor(fname)
+  end,
+  capabilities = {
+    offsetEncoding = { "utf-16" },
+  },
+  cmd = {
+    "clangd",
+    "--background-index",
+    "--clang-tidy",
+    "--header-insertion=iwyu",
+    "--completion-style=detailed",
+    "--function-arg-placeholders",
+    "--fallback-style=llvm",
+  },
+  init_options = {
+    usePlaceholders = true,
+    completeUnimported = true,
+    clangdFileStatus = true,
+  },
+
+  on_attach = function(_, buf)
+    local msg = string.format("OnAttach: Attaching clangd to buffer %d", buf)
+    vim.debug(msg, { title = title })
+
+    require("clangd_extensions.inlay_hints").setup_autocmd()
+    require("clangd_extensions.inlay_hints").set_inlay_hints()
+  end,
+}
+
+local plugin_specs = {
 
   {
+    -- repo: https://github.com/p00f/clangd_extensions.nvim
     "p00f/clangd_extensions.nvim",
     lazy = true,
     config = function() end,
@@ -32,24 +81,17 @@ return {
   },
 
   {
-    -- Correctly setup lspconfig for clangd 🚀
-    "neovim/nvim-lspconfig",
-    opts = {
-      setup = {
-        clangd = function(_, opts)
-          local clangd_ext_opts = JUtil.opts("clangd_extensions.nvim")
-          require("clangd_extensions").setup(vim.tbl_deep_extend("force", clangd_ext_opts or {}, { server = opts }))
-          return false
-        end,
-      },
-    },
-  },
-
-  {
     "nvim-cmp",
     opts = function(_, opts)
-      table.insert(opts.sorting.comparators, 1, require("clangd_extensions.cmp_scores"))
-      return opts
+      local bufnr = vim.api.nvim_get_current_buf()
+      local msg = string.format("nvim-cmp: Setting up completion for clangd_extensions on buffer %d", bufnr)
+      vim.debug(msg, { title = "Completion - " .. title })
+      -- table.insert(opts.sorting.comparators, 1, require("clangd_extensions.cmp_scores"))
+      table.insert(opts.sorting.comparators, 4, require("clangd_extensions.cmp_scores"))
+      -- opts should either
+      -- 1. return a table (overrides parent spec)
+      -- 2. be a table (merged with parent spec)
+      -- 3. alter a table (no return)
     end,
   },
 
@@ -122,4 +164,9 @@ return {
     end,
     opts = {},
   },
+}
+
+return {
+  clangd = clangd,
+  plugin_specs = plugin_specs,
 }

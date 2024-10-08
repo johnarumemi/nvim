@@ -1,6 +1,7 @@
 return {
 
   -- Autocompletion framework
+  -- This should get loaded first, then the one defined in the lsp modue
   {
     "hrsh7th/nvim-cmp",
     version = false, -- last release was too long ago
@@ -20,7 +21,9 @@ return {
       -- Optional  -> Icons in autocompletion
       { "onsails/lspkind.nvim" },
     },
+    -- returns a table, hence will parent specs, so be careful of loading order
     opts = function()
+      vim.debug("InsertEnter: running nvim-cmp main opts setup", { title = "Completion" })
       -- Setup code completion for LSP
       -- from https://sharksforarms.dev/posts/neovim-rust/
 

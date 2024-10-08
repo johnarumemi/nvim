@@ -6,6 +6,8 @@
 --
 -- Setup all your LSP servers here.
 
+local title = "LSP - Server Setup"
+
 -- alias
 local buf_set_option = function(buf, name, value)
   vim.api.nvim_set_option_value(name, value, { buf = buf })
@@ -114,73 +116,61 @@ M.servers = {
 
   -- C/C++
   neocmake = {},
+
   -- Ensure mason installs the server
-  clangd = {
-    keys = {
-      { "<localleader>ch", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
-    },
-    root_dir = function(fname)
-      return require("lspconfig.util").root_pattern(
-        "Makefile",
-        "configure.ac",
-        "configure.in",
-        "config.h.in",
-        "meson.build",
-        "meson_options.txt",
-        "build.ninja"
-      )(fname) or require("lspconfig.util").root_pattern("compile_commands.json", "compile_flags.txt")(fname) or require(
-        "lspconfig.util"
-      ).find_git_ancestor(fname)
-    end,
-    capabilities = {
-      offsetEncoding = { "utf-16" },
-    },
-    cmd = {
-      "clangd",
-      "--background-index",
-      "--clang-tidy",
-      "--header-insertion=iwyu",
-      "--completion-style=detailed",
-      "--function-arg-placeholders",
-      "--fallback-style=llvm",
-    },
-    init_options = {
-      usePlaceholders = true,
-      completeUnimported = true,
-      clangdFileStatus = true,
-    },
-  },
+  clangd = require("jai.plugins.core.lsp.cpp").clangd,
+
+  -- repo: https://github.com/ranjithshegde/ccls.nvim
+  -- lsp documentation: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#ccls
+  -- ccls = {
+  --   filetypes = { "c", "cpp", "objc", "objcpp", "opencl" },
+  --   -- disable capabilities if using clangd alongside ccls
+  --   lsp = {
+  --     server = {
+  --       filetypes = { "c", "cpp", "objc", "objcpp", "opencl" },
+  --       init_options = { cache = {
+  --         directory = vim.fs.normalize("~/.cache/ccls/"),
+  --       } },
+  --       name = "ccls",
+  --       cmd = { "ccls" },
+  --       offset_encoding = "utf-32",
+  --       root_dir = vim.fs.dirname(
+  --         vim.fs.find({ "compile_commands.json", "compile_flags.txt", ".git" }, { upward = true })[1]
+  --       ),
+  --     },
+  --     disable_capabilities = {
+  --       completionProvider = true,
+  --       documentFormattingProvider = true,
+  --       documentRangeFormattingProvider = true,
+  --       documentHighlightProvider = true,
+  --       documentSymbolProvider = true,
+  --       workspaceSymbolProvider = true,
+  --       renameProvider = true,
+  --       hoverProvider = true,
+  --       codeActionProvider = true,
+  --     },
+  --     disable_diagnostics = true,
+  --     disable_signature = true,
+  --   },
+  -- },
 }
 
 function M.default_on_attach(client, buf)
   -- Plugin specific extensions (if applicable)]
-  local server = M.servers[client.name] or {}
 
-  -- require("ldw.plugins.lsp.format").on_attach(client, buf, server)
-  -- require("ldw.plugins.lsp.keymaps").on_attach(client, buf, server)
+  -- local server = M.servers[client.name] or {}
+
+  vim.debug("Running default on_attach for server: " .. client.name, { title = title })
 
   -- call default on_attach
   require("jai.plugins.core.lsp.on_attach").on_attach(client, buf)
 
   -- if server has an on_attach already, call it
-  if server.on_attach then
-    server.on_attach(client, buf)
-  end
+  -- Commented out: it is causing on-attach to be called twice
+  -- if server.on_attach then
+  --   server.on_attach(client, buf)
+  -- end
 end
-
--- Create an autocmd to run on LspAttach that runs the default on_attach action
--- function M.on_attach_autocmd(on_attach)
---   vim.api.nvim_create_autocmd("LspAttach", {
---     callback = function(args)
---       local buffer = args.buf
---       local client = vim.lsp.get_client_by_id(args.data.client_id)
---       on_attach(client, buffer)
---     end,
---   })
--- end
-
--- function M.get_servers()
--- end
 
 function M.configure_servers()
   local lspconfig = require("lspconfig")
@@ -202,16 +192,23 @@ function M.configure_servers()
     }, extra_options or {})
 
     if server_opts["on_attach"] ~= nil then
+      -- Wrap the original on_attach function with our default on_attach
       local original_on_attach = server_opts["on_attach"]
+
       server_opts["on_attach"] = function(client, bufnr)
         M.default_on_attach(client, bufnr)
+
+        vim.debug("Running custom  on_attach for server: " .. server, { title = title })
         original_on_attach(client, bufnr)
       end
     else
+      -- Use the default on_attach since none was specified
       server_opts["on_attach"] = M.default_on_attach
     end
 
+    vim.debug("Started  setup for server: " .. server, { title = title })
     lspconfig[server].setup(server_opts)
+    vim.debug("Finished setup for server: " .. server, { title = title })
   end
 end
 

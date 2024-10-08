@@ -41,6 +41,15 @@ function M.dump_to_string(o)
   end
 end
 
+---@param tbl table
+---@param key string
+---@return function
+function M.pop(tbl, key)
+  local element = tbl[key]
+  tbl[key] = nil
+  return element
+end
+
 ---@param name string
 function M.opts(name)
   local plugin = M.get_plugin(name)
