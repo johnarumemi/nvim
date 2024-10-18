@@ -108,13 +108,62 @@ local opts = {
   },
 }
 
+vim.g.conceal_set = {}
+
+-- Some options do not work on the `BufNew` event.
+-- These are applied here instead.
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+  group = jai_augroup("neorg_setup_conceallevel"),
+  pattern = { "*.norg" },
+  desc = "Setup Neorg conceal level",
+  callback = function(args)
+    local title = "Autocmd - Neorg - Setup Conceallevel"
+
+    if args.buf == nil then
+      vim.error(string.format("%s: failed setup as received a nill buffer", args.event), { title = title })
+      return
+    end
+
+    -- Get shortlived copy
+    local conceal_set = vim.g.conceal_set
+
+    -- if it's nill, then conceal has not been set, so continue
+    if conceal_set[args.buf] ~= nil then
+      vim.warn(string.format("%s: conceallevel already set for buffer: %d", args.event, args.buf), { title = title })
+      return
+    end
+
+    vim.api.nvim_buf_set_option(args.buf, "conceallevel", 3)
+    vim.api.nvim_buf_set_option(args.buf, "spell", true)
+
+    conceal_set[args.buf] = true
+
+    -- update global variable via writing out the whole table
+    vim.g.conceal_set = conceal_set
+
+    -- check the updated global variable
+    local set_value = vim.g.conceal_set[args.buf]
+
+    if set_value == nil then
+      vim.error(
+        string.format("%s: failed to cache conceal_set (nil value returned) for buffer: %d", args.event, args.buf),
+        { title = title }
+      )
+      return
+    else
+      local msg = string.format("%s: conceallevel applied for buffer: %d", args.event, args.buf)
+
+      vim.debug(msg, { title = title })
+    end
+  end,
+})
+
 -- documenation: https://neovim.io/doc/user/api.html#nvim_create_autocmd()
 -- Use BufNew to trigger on new buffers only. BufEnter triggers each time
 -- we switched to a new or exisiting buffer.
 vim.api.nvim_create_autocmd({ "BufNew" }, {
   group = jai_augroup("neorg_setup_config"),
   pattern = { "*.norg" },
-  -- command = "set conceallevel=3",
   desc = "Setup Neorg configuration",
 
   -- param is a single table with following keys:
@@ -133,28 +182,25 @@ vim.api.nvim_create_autocmd({ "BufNew" }, {
       return
     end
 
-    -- only really applies when using Filetype and a pattern of { "norg" }
+    -- only applies when using Filetype and a pattern of { "norg" }
     if args.match ~= args.file then
       local fmatch_msg = string.format("%s: <amatch>=%s | <afile>=%s", args.event, args.match, args.file)
       vim.debug(fmatch_msg, { title = title })
     end
 
-    -- find current values via `:set nowrap?`
-    vim.cmd("setlocal conceallevel=3")
     -- only prevents it from wrapping the display of lines, not from inserting linebreaks.
     -- use `set formatoptions-=t` to actually stop wrapping of lines completely
-    vim.cmd("setlocal nowrap")
-    vim.cmd("setlocal textwidth=75")
-    -- enable spell checking by default
-    vim.cmd("setlocal spell")
+    vim.api.nvim_buf_set_option(args.buf, "wrap", false)
+    vim.api.nvim_buf_set_option(args.buf, "textwidth", 75)
 
     -- update options for current buffer only
+    --
     -- num:  Size of an indent
-    vim.api.nvim_buf_set_option(0, "shiftwidth", 2)
+    vim.api.nvim_buf_set_option(args.buf, "shiftwidth", 2)
     --  num:  Number of spaces tabs count for in insert mode
-    vim.api.nvim_buf_set_option(0, "softtabstop", 2)
+    vim.api.nvim_buf_set_option(args.buf, "softtabstop", 2)
     -- num:  Number of spaces tabs count for
-    vim.api.nvim_buf_set_option(0, "tabstop", 2)
+    vim.api.nvim_buf_set_option(args.buf, "tabstop", 2)
 
     wk.add({
       -- { "<leader>nl", "[[:Neorg keybind all core.looking-glass.magnify-code-block<CR>]]", buffer = buf, desc = "Looking Glass" },
@@ -167,6 +213,7 @@ vim.api.nvim_create_autocmd({ "BufNew" }, {
     wk.add({
       { "<localleader>t", group = "Todo", buffer = args.buf },
       { "<localleader>tt", "<Plug>(neorg.qol.todo-items.todo.task-cycle)", buffer = args.buf, desc = "Cycle State" },
+      { "<localleader>oc", ":Neorg toc left<CR>", buffer = args.buf, desc = "Open Table of Contents" },
       -- related to core.qol.todo_items
       -- <Plug>(neorg.qol.todo-items.todo.task-done) (<LocalLeader>td)
       -- <Plug>(neorg.qol.todo-items.todo.task-undone) (<LocalLeader>tu)

@@ -1,0 +1,21 @@
+@document.meta
+title: other
+description: 
+authors: john
+categories: 
+created: 2024-10-18T15:51:42+0100
+updated: 2024-10-18T15:51:42+0100
+version: 1.1.1
+@end
+
+
+
+* Setting global variables
+  Setting global variables can be tricky, below is a useful resource of how
+  to set global variables in Neovim.
+  - https://stackoverflow.com/questions/75300318/changing-global-variable-value-neovim
+
+  Also, see below documentation:
+  @code lua
+  :h lua-vim-variables`
+  @end

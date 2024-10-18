@@ -111,8 +111,7 @@ return {
   -- This works with LSP, Treesitter, and regexp matching to find the other
   -- instances.
   --
-  -- config taken from LazyVim (see below)
-  -- config: http://www.lazyvim.org/plugins/editor#vim-illuminate
+  -- repo: https://github.com/RRethy/vim-illuminate
   {
     "RRethy/vim-illuminate",
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },

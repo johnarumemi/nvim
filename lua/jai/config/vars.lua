@@ -68,5 +68,5 @@ end
 ---@param opts table|nil Optional parameters. Unused by default.
 ---@diagnostic disable-next-line: unused-local
 function vim.error(msg, opts) -- luacheck: no unused args
-  vim.notify(msg, vim.log.level.ERROR, opts)
+  vim.notify(msg, vim.log.levels.ERROR, opts)
 end

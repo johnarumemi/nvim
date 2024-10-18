@@ -119,40 +119,6 @@ M.servers = {
 
   -- Ensure mason installs the server
   clangd = require("jai.plugins.core.lsp.cpp").clangd,
-
-  -- repo: https://github.com/ranjithshegde/ccls.nvim
-  -- lsp documentation: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#ccls
-  -- ccls = {
-  --   filetypes = { "c", "cpp", "objc", "objcpp", "opencl" },
-  --   -- disable capabilities if using clangd alongside ccls
-  --   lsp = {
-  --     server = {
-  --       filetypes = { "c", "cpp", "objc", "objcpp", "opencl" },
-  --       init_options = { cache = {
-  --         directory = vim.fs.normalize("~/.cache/ccls/"),
-  --       } },
-  --       name = "ccls",
-  --       cmd = { "ccls" },
-  --       offset_encoding = "utf-32",
-  --       root_dir = vim.fs.dirname(
-  --         vim.fs.find({ "compile_commands.json", "compile_flags.txt", ".git" }, { upward = true })[1]
-  --       ),
-  --     },
-  --     disable_capabilities = {
-  --       completionProvider = true,
-  --       documentFormattingProvider = true,
-  --       documentRangeFormattingProvider = true,
-  --       documentHighlightProvider = true,
-  --       documentSymbolProvider = true,
-  --       workspaceSymbolProvider = true,
-  --       renameProvider = true,
-  --       hoverProvider = true,
-  --       codeActionProvider = true,
-  --     },
-  --     disable_diagnostics = true,
-  --     disable_signature = true,
-  --   },
-  -- },
 }
 
 function M.default_on_attach(client, buf)

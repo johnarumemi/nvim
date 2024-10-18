@@ -18,6 +18,7 @@ Neovim rust setup and guide
 
 - [Lua Neovim Guide](https://neovim.io/doc/user/lua-guide.html#_introduction)
 - [vim.tbl_deep_extend](https://neovim.io/doc/user/lua.html#vim.tbl_deep_extend%28%29)
+- [window options]{https://github.com/neovim/neovim/issues/24397#issuecomment-1650700549}
 
 # Uninstall
 See lazyvim github for uninstall instructions.
