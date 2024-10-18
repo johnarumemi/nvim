@@ -69,13 +69,13 @@ local opts = {
     ["core.dirman"] = { -- Manages Neorg workspaces
       config = {
         workspaces = {
-          ["notes-private"] = base_dir .. "notes/private",
-          ["notes-work"] = base_dir .. "notes/work",
-          ["todo-work"] = base_dir .. "todo/work",
-          ["todo-private"] = base_dir .. "todo/private",
+          ["notes-private"] = base_dir .. "notebooks/private",
+          ["notes-work"] = base_dir .. "notebooks/work",
+          ["todo-work"] = base_dir .. "notebooks/work/todo",
+          ["todo-private"] = base_dir .. "notebooks/private/todo",
           rust = base_dir .. "rust",
-          ["computer-architecture"] = base_dir .. "computer-architecture",
-          ["arm"] = base_dir .. "arm",
+          engineering = base_dir .. "engineeering",
+          arm = base_dir .. "arm",
         },
         default_workspace = default_workspace,
       },
