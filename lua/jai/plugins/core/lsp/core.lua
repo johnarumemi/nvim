@@ -88,16 +88,27 @@ return {
         "cmakelint",
       },
     },
+    -- refreshing registry: https://github.com/williamboman/mason.nvim/blob/main/doc/mason.txt#L542
     config = function(_, opts)
       require("mason").setup(opts)
 
+      local refreshed = false
       if opts.ensure_installed ~= nil then
         local mr = require("mason-registry")
 
         for _, tool in ipairs(opts.ensure_installed) do
           local p = mr.get_package(tool)
           if not p:is_installed() then
-            p:install()
+            -- refresh mason registry first if package is not installed
+            if not refreshed then
+              mr.refresh(function()
+                p:install()
+                refreshed = true
+              end)
+            else
+              -- else just go straight to attempting to install the package
+              p:install()
+            end
           end
         end
       end
