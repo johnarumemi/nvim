@@ -84,6 +84,8 @@ local function convert_to_lualine_theme(theme_name)
     return "material"
   elseif theme_name:match("nord") then
     return "nord"
+  elseif theme_name:match("rose-pine") then
+    return "rose-pine"
   elseif theme_name:match("dracula") then
     return "dracula-nvim"
   else

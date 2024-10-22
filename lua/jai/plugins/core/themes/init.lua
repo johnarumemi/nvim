@@ -77,4 +77,15 @@ return {
       return require("jai.plugins.core.themes.catppuccin")
     end,
   },
+  {
+    -- repo: https://github.com/rose-pine/neovim
+    "rose-pine/neovim",
+    name = "rose-pine",
+    priority = 1000,
+    lazy = false,
+    opts = function()
+      local config = require("jai.plugins.core.themes.rose_pine")
+      return config.opts
+    end,
+  },
 }

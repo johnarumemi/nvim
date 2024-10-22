@@ -112,6 +112,16 @@ return {
     end,
   },
   {
+    --   -- bufferline with `rose-pine` theme set
+    --   -- repo: https://github.com/rose-pine/neovim/wiki/Plugin-configurations#bufferlinenvim
+    "akinsho/bufferline.nvim",
+    event = "ColorScheme",
+    config = function()
+      local highlights = require("rose-pine.plugins.bufferline")
+      require("bufferline").setup({ highlights = highlights })
+    end,
+  },
+  {
     -- Delete current buffer
     -- repo: https://github.com/famiu/bufdelete.nvim
     "famiu/bufdelete.nvim",
