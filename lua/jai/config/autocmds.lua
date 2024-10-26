@@ -3,26 +3,66 @@ local function jai_augroup(name)
   return vim.api.nvim_create_augroup("jai_" .. name, { clear = true })
 end
 
+---@class (exact) TextwidthOptions
+---@field textwidth number Value that will be set for textwidth
+---@field colorcolumn? string Value that will be set for colorcolumn. Defaults to same value as textwidth.
+---@field is_set? boolean Should be used to ensure value is set only once
+
+-- Table holding configuration for setting TextWidth
+--
+-- Each key within the config should be the filetype expected, found via use of
+-- `:echo &ft` while within a buffer. Use `vim.bo[bufnr].filetype` to find the
+-- filetype for a given buffer number.
+---@class TextwidthConfig: { [string]: TextwidthOptions }
+
+local text
 -- e.g. opt.colorcolumn = "88" -- str:  Show col for max line length
-local colorcolumn_ftype_map = {
-  python = "88",
-  rust = "100",
-  gitcommit = "72",
-  COMMIT_EDITMSG = "72",
+---@type TextwidthConfig
+local textwidth_ftype_map = {
+  python = {
+    textwidth = 88,
+  },
+  rust = {
+    textwidth = 100,
+  },
+  gitcommit = {
+    textwidth = 72,
+  },
+  COMMIT_EDITMSG = {
+    textwidth = 72,
+  },
+  markdown = {
+    textwidth = 100,
+  },
 }
 
 vim.api.nvim_create_autocmd({ "BufNew", "FileType" }, {
-  group = jai_augroup("buf_colorcolumn"),
-  desc = "setup colorcolumn for filetype",
+  group = jai_augroup("buf_textwidth_and_colorcolumn"),
+  desc = "setup textwidth and colorcolumn for filetype",
   callback = function(opts)
     local title = "Autocmd - Setup Colorcolumn"
 
-    local colorcolumn = colorcolumn_ftype_map[vim.bo[opts.buf].filetype]
+    -- setting global configs requires writing out entire map at end
+    local local_config = textwidth_ftype_map
+    local ftype_config = local_config[vim.bo[opts.buf].filetype]
 
-    if colorcolumn then
+    if ftype_config and not ftype_config.is_set then
+      local_config[vim.bo[opts.buf].filetype].is_set = true
+
+      ---@type number
+      local textwidth = ftype_config.textwidth
+
+      ---@type string
+      local colorcolumn = ftype_config.colorcolumn or tostring(textwidth)
+
       local msg = string.format("%s: setting colorcolumn for filetype %s", opts.event, opts.match)
       vim.debug(msg, { title = title })
-      vim.opt_local.colorcolumn = colorcolumn
+
+      vim.api.nvim_set_option_value("textwidth", textwidth, { buf = opts.buf })
+      vim.api.nvim_set_option_value("colorcolumn", colorcolumn, { win = 0 })
+
+      -- write out updated global value map entirely
+      textwidth_ftype_map = local_config
     end
   end,
 })
@@ -104,6 +144,7 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
       title = title,
     })
     vim.cmd([[ highlight NeorgCustomVerbatim guifg=cyan ]])
+    vim.cmd([[ highlight NeorgCustomTodoUndone guifg=orange ]])
 
     -- link the Neorg verbatim syntax element to
     -- the new highlight group via use of an autocmd that
@@ -112,6 +153,11 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
       title = title,
     })
     vim.cmd([[ highlight link @neorg.markup.verbatim.norg NeorgCustomVerbatim ]])
+
+    vim.notify("Linking NeorgCustomTodoUndone to @neorg.todo_items.undone.norg", vim.log.levels.DEBUG, {
+      title = title,
+    })
+    vim.cmd([[ highlight link @neorg.todo_items.undone.norg NeorgCustomTodoUndone ]])
   end,
 })
 

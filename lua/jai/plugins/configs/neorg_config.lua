@@ -3,6 +3,8 @@ local function jai_augroup(name)
   return vim.api.nvim_create_augroup("jai_" .. name, { clear = true })
 end
 
+local M = {}
+
 local wk = require("which-key")
 
 local default_workspace = nil
@@ -16,14 +18,15 @@ vim.debug("Neorg base workspace directory is " .. base_dir, { title = "Neorg" })
 -- sections to ensure work and personal notes are not
 -- grouped together.
 if _G.neorg_env == "WORK" then
-  default_workspace = "notes-work"
+  default_workspace = "notebook-work"
 elseif _G.neorg_env == "HOME" then
-  default_workspace = "notes-private"
+  default_workspace = "notebook-private"
 else
-  default_workspace = "notes-private"
+  default_workspace = "notebook-private"
 end
 
-local opts = {
+M.opts = {
+
   load = {
     ["core.defaults"] = {}, -- Loads default behaviour
     ["core.export"] = {}, -- enable export module
@@ -69,13 +72,13 @@ local opts = {
     ["core.dirman"] = { -- Manages Neorg workspaces
       config = {
         workspaces = {
-          ["notes-private"] = base_dir .. "notebooks/private",
-          ["notes-work"] = base_dir .. "notebooks/work",
+          ["notebook-private"] = base_dir .. "notebooks/private",
+          ["notebook-work"] = base_dir .. "notebooks/work",
           ["todo-work"] = base_dir .. "notebooks/work/todo",
           ["todo-private"] = base_dir .. "notebooks/private/todo",
           rust = base_dir .. "rust",
           engineering = base_dir .. "engineeering",
-          arm = base_dir .. "arm",
+          arm = base_dir .. "engineering/arm",
         },
         default_workspace = default_workspace,
       },
@@ -107,6 +110,32 @@ local opts = {
     ["external.context"] = {},
   },
 }
+
+--- Keymaps across all buffer types
+function M.init()
+  -- This should ensure the keymaps are available in every buffer/file type
+  wk.add({
+    { "<leader>w", group = "[neorg] Workspace" },
+    -- General workspace keymaps
+    { "<leader>wn", ":Neorg workspace notebook-private<CR>", desc = "Open Private Notebook" },
+    { "<leader>ww", ":Neorg workspace notebook-work<CR>", desc = "Open Work Notebook" },
+    { "<leader>wr", ":Neorg workspace rust<CR>", desc = "Open Rust" },
+    { "<leader>we", ":Neorg workspace engineering<CR>", desc = "Open Engineering Notes" },
+    { "<leader>wa", ":Neorg workspace arm<CR>", desc = "Open Arm Notes" },
+    -- Keymaps for todo lists
+    {
+      { "<leader>wt", group = "Todo Lists" },
+      { "<leader>wtp", ":Neorg workspace todo-private<CR>", desc = "Open Todo - Private" },
+      { "<leader>wtw", ":Neorg workspace todo-work<CR>", desc = "Open Todo - Work" },
+    },
+    -- Keymaps for notebooks: This are general purpose scratchpads
+    {
+      { "<leadner>wn", group = "Notebooks", desc = "Neorg Notes" },
+      { "<leader>wnp", ":Neorg workspace notebook-private<CR>", desc = "Open Private Notebook" },
+      { "<leader>wnw", ":Neorg workspace notebook-work<CR>", desc = "Open Work Notebook" },
+    },
+  })
+end
 
 vim.g.conceal_set = {}
 
@@ -240,6 +269,4 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
-return {
-  opts = opts,
-}
+return M
