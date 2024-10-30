@@ -41,4 +41,12 @@ return {
       })
     end,
   },
+
+  {
+    "sindrets/diffview.nvim",
+    opts = function()
+      local config = require("jai.plugins.configs.diffview")
+      require("diffview").setup(config.opts)
+    end,
+  },
 }
