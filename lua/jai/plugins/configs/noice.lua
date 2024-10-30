@@ -231,6 +231,19 @@ M.opts = {
       view = "mini",
     },
 
+    {
+      -- move messages with below string in them to `mini` view
+      filter = {
+        event = "msg_show",
+        kind = "",
+        find = 'Change "%a+" to:',
+      },
+      view = "popupmenu",
+      -- opts = {
+      --   backend = "nui.menu",
+      -- },
+    },
+
     -- reroute all notify messages to the split view
     -- {
     --   filter = {

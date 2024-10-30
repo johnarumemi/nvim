@@ -219,7 +219,7 @@ return {
     -- repo: https://github.com/folke/noice.nvim
     "folke/noice.nvim",
     event = "VeryLazy",
-    enabled = true,
+    enabled = false,
     opts = function()
       local config = require("jai.plugins.configs.noice")
 
@@ -227,13 +227,15 @@ return {
     end,
     dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-      "MunifTanjim/nui.nvim",
+      -- "MunifTanjim/nui.nvim",
       -- OPTIONAL:
       --   `nvim-notify` is only needed, if you want to use the notification view.
       --   If not available, we use `mini` as the fallback
       "rcarriga/nvim-notify",
     },
   },
+
+  { "MunifTanjim/nui.nvim", lazy = true },
   {
     -- repo: https://github.com/folke/zen-mode.nvim
     "folke/zen-mode.nvim",
