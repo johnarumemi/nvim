@@ -9,7 +9,7 @@ require("jai.config")
 vim.notify("neorg environment: " .. _G.neorg_env, vim.log.levels.DEBUG, { title = "Init" })
 
 -- set colorscheme using custom command
-vim.cmd("ColorschemeAuto carbonfox")
+vim.cmd("ColorschemeAuto rose-pine")
 
 -- Print message if VSCode neovim extension is activated
 -- and neovim confing was successfully loaded in VSCode.
