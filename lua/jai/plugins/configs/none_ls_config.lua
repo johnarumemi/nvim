@@ -71,5 +71,13 @@ return {
         })
       end
     end,
+    should_attach = function(bufnr)
+      if vim.bo[bufnr].filetype == "rust" then
+        vim.debug("In rust buffer, so skipping null-ls", { title = "None-ls Confg" })
+        return false
+      else
+        return true
+      end
+    end,
   },
 }
