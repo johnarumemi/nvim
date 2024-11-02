@@ -32,7 +32,7 @@ local textwidth_ftype_map = {
     textwidth = 72,
   },
   markdown = {
-    textwidth = 100,
+    textwidth = 88,
   },
 }
 
