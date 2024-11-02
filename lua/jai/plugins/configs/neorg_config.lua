@@ -234,7 +234,6 @@ vim.api.nvim_create_autocmd({ "BufNew" }, {
     wk.add({
       -- { "<leader>nl", "[[:Neorg keybind all core.looking-glass.magnify-code-block<CR>]]", buffer = buf, desc = "Looking Glass" },
       { "<leader>N", group = "Neorg" },
-      { "<leader>Nt", ":Neorg toc<CR>", buffer = args.buf, desc = "Open Table of Contents" },
       { "<leader>Nc", ":Neorg context toggle<CR>", buffer = args.buf, desc = "Toggle Neorg Context" },
       { "<leader>tc", ":Neorg toggle-concealer<CR>", buffer = args.buf, desc = "Toggle Neorg Concealer" },
     })
@@ -242,7 +241,7 @@ vim.api.nvim_create_autocmd({ "BufNew" }, {
     wk.add({
       { "<localleader>t", group = "Todo", buffer = args.buf },
       { "<localleader>tt", "<Plug>(neorg.qol.todo-items.todo.task-cycle)", buffer = args.buf, desc = "Cycle State" },
-      { "<localleader>oc", ":Neorg toc left<CR>", buffer = args.buf, desc = "Open Table of Contents" },
+      { "<localleader>ot", ":Neorg toc left<CR>", buffer = args.buf, desc = "Open Table of Contents" },
       -- related to core.qol.todo_items
       -- <Plug>(neorg.qol.todo-items.todo.task-done) (<LocalLeader>td)
       -- <Plug>(neorg.qol.todo-items.todo.task-undone) (<LocalLeader>tu)

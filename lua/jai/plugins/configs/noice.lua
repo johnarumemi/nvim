@@ -3,6 +3,7 @@
 local M = {}
 
 M.opts = {
+
   cmdline = {
     enabled = true, -- enables the Noice cmdline UI
     view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
@@ -213,6 +214,19 @@ M.opts = {
         },
       },
       opts = { skip = true },
+    },
+    { -- taken from LazyVim
+      -- link: https://github.com/LazyVim/LazyVim/blob/cb40a09538dc0c417a7ffbbacdbdec90be4a792c/lua/lazyvim/plugins/ui.lua#L278C8-L288
+      filter = {
+        event = "msg_show",
+        any = {
+          { find = "%d+L, %d+B" },
+          { find = "; after #%d+" },
+          { find = "; before #%d+" },
+          { find = "yanked" },
+        },
+      },
+      view = "mini",
     },
 
     {

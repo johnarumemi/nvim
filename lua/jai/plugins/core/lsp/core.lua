@@ -58,7 +58,7 @@ return {
       { "j-hui/fidget.nvim", opts = {} },
 
       -- automatically create pair of parentheses
-      { "windwp/nvim-autopairs", opts = {} },
+      { "windwp/nvim-autopairs" },
 
       { "nvimtools/none-ls.nvim" },
     },
@@ -66,6 +66,13 @@ return {
     config = function()
       require("jai.plugins.core.lsp.servers").configure_servers()
     end,
+  },
+
+  {
+    -- repo: https://github.com/windwp/nvim-autopairs
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = true,
   },
   -- LSP Servers via Mason
   {

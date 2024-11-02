@@ -1,5 +1,5 @@
 -- Set LSP logging level to debug
-vim.lsp.set_log_level(vim.log.levels.INFO)
+vim.lsp.set_log_level(vim.log.levels.ERROR)
 
 _G.neorg_env = os.getenv("NEORG_ENVIRONMENT") or "DEFAULT"
 
