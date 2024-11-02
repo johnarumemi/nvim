@@ -112,7 +112,11 @@ return {
       "TSInstallSync",
     },
     config = function()
-      require("nvim-treesitter.install").compilers = { "gcc-12" }
+      if _G.neorg_env == "WORK" then
+        require("nvim-treesitter.install").compilers = { "gcc-12" }
+      else
+        require("nvim-treesitter.install").compilers = { "gcc-14" }
+      end
 
       require("nvim-treesitter.configs").setup(treesitter_opts)
     end,
