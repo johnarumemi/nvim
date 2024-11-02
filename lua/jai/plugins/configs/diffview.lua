@@ -103,6 +103,7 @@ M.opts = {
       { "n", "<tab>", actions.select_next_entry, { desc = "Open the diff for the next file" } },
       { "n", "<s-tab>", actions.select_prev_entry, { desc = "Open the diff for the previous file" } },
       { "n", "[F", actions.select_first_entry, { desc = "Open the diff for the first file" } },
+
       { "n", "]F", actions.select_last_entry, { desc = "Open the diff for the last file" } },
       {
         "n",

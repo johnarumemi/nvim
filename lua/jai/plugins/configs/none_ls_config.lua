@@ -18,20 +18,9 @@ return {
         column_width = 100,
       }),
 
-      -- yamlfmt from google
-      -- Moved to using conform
-      -- null_ls.builtins.formatting.yamlfmt,
-
+      -- formating is via Conform plugin
       none_ls.builtins.diagnostics.yamllint,
 
-      -- --- JS/TS
-      -- we already have eslint via lspconfig
-      -- null_ls.builtins.diagnostics.eslint,
-
-      -- Python
-      -- can get binaries installed either on your path
-      -- or via using Mason
-      -- null_ls.builtins.formatting.black,
       none_ls.builtins.code_actions.gitsigns,
 
       -- NOTE: if you have the below builtin source enabled, it will
@@ -74,6 +63,9 @@ return {
     should_attach = function(bufnr)
       if vim.bo[bufnr].filetype == "rust" then
         vim.debug("In rust buffer, so skipping null-ls", { title = "None-ls Confg" })
+        return false
+      elseif vim.bo[bufnr].filetype == "python" then
+        vim.debug("In python buffer, so skipping null-ls", { title = "None-ls Confg" })
         return false
       else
         return true
