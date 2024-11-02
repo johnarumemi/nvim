@@ -6,7 +6,7 @@ _G.neorg_env = os.getenv("NEORG_ENVIRONMENT") or "DEFAULT"
 -- bootstrap lazy.nvim and plugins
 require("jai.config")
 
-vim.notify("neorg environment: " .. _G.neorg_env, vim.log.levels.DEBUG, { title = "Init" })
+vim.debug("neorg environment: " .. _G.neorg_env, { title = "Init" })
 
 -- set colorscheme using custom command
 vim.cmd("ColorschemeAuto rose-pine")
