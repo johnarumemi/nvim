@@ -42,6 +42,7 @@ return {
       lua = { "stylua" },
       asm = { "asmfmt" },
       yaml = { "yamlfmt" },
+      sql = { "sql_formatter" },
       -- python = { "isort", "black" },
       -- javascript = { "prettierd", "prettier", stop_after_first = true },
     },

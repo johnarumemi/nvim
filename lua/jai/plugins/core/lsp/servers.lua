@@ -115,7 +115,11 @@ M.servers = {
   -- bufls = {},
 
   -- C/C++
-  neocmake = {},
+  -- WARNING: neocmake requires nightly rust toolchain, else it gives below error,
+  -- ```
+  -- error[E0658]: use of unstable library feature 'lazy_cell'
+  -- ```
+  -- neocmake = {},
 
   -- Ensure mason installs the server
   clangd = require("jai.plugins.core.lsp.cpp").clangd,

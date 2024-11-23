@@ -83,11 +83,12 @@ return {
       -- blog: https://blog.klauspost.com/asmfmt-assembler-formatter/
       -- "ruff", -- ruff can replace flake8 and black
       ensure_installed = {
-        "black",
+        -- "black",
 
         "asmfmt",
         "yamlfmt",
         "yamllint",
+        "sql-formatter",
 
         -- Ensure C/C++ debugger is installed
         "codelldb",
