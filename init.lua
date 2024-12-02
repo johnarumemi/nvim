@@ -1,6 +1,13 @@
 -- Set LSP logging level to debug
 vim.lsp.set_log_level(vim.log.levels.ERROR)
 
+-- build .spl files
+local spell_files = vim.fn.globpath(vim.o.runtimepath, "spell/*.add", false, true)
+for _, file in ipairs(spell_files) do
+  -- use `silent!` to suppress output messages from command
+  vim.cmd("silent! mkspell! " .. vim.fn.fnameescape(file))
+end
+
 _G.neorg_env = os.getenv("NEORG_ENVIRONMENT") or "DEFAULT"
 
 -- bootstrap lazy.nvim and plugins
