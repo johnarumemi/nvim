@@ -198,7 +198,45 @@ M.opts = {
   },
   throttle = 1000 / 30, -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
   ---@type NoiceConfigViews
-  views = {}, ---@see section on views
+  views = {
+    popupmenu = {
+      relative = "editor",
+      zindex = 65,
+      position = "auto", -- when auto, then it will be positioned to the cmdline or cursor
+      size = {
+        width = "auto",
+        height = "auto",
+        max_height = 20,
+        -- min_width = 10,
+      },
+      win_options = {
+        winbar = "",
+        foldenable = false,
+        cursorline = true,
+        cursorlineopt = "line",
+        winhighlight = {
+          Normal = "NoicePopupmenu", -- change to NormalFloat to make it look like other floats
+          FloatBorder = "NoicePopupmenuBorder", -- border highlight
+          CursorLine = "NoicePopupmenuSelected", -- used for highlighting the selected item
+          PmenuMatch = "NoicePopupmenuMatch", -- used to highlight the part of the item that matches the input
+        },
+      },
+      border = {
+        padding = { 0, 1 },
+      },
+    },
+    cmdline_popupmenu = {
+      view = "popupmenu",
+      zindex = 200,
+    },
+    snacks = {
+      backend = "snacks",
+      fallback = "nvim_notify",
+      format = "notify",
+      replace = false,
+      merge = false,
+    },
+  }, ---@see section on views
   ---@type NoiceRouteConfig[]
   routes = {
 
@@ -252,7 +290,7 @@ M.opts = {
         kind = "",
         find = 'Change "%a+" to:',
       },
-      view = "popupmenu",
+      view = "cmdline_popupmenu",
       -- opts = {
       --   backend = "nui.menu",
       -- },
