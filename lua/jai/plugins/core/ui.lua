@@ -235,7 +235,7 @@ return {
     -- Using default settings
     lazy = false,
     keys = {
-      { "<leader>tz", ":ZenMode<CR>", desc = "Togggle Zen Mode" },
+      { "<leader>tz", ":ZenMode<CR>", desc = "Toggle Zen Mode" },
     },
     opts = {
       window = {
