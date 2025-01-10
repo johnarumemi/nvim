@@ -150,13 +150,19 @@ return {
     },
   },
   {
+
     "folke/todo-comments.nvim",
     cmd = { "TodoTrouble", "TodoTelescope" },
 
     -- event = "LazyFile",
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     dependencies = { "folke/which-key.nvim" },
-    opts = {},
+    opts = {
+      -- NOTE: below keywords will be merged with exisiting keywords
+      keywords = {
+        REVIEW = { icon = " ", color = "hint", alt = { "Review" } },
+      },
+    },
 
     -- stylua: ignore
     keys = {
