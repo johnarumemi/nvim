@@ -113,7 +113,7 @@ return {
     },
     config = function()
       if _G.neorg_env == "WORK" then
-        require("nvim-treesitter.install").compilers = { "gcc-12" }
+        require("nvim-treesitter.install").compilers = { "gcc-14" }
       else
         require("nvim-treesitter.install").compilers = { "gcc-14" }
       end
