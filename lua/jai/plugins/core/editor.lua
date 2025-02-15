@@ -161,7 +161,15 @@ return {
     opts = {
       -- NOTE: below keywords will be merged with exisiting keywords
       keywords = {
+
+        NEW = { icon = " ", color = "pale_green", alt = { "New" } },
         REVIEW = { icon = " ", color = "hint", alt = { "Review" } },
+        TODO = { icon = " ", color = "info" },
+        IMPORTANT = { icon = " ", color = "pale_red", alt = { "Important", "Key", "KEY" } },
+      },
+      colors = {
+        pale_green = { "#98fb98 " },
+        pale_red = { "#ffcccb" },
       },
     },
 
