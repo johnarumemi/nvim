@@ -40,7 +40,7 @@ vim.api.nvim_create_autocmd({ "BufNew", "FileType" }, {
   group = jai_augroup("buf_textwidth_and_colorcolumn"),
   desc = "setup textwidth and colorcolumn for filetype",
   callback = function(opts)
-    local title = "Autocmd - Setup Colorcolumn"
+    local title = "Autocmd - Setup Colorcolumn and Textwidth"
 
     -- setting global configs requires writing out entire map at end
     local local_config = textwidth_ftype_map

@@ -150,7 +150,8 @@ return {
     },
   },
   {
-
+    -- repo: https://github.com/folke/todo-comments.nvim
+    -- see here for icons: https://www.nerdfonts.com/cheat-sheet
     "folke/todo-comments.nvim",
     cmd = { "TodoTrouble", "TodoTelescope" },
 
