@@ -118,10 +118,13 @@ return {
               -- (blocking cargo build/run)
               extraArgs = { "--target-dir", "target/ra-check", "--no-deps" },
             }, -- End of check settings
+            diagnostics = {
+              disabled = { "unlinked-file" },
+            }, -- End of diagnostics settings
             procMacro = {
               enable = true,
               ignored = {
-                ["async-trait"] = { "async_trait" },
+                -- ["async-trait"] = { "async_trait" },
                 ["napi-derive"] = { "napi" },
                 ["async-recursion"] = { "async_recursion" },
               },
