@@ -166,10 +166,14 @@ return {
         REVIEW = { icon = " ", color = "hint", alt = { "Review" } },
         TODO = { icon = " ", color = "info" },
         IMPORTANT = { icon = " ", color = "pale_red", alt = { "Important", "Key", "KEY" } },
+        LEARN = { icon = " ", color = "hint", alt = { "Learn", "LEARN" } },
+        DEPRECATED = { icon = " ", color = "orange", alt = { "Deprecated", "deprecated" } },
+        OBSOLETE = { icon = " ", color = "orange", alt = { "Obsolete", "obsolete" } },
       },
       colors = {
         pale_green = { "#98fb98 " },
         pale_red = { "#ffcccb" },
+        orange = { "#ff8000" },
       },
     },
 
