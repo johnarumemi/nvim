@@ -18,11 +18,11 @@ vim.debug("Neorg base workspace directory is " .. base_dir, { title = "Neorg" })
 -- sections to ensure work and personal notes are not
 -- grouped together.
 if _G.neorg_env == "WORK" then
-  default_workspace = "notebook-work"
+  default_workspace = "journal-work"
 elseif _G.neorg_env == "HOME" then
-  default_workspace = "notebook-private"
+  default_workspace = "journal-private"
 else
-  default_workspace = "notebook-private"
+  default_workspace = "journal-private"
 end
 
 M.opts = {
@@ -76,6 +76,8 @@ M.opts = {
           ["notebook-work"] = base_dir .. "notebooks/work",
           ["todo-work"] = base_dir .. "notebooks/work/todo",
           ["todo-private"] = base_dir .. "notebooks/private/todo",
+          ["journal-private"] = base_dir .. "notebooks/private/journal",
+          ["journal-work"] = base_dir .. "notebooks/work/journal",
           rust = base_dir .. "rust",
           engineering = base_dir .. "engineeering",
           arm = base_dir .. "engineering/arm",
@@ -130,9 +132,16 @@ function M.init()
     },
     -- Keymaps for notebooks: This are general purpose scratchpads
     {
-      { "<leadner>wn", group = "Notebooks", desc = "Neorg Notes" },
+      { "<leader>wn", group = "Notebooks", desc = "Neorg Notes" },
       { "<leader>wnp", ":Neorg workspace notebook-private<CR>", desc = "Open Private Notebook" },
       { "<leader>wnw", ":Neorg workspace notebook-work<CR>", desc = "Open Work Notebook" },
+    },
+
+    -- Keymaps for journals
+    {
+      { "<leader>wj", group = "Journals", desc = "Neorg Journals" },
+      { "<leader>wjp", ":Neorg workspace journal-private<CR>", desc = "Open Private Journal" },
+      { "<leader>wjw", ":Neorg workspace journal-work<CR>", desc = "Open Work Journal" },
     },
   })
 end
