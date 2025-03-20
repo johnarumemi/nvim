@@ -5,6 +5,7 @@ local LazyUtil = require("lazy.core.util")
 
 ---@class jai.util
 ---@field ui jai.util.ui
+---@field os jai.util.os
 local M = {}
 
 setmetatable(M, {

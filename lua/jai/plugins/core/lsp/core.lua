@@ -69,6 +69,16 @@ return {
   },
 
   {
+    -- repo: https://github.com/MysticalDevil/inlay-hints.nvim
+    "MysticalDevil/inlay-hints.nvim",
+    event = "LspAttach",
+    dependencies = { "neovim/nvim-lspconfig" },
+    config = function()
+      require("inlay-hints").setup()
+    end,
+  },
+
+  {
     -- repo: https://github.com/windwp/nvim-autopairs
     "windwp/nvim-autopairs",
     event = "InsertEnter",
@@ -78,24 +88,37 @@ return {
   {
     "williamboman/mason.nvim",
     lazy = false,
-    opts = {
-      -- repo: https://github.com/klauspost/asmfmt#formatting
-      -- blog: https://blog.klauspost.com/asmfmt-assembler-formatter/
-      -- "ruff", -- ruff can replace flake8 and black
-      ensure_installed = {
-        -- "black",
 
-        "asmfmt",
+    opts = function()
+      -- Mason tools to ensure are installed on
+      -- both Mac and Linux
+      local base = {
+        -- Mac and Linux
         "yamlfmt",
         "yamllint",
         "sql-formatter",
-
         -- Ensure C/C++ debugger is installed
         "codelldb",
         "cmakelang",
         "cmakelint",
-      },
-    },
+      }
+
+      -- Mac Specific
+      local mac_only = {
+        -- Mac Specific
+        -- repo: https://github.com/klauspost/asmfmt#formatting
+        -- blog: https://blog.klauspost.com/asmfmt-assembler-formatter/
+        "asmfmt",
+      }
+
+      if JUtil.os.is_mac() then
+        vim.list_extend(base, mac_only)
+      end
+
+      return {
+        ensure_installed = base,
+      }
+    end,
     -- refreshing registry: https://github.com/williamboman/mason.nvim/blob/main/doc/mason.txt#L542
     config = function(_, opts)
       require("mason").setup(opts)

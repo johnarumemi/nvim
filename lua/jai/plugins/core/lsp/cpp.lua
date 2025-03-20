@@ -3,6 +3,7 @@ local title = "C/C++ LSP"
 -- lsp config for C/C++ using clangd
 -- ensure to have this added to table of servers in `../servers.lua`
 local clangd = {
+  enabled = JUtil.os.is_mac(),
   keys = {
     { "<localleader>ch", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
   },
@@ -52,6 +53,7 @@ local plugin_specs = {
     -- repo: https://github.com/p00f/clangd_extensions.nvim
     "p00f/clangd_extensions.nvim",
     lazy = true,
+    enabled = JUtil.os.is_mac(),
     config = function() end,
     opts = {
       inlay_hints = {

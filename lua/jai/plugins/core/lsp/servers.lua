@@ -17,7 +17,7 @@ local M = {}
 
 M.servers = {
   -- Assembly
-  asm_lsp = {},
+  asm_lsp = JUtil.os.is_mac() and {} or nil,
 
   -- Rust: uses a specific plugin
 
@@ -58,18 +58,53 @@ M.servers = {
     },
   },
 
-  ruff = {},
+  -- only available on Mac OS for now, this is more due to an issue
+  -- in how I was setting things up within Colima VM though.
+  ruff = JUtil.os.is_mac() and {} or nil,
 
   -- Typescript language-server
   -- also works for any standard javascript filetype
   ts_ls = {
     allow_formatting = false,
+    settings = {
+      typescript = {
+        inlayHints = {
+          includeInlayParameterNameHints = "all",
+          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayEnumMemberValueHints = true,
+        },
+      },
+      javascript = {
+        inlayHints = {
+          includeInlayParameterNameHints = "all",
+          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayEnumMemberValueHints = true,
+        },
+      },
+    },
   },
 
   -- Linting only
   -- filetypes: { "javascript", "javascriptreact", "javascript.jsx" }
+  --
+  -- update: 09/03/2025 - Changed some settings based on
+  -- this blog: https://blog.ffff.lt/posts/typescript-and-neovim-lsp-2024/
   eslint = {
-    on_attach = function(_, bufnr)
+    settings = {
+      packageManager = "yarn",
+    },
+    ---@diagnostic disable-next-line: unused-local
+    on_attach = function(client, bufnr)
       vim.api.nvim_create_autocmd("BufWritePre", {
         buffer = bufnr,
         command = "EslintFixAll",

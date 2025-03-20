@@ -62,9 +62,10 @@ return {
     --
     "CopilotC-Nvim/CopilotChat.nvim",
     -- Do not use branch and version together, either use branch or version
-    version = "v2.10.1",
-    event = "VeryLazy",
+    version = "v3.9",
+    -- branch = "main",
     -- branch = "canary", -- Use the canary branch if you want to test the latest features but it might be unstable
+    event = "VeryLazy",
     dependencies = {
       { "nvim-telescope/telescope.nvim" }, -- Use telescope for help actions
       { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
@@ -77,6 +78,7 @@ return {
       answer_header = "## Copilot ",
       error_header = "## Error ",
       prompts = prompts,
+      model = "claude-3.7-sonnet",
       auto_follow_cursor = false, -- Don't follow the cursor after getting response
       show_help = false, -- Show help in virtual text, set to true if that's 1st time using Copilot Chat
       mappings = {
@@ -126,18 +128,21 @@ return {
     config = function(_, opts)
       local chat = require("CopilotChat")
       local select = require("CopilotChat.select")
+      local context = require("CopilotChat.context")
       -- Use unnamed register for the selection
       opts.selection = select.unnamed
 
       -- Override / Extend the git prompts message
       opts.prompts.Commit = {
         prompt = "Write commit message for all changes with commitizen convention",
-        selection = select.gitdiff,
+        selection = function()
+          return vim.fn.system("git diff")
+        end,
       }
       opts.prompts.CommitStaged = {
         prompt = "Write commit message for staged changes with commitizen convention",
-        selection = function(source)
-          return select.gitdiff(source, true)
+        selection = function()
+          return vim.fn.system("git diff --staged")
         end,
       }
       opts.prompts.SortByKeys = {
@@ -148,8 +153,9 @@ return {
 
       chat.setup(opts)
 
+      -- DEPRECATED: Not working after moving from v2 to v3
       -- Setup the CMP integration
-      require("CopilotChat.integrations.cmp").setup()
+      -- require("CopilotChat.integrations.cmp").setup()
 
       vim.api.nvim_create_user_command("CopilotChatVisual", function(args)
         chat.ask(args.args, { selection = select.visual })

@@ -27,3 +27,16 @@ vim.debug("snippets path: " .. snippet_search, { title = "Init" })
 if vim.g.vscode then
   print("VSCode neovim extension activated")
 end
+
+local platform = JUtil.os
+
+if platform.is_mac() then
+  -- macOS specific code
+  vim.debug("MacOS platform detected", { title = "Init" })
+elseif platform.is_linux() then
+  -- Linux specific code
+  vim.debug("Linux platform detected", { title = "Init" })
+elseif platform.is_windows() then
+  -- Windows specific code
+  vim.debug("Windows platform detected", { title = "Init" })
+end

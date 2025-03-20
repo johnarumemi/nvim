@@ -38,14 +38,19 @@ return {
   ---@type conform.setupOpts
   opts = {
     -- Define your formatters
-    formatters_by_ft = {
+    formatters_by_ft = vim.tbl_deep_extend("error", {
+      -- enable on mac and linux
       lua = { "stylua" },
-      asm = { "asmfmt" },
       yaml = { "yamlfmt" },
-      sql = { "sql_formatter" },
       -- python = { "isort", "black" },
       -- javascript = { "prettierd", "prettier", stop_after_first = true },
-    },
+    }, JUtil.os.is_mac() and {
+      -- mac only
+      asm = { "asmfmt" },
+      sql = { "sql_formatter" },
+    } or {
+      -- linux only
+    }),
     -- Set default options
     default_format_opts = {
       lsp_format = "fallback",

@@ -1,10 +1,17 @@
 local list = require("mason-core.functional.list")
 
-local core = require("jai.plugins.core.lsp.core")
+local modules = {
+  require("jai.plugins.core.lsp.core"),
+  require("jai.plugins.core.lsp.rust"),
+  require("jai.plugins.core.lsp.typescript"),
+  require("jai.plugins.core.lsp.cpp").plugin_specs,
+}
 
-local rust = require("jai.plugins.core.lsp.rust")
-local cpp = require("jai.plugins.core.lsp.cpp")
+-- Concatenate all modules into a single list
+local output = {}
 
-local output = list.concat(list.concat(core, rust), cpp.plugin_specs)
+for _, module in ipairs(modules) do
+  output = list.concat(output, module)
+end
 
 return output

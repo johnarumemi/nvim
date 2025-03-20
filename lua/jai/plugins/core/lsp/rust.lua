@@ -7,11 +7,7 @@ return {
     ft = { "rust" },
     lazy = false, -- plugin is already lazy
     dependencies = {
-      {
-        "MysticalDevil/inlay-hints.nvim",
-        event = "LspAttach",
-        dependencies = { "neovim/nvim-lspconfig" },
-      },
+      "MysticalDevil/inlay-hints.nvim",
     },
     opts = {
       capabilities = function()
@@ -26,7 +22,7 @@ return {
         on_attach = function(client, bufnr)
           -- apply default on_attach first
           require("jai.plugins.core.lsp.on_attach").on_attach(client, bufnr)
-          require("inlay-hints").on_attach(client, bufnr)
+          -- require("inlay-hints").on_attach(client, bufnr)
 
           -- -- Hover actions
           -- vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
@@ -104,7 +100,7 @@ return {
           --
           ["rust-analyzer"] = {
             cargo = {
-              features = "all", -- or a set of specific features i.e. { "feature-x" }
+              -- features = {}, -- "all" or a set of specific features i.e. { "feature-x" } or {} for now features
               buildScripts = {
                 enable = true,
               },
@@ -112,7 +108,7 @@ return {
             -- Add clippy lints for Rust.
             checkOnSave = true,
             check = {
-              features = "all", -- or a set of specific features i.e. { "feature-x" }
+              -- features = "all", -- or a set of specific features i.e. { "feature-x" }
               command = "clippy", -- use `cargo clippy` rather than `cargo check`
               -- To prevent check on save taking a lock on the target dir
               -- (blocking cargo build/run)
