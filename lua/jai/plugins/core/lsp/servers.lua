@@ -157,7 +157,7 @@ M.servers = {
   -- neocmake = {},
 
   -- Ensure mason installs the server
-  clangd = require("jai.plugins.core.lsp.cpp").clangd,
+  clangd = JUtil.os.is_mac() and require("jai.plugins.core.lsp.cpp").clangd or nil,
 }
 
 function M.default_on_attach(client, buf)

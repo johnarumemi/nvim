@@ -85,11 +85,13 @@ local plugin_specs = {
   {
     "nvim-cmp",
     opts = function(_, opts)
-      local bufnr = vim.api.nvim_get_current_buf()
-      local msg = string.format("nvim-cmp: Setting up completion for clangd_extensions on buffer %d", bufnr)
-      vim.debug(msg, { title = "Completion - " .. title })
-      -- table.insert(opts.sorting.comparators, 1, require("clangd_extensions.cmp_scores"))
-      table.insert(opts.sorting.comparators, 4, require("clangd_extensions.cmp_scores"))
+      if JUtil.os.is_mac() then
+        local bufnr = vim.api.nvim_get_current_buf()
+        local msg = string.format("nvim-cmp: Setting up completion for clangd_extensions on buffer %d", bufnr)
+        vim.debug(msg, { title = "Completion - " .. title })
+        -- table.insert(opts.sorting.comparators, 1, require("clangd_extensions.cmp_scores"))
+        table.insert(opts.sorting.comparators, 4, require("clangd_extensions.cmp_scores"))
+      end
       -- opts should either
       -- 1. return a table (overrides parent spec)
       -- 2. be a table (merged with parent spec)
@@ -169,6 +171,6 @@ local plugin_specs = {
 }
 
 return {
-  clangd = clangd,
+  clangd = clangd, -- This is the lsp server config that shoulg go in `servers.lua`
   plugin_specs = plugin_specs,
 }
