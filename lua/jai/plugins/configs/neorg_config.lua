@@ -81,6 +81,8 @@ M.opts = {
           rust = base_dir .. "rust",
           engineering = base_dir .. "engineeering",
           arm = base_dir .. "engineering/arm",
+          ["performance"] = base_dir .. "engineering/performance",
+          ["observability"] = base_dir .. "engineering/observability",
         },
         default_workspace = default_workspace,
       },
@@ -119,8 +121,6 @@ function M.init()
   wk.add({
     { "<leader>w", group = "[neorg] Workspace" },
     -- General workspace keymaps
-    { "<leader>wn", ":Neorg workspace notebook-private<CR>", desc = "Open Private Notebook" },
-    { "<leader>ww", ":Neorg workspace notebook-work<CR>", desc = "Open Work Notebook" },
     { "<leader>wr", ":Neorg workspace rust<CR>", desc = "Open Rust" },
     { "<leader>we", ":Neorg workspace engineering<CR>", desc = "Open Engineering Notes" },
     { "<leader>wa", ":Neorg workspace arm<CR>", desc = "Open Arm Notes" },
@@ -143,6 +143,10 @@ function M.init()
       { "<leader>wjp", ":Neorg workspace journal-private<CR>", desc = "Open Private Journal" },
       { "<leader>wjw", ":Neorg workspace journal-work<CR>", desc = "Open Work Journal" },
     },
+
+    -- Keymaps for performance notes
+    { "<leader>wp", ":Neorg workspace performance<CR>", desc = "Open Performance Notes" },
+    { "<leader>wo", ":Neorg workspace observability<CR>", desc = "Open Observability Notes" },
   })
 end
 
