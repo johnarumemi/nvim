@@ -11,13 +11,9 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "hrsh7th/cmp-nvim-lua",
-      -- cmp Snippet completion
-      "hrsh7th/cmp-vsnip",
       -- cmp Path completion
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-buffer",
-      -- Snippet engine
-      { "hrsh7th/vim-vsnip" },
       -- Optional  -> Icons in autocompletion
       { "onsails/lspkind.nvim" },
     },
@@ -48,7 +44,7 @@ return {
         preselect = cmp.PreselectMode.None,
         snippet = {
           expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body)
+            vim.snippet.expand(args.body)
           end,
         },
         mapping = {
@@ -88,9 +84,11 @@ return {
 
           -- Other Sources
           { name = "nvim_lsp", group_index = 2 },
-          { name = "vsnip", group_index = 2 },
           { name = "path", group_index = 2 },
           { name = "buffer", group_index = 2 },
+
+          -- Use Neovim's native snippet engine
+          { name = "snippet", group_index = 2 },
 
           -- display function signatures with current parameter emphasized
           { name = "nvim_lsp_signature_help", group_index = 2 },
@@ -298,10 +296,13 @@ return {
 
   {
     -- Allow vscode style snippets to be used with native neovim snippets vim.snippet.
+    -- This plugin provides integration between VSCode-style snippets and
+    -- Neovim's native snippet engine.
     -- repo: https://github.com/garymjr/nvim-snippets
     "garymjr/nvim-snippets",
     dependencies = {
       -- Snippets collection for a set of different programming languages.
+      -- It doesn't provide any engine functionality - it's just snippet content.
       -- repo: https://github.com/rafamadriz/friendly-snippets
       "rafamadriz/friendly-snippets",
     },
