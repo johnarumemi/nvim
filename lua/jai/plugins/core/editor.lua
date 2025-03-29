@@ -27,7 +27,6 @@ return {
     end,
   },
   {
-
     "nvim-telescope/telescope.nvim", -- fuzzy finder
     dependencies = { "nvim-lua/plenary.nvim", "folke/which-key.nvim" },
     lazy = false,
@@ -46,7 +45,6 @@ return {
       })
     end,
   },
-
   {
     "folke/which-key.nvim",
     branch = "main",
@@ -147,6 +145,24 @@ return {
     keys = {
       { "]]", desc = "Next Reference" },
       { "[[", desc = "Prev Reference" },
+    },
+  },
+  {
+    -- Trim whitespace
+    -- repo: https://github.com/cappyzawa/trim.nvim
+    "cappyzawa/trim.nvim",
+    lazy = false,
+    opts = {
+      ft_blocklist = {},
+      patterns = {},
+      trim_on_write = true,
+      trim_trailing = true,
+      trim_last_line = true,
+      trim_first_line = true,
+      highlight = false,
+      highlight_bg = "#ff0000", -- or 'red'
+      highlight_ctermbg = "red",
+      notifications = true,
     },
   },
   {
