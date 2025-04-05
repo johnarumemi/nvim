@@ -24,4 +24,4 @@ require("jai.config.autocmds") -- Autocommands
 -- Plugin Manager Setup
 -- This will also load the plugins and set up the plugin manager.
 -- It's important that options is loaded before lazy (for mapleader)
-require("jai.config.lazy")
+require("jai.config.plugin_manager")

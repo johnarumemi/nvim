@@ -4,7 +4,7 @@
 -- It's loaded last in the configuration sequence to ensure that all options
 -- and variables are properly set before plugins are loaded.
 --
--- @module jai.config.lazy
+-- @module jai.config.plugin_manager
 -- @copyright 2025
 -- @license MIT
 
@@ -39,4 +39,3 @@ require("lazy").setup("jai.plugins.core", {
     notify = false,
   },
 })
-
