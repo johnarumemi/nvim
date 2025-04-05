@@ -1,8 +1,14 @@
--- [[ keys.lua ]]
+-- Global Keyboard Mappings Configuration
+--
+-- This module defines custom keyboard mappings for Neovim.
+-- It includes helper functions for mapping keys and various keybindings for
+-- different editor operations.
+--
+-- @module jai.config.keymaps
+-- @copyright 2025
+-- @license MIT
 
--- no meta-accessor, but just remap the setter directly instead
--- local map = vim.api.nvim_set_keymap
-
+-- Helper function for setting keymaps with common options
 local function map(mode, lhs, rhs, opts)
   opts = opts or {}
   opts.silent = opts.silent ~= false

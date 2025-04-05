@@ -148,24 +148,6 @@ return {
     },
   },
   {
-    -- Trim whitespace
-    -- repo: https://github.com/cappyzawa/trim.nvim
-    "cappyzawa/trim.nvim",
-    lazy = false,
-    opts = {
-      ft_blocklist = {},
-      patterns = {},
-      trim_on_write = true,
-      trim_trailing = true,
-      trim_last_line = true,
-      trim_first_line = true,
-      highlight = false,
-      highlight_bg = "#ff0000", -- or 'red'
-      highlight_ctermbg = "red",
-      notifications = true,
-    },
-  },
-  {
     -- repo: https://github.com/folke/todo-comments.nvim
     -- see here for icons: https://www.nerdfonts.com/cheat-sheet
     "folke/todo-comments.nvim",

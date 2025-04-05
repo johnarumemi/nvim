@@ -1,9 +1,14 @@
--- [[ opts.lua ]]
--- Default global options
+-- Neovim Options Configuration
 --
--- Options are automatically loaded before lazy.nvim startup
--- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
--- Add any additional options here
+-- This module sets up core Neovim options, organized by category.
+-- These options affect the editor's appearance and behavior.
+--
+-- Options are loaded before the plugin manager to ensure
+-- fundamental settings are available when plugins initialize.
+--
+-- @module jai.config.options
+-- @copyright 2025
+-- @license MIT
 
 -- alias the vim.opt meta-accessor
 local opt = vim.opt
@@ -37,14 +42,3 @@ opt.splitbelow = true -- bool: Place new window below the current one
 -- [[ Global Theme Settings ]]
 opt.syntax = "ON" -- str:  Allow syntax highlighting
 opt.termguicolors = true -- bool: If term supports ui color then enable
-
--- [[ Extras ]]
--- auto format on save
-local format_sync_grp = vim.api.nvim_create_augroup("Format", {})
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.rs",
-  callback = function()
-    vim.lsp.buf.format({ timeout_ms = 200 })
-  end,
-  group = format_sync_grp,
-})

@@ -1,7 +1,11 @@
+-- Create a flag to track documentation visibility state
+local docs_visible = false
+
 return {
 
   -- Autocompletion framework
   -- This should get loaded first, then the one defined in the lsp modue
+  -- repo: https://github.com/hrsh7th/nvim-cmp
   {
     "hrsh7th/nvim-cmp",
     version = false, -- last release was too long ago
@@ -66,6 +70,19 @@ return {
           ["<C-d>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
 
+          -- Add this new mapping to toggle documentation visibility
+          ["<C-h>"] = cmp.mapping(function()
+            docs_visible = not docs_visible
+            if docs_visible then
+              cmp.event:on("menu_opened", function()
+                vim.defer_fn(function()
+                  cmp.open_docs()
+                end, 100)
+              end)
+            else
+              cmp.close_docs()
+            end
+          end, { "i", "s" }),
           -- TODO: not sure that below mapping works
           ["<C-Space>"] = cmp.mapping.complete(),
 
@@ -130,6 +147,17 @@ return {
           },
         },
       }
+    end,
+    config = function(_, opts)
+      local cmp = require("cmp")
+      cmp.setup(opts)
+
+      -- Hide docs by default when completion menu opens
+      cmp.event:on("menu_opened", function()
+        vim.defer_fn(function()
+          cmp.close_docs()
+        end, 10)
+      end)
     end,
   },
   {

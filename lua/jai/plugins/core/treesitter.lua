@@ -101,7 +101,6 @@ local treesitter_opts = {
 -- https://github.com/nvim-treesitter/nvim-treesitter/wiki/Installation#packernvim
 return {
   {
-
     "nvim-treesitter/nvim-treesitter",
     version = false,
     build = ":TSUpdate",
@@ -112,11 +111,7 @@ return {
       "TSInstallSync",
     },
     config = function()
-      if _G.neorg_env == "WORK" then
-        require("nvim-treesitter.install").compilers = { "gcc-14" }
-      else
-        require("nvim-treesitter.install").compilers = { "gcc-14" }
-      end
+      require("nvim-treesitter.install").compilers = { "gcc-14" }
 
       require("nvim-treesitter.configs").setup(treesitter_opts)
     end,

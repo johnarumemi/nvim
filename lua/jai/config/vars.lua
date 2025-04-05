@@ -1,5 +1,12 @@
--- [[ vars.lua ]]
--- Default global variable settings
+-- Global Variables Configuration
+--
+-- This module defines global variables and custom helper functions.
+-- It includes key mappings for leader keys, terminal settings,
+-- and notification helper functions.
+--
+-- @module jai.config.vars
+-- @copyright 2025
+-- @license MIT
 
 -- LEADER
 -- These keybindings need to be defined before the first /
@@ -35,37 +42,33 @@ g.background = "dark"
 local package_path = vim.fn.stdpath("config") .. "/site"
 vim.o.packpath = vim.o.packpath .. "," .. package_path
 
---- Displays a notification to the user, with log level of INFO
----
----@param msg string Content of the notification to show to the user.
----@param opts table|nil Optional parameters. Unused by default.
+--- Display a notification with INFO level
+---@param msg string Content of the notification to show to the user
+---@param opts table|nil Optional parameters (title, etc.)
 ---@diagnostic disable-next-line: unused-local
 function vim.info(msg, opts) -- luacheck: no unused args
   vim.notify(msg, vim.log.levels.INFO, opts)
 end
 
---- Displays a notification to the user, with log level of DEBUG
----
----@param msg string Content of the notification to show to the user.
----@param opts table|nil Optional parameters. Unused by default.
+--- Display a notification with DEBUG level
+---@param msg string Content of the notification to show to the user
+---@param opts table|nil Optional parameters (title, etc.)
 ---@diagnostic disable-next-line: unused-local
 function vim.debug(msg, opts) -- luacheck: no unused args
   vim.notify(msg, vim.log.levels.DEBUG, opts)
 end
 
---- Displays a notification to the user, with log level of WARN
----
----@param msg string Content of the notification to show to the user.
----@param opts table|nil Optional parameters. Unused by default.
+--- Display a notification with WARN level
+---@param msg string Content of the notification to show to the user
+---@param opts table|nil Optional parameters (title, etc.)
 ---@diagnostic disable-next-line: unused-local
 function vim.warn(msg, opts) -- luacheck: no unused args
-  vim.notify(msg, vim.log.levels.DEBUG, opts)
+  vim.notify(msg, vim.log.levels.WARN, opts) -- FIXED: Was set to DEBUG level
 end
 
---- Displays a notification to the user, with log level of ERROR
----
----@param msg string Content of the notification to show to the user.
----@param opts table|nil Optional parameters. Unused by default.
+--- Display a notification with ERROR level
+---@param msg string Content of the notification to show to the user
+---@param opts table|nil Optional parameters (title, etc.)
 ---@diagnostic disable-next-line: unused-local
 function vim.error(msg, opts) -- luacheck: no unused args
   vim.notify(msg, vim.log.levels.ERROR, opts)
