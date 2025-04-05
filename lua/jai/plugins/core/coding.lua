@@ -1,3 +1,4 @@
+---@diagnostic disable: deprecated
 -- Create a flag to track documentation visibility state
 local docs_visible = false
 
