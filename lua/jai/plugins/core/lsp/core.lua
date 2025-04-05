@@ -9,13 +9,13 @@ return {
     "neovim/nvim-lspconfig",
     -- On attach of an LSP client to a server, mason-lspconfig will be run.
     event = { "BufReadPre", "BufNewFile" },
+    enabled = not vim.g.vscode, -- Disable LSP in VS Code
     dependencies = {
       "williamboman/mason.nvim",
       -- NOTE: this exact format of specifying dependencies is required.
       -- Otherwise, I couldn't get the plugin to work.
       {
         "williamboman/mason-lspconfig.nvim",
-
         opts = {
 
           -- NOTE: use lspconfig names here.
@@ -81,6 +81,7 @@ return {
   {
     -- repo: https://github.com/windwp/nvim-autopairs
     "windwp/nvim-autopairs",
+    enabled = not vim.g.vscode, -- Disable LSP in VS Code
     event = "InsertEnter",
     config = true,
   },
@@ -88,7 +89,6 @@ return {
   {
     "williamboman/mason.nvim",
     lazy = false,
-
     opts = function()
       -- Mason tools to ensure are installed on
       -- both Mac and Linux

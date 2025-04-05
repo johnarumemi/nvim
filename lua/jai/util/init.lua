@@ -39,6 +39,12 @@ setmetatable(M, {
   end,
 })
 
+--- Check if Neovim is running inside VSCode
+---@return boolean True if running within VSCode
+function M.is_vscode()
+  return vim.g.vscode == 1
+end
+
 --- Convert any Lua value to a human-readable string representation
 -- Especially useful for debugging tables.
 -- Use with ':messages' to view the output.
