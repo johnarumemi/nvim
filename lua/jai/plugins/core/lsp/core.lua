@@ -7,6 +7,10 @@ return {
   -- 3. lspconfig (setup servers)
   {
     "neovim/nvim-lspconfig",
+    -- Disable LSP when running in VS Code as it has its own LSP implementation
+    enabled = function()
+      return not vim.g.vscode
+    end,
     -- On attach of an LSP client to a server, mason-lspconfig will be run.
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
@@ -71,6 +75,10 @@ return {
   {
     -- repo: https://github.com/MysticalDevil/inlay-hints.nvim
     "MysticalDevil/inlay-hints.nvim",
+    -- Disable inlay hints in VS Code
+    enabled = function()
+      return not vim.g.vscode
+    end,
     event = "LspAttach",
     dependencies = { "neovim/nvim-lspconfig" },
     config = function()
@@ -87,6 +95,10 @@ return {
   -- LSP Servers via Mason
   {
     "williamboman/mason.nvim",
+    -- Disable Mason when running in VS Code
+    enabled = function()
+      return not vim.g.vscode
+    end,
     lazy = false,
 
     opts = function()

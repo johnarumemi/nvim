@@ -24,6 +24,10 @@ return {
   {
     -- repo: https://github.com/zbirenbaum/copilot.lua
     "zbirenbaum/copilot.lua",
+    -- Disable Copilot in VS Code as it has its own Copilot extension
+    enabled = function()
+      return not vim.g.vscode
+    end,
     cmd = { "Copilot" },
     event = { "InsertEnter" },
     config = function()
@@ -45,8 +49,10 @@ return {
     -- Note: part of configuring this involves adding it as a source to nvim-cmp.
     -- So if uninstalling, ensure that is removed aswell.
     "zbirenbaum/copilot-cmp",
-    -- event = { "InsertEnter", "LspAttach" },
-    -- dependencies = { "zbirenbaum/copilot.lua" },
+    -- Disable Copilot CMP in VS Code
+    enabled = function()
+      return not vim.g.vscode
+    end,
     config = function()
       require("copilot_cmp").setup()
     end,
@@ -56,11 +62,19 @@ return {
     --
     -- add copilot status sign in lualine
     "AndreM222/copilot-lualine",
+    -- Disable Copilot lualine in VS Code as it's not needed
+    enabled = function()
+      return not vim.g.vscode
+    end,
   },
   {
     -- repo: https://github.com/CopilotC-Nvim/CopilotChat.nvim
     --
     "CopilotC-Nvim/CopilotChat.nvim",
+    -- Disable CopilotChat in VS Code as it has its own Copilot Chat
+    enabled = function()
+      return not vim.g.vscode
+    end,
     -- Do not use branch and version together, either use branch or version
     version = "v3.9",
     -- branch = "main",

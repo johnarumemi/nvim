@@ -3,7 +3,10 @@ return {
   {
     -- [[ Main dashboard ]]
     "glepnir/dashboard-nvim",
-    enabled = true,
+    -- Dashboard is redundant in VS Code
+    enabled = function()
+      return not vim.g.vscode
+    end,
     event = "VimEnter",
     config = function()
       local config = require("jai.plugins.configs.dashboard_config")
@@ -16,11 +19,22 @@ return {
   },
 
   -- [[ Icons ]]
-  { "nvim-tree/nvim-web-devicons", lazy = true },
+  {
+    "nvim-tree/nvim-web-devicons",
+    lazy = true,
+    -- Icons aren't needed in VS Code
+    enabled = function()
+      return not vim.g.vscode
+    end,
+  },
 
   -- [[ UI Components
   {
     "nvim-lualine/lualine.nvim",
+    -- Status line is redundant in VS Code
+    enabled = function()
+      return not vim.g.vscode
+    end,
     event = "VeryLazy",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
@@ -61,6 +75,10 @@ return {
     -- LazyVim config: http://www.lazyvim.org/plugins/ui#bufferlinenvim
     -- repo: https://github.com/akinsho/bufferline.nvim
     "akinsho/bufferline.nvim",
+    -- Tabline is redundant in VS Code
+    enabled = function()
+      return not vim.g.vscode
+    end,
     version = "^v4.7",
     event = "VeryLazy",
     dependencies = "nvim-tree/nvim-web-devicons",
@@ -115,6 +133,10 @@ return {
     --   -- bufferline with `rose-pine` theme set
     --   -- repo: https://github.com/rose-pine/neovim/wiki/Plugin-configurations#bufferlinenvim
     "akinsho/bufferline.nvim",
+    -- Tabline theme is redundant in VS Code
+    enabled = function()
+      return not vim.g.vscode
+    end,
     event = "ColorScheme",
     config = function()
       local highlights = require("rose-pine.plugins.bufferline")
@@ -148,6 +170,7 @@ return {
   -- the highlighting.
   {
     "echasnovski/mini.indentscope",
+    -- Keep indent scope enabled in VS Code as it's still useful
     version = false, -- wait till new 0.7.0 release to put it back on semver
     -- https://github.com/LazyVim/LazyVim/discussions/1583#discussioncomment-7187450
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
@@ -181,6 +204,10 @@ return {
 
   {
     "rcarriga/nvim-notify",
+    -- Notifications are redundant in VS Code
+    enabled = function()
+      return not vim.g.vscode
+    end,
     event = "VeryLazy",
     keys = {
       {
@@ -210,15 +237,18 @@ return {
     },
     init = function()
       vim.opt.termguicolors = true
-      vim.notify = require("notify")
-    end,
+              vim.notify = require("notify")
+          end,
   },
   {
     -- Replacement command-line for Neovim
     -- repo: https://github.com/folke/noice.nvim
     "folke/noice.nvim",
+    -- Already disabled, but let's make it explicit
+    enabled = function()
+      return false and not vim.g.vscode
+    end,
     event = "VeryLazy",
-    enabled = false,
     dependencies = {
       "rcarriga/nvim-notify",
       "MunifTanjim/nui.nvim",
@@ -232,7 +262,7 @@ return {
   {
     -- repo: https://github.com/folke/zen-mode.nvim
     "folke/zen-mode.nvim",
-    -- Using default settings
+    -- Zen mode can be useful in VS Code too, keep it
     lazy = false,
     keys = {
       { "<leader>tz", ":ZenMode<CR>", desc = "Toggle Zen Mode" },
@@ -351,6 +381,7 @@ return {
   {
     -- repo: https://github.com/folke/twilight.nvim
     "folke/twilight.nvim",
+    -- Twilight can be useful in VS Code too, keep it
     opts = {
       dimming = {
         alpha = 0.25, -- amount of dimming

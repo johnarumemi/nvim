@@ -13,6 +13,14 @@ return {
     end,
     config = function()
       local config = require("jai.plugins.configs.neorg_config")
+
+      -- Disable nvim-cmp integration when in VS Code
+      if vim.g.vscode then
+        -- Remove nvim-cmp integration to prevent errors
+        if config.opts.load["core.completion"] then
+          config.opts.load["core.completion"] = nil
+        end
+      end
       require("neorg").setup(config.opts)
     end,
   },
@@ -101,27 +109,33 @@ return {
     "allaman/emoji.nvim",
     version = "1.0.0", -- optionally pin to a tag
     ft = { "markdown", "norg" }, -- adjust to your needs
+    enabled = function()
+      -- Only load plugin in non-VS Code environments
+      return not vim.g.vscode
+    end,
     dependencies = {
-      -- optional for nvim-cmp integration
-      "hrsh7th/nvim-cmp",
+      -- Only include nvim-cmp when not in VS Code
+      vim.g.vscode and {} or "hrsh7th/nvim-cmp",
       -- optional for telescope integration
       "nvim-telescope/telescope.nvim",
       -- for keymaps
       "folke/which-key.nvim",
     },
     opts = {
-      -- default is false
-      enable_cmp_integration = true,
+      -- Disable cmp integration in VS Code
+      enable_cmp_integration = not vim.g.vscode,
     },
     config = function(_, opts)
       require("emoji").setup(opts)
       local wk = require("which-key")
-      -- optional for telescope integration
-      local ts = require("telescope").load_extension("emoji")
 
-      wk.add({
-        { "<leader>fe", ts.emoji, desc = "[F]ind [E]moji", mode = "n" },
-      })
+      -- Only load telescope extension if not in VS Code
+      if not vim.g.vscode then
+        local ts = require("telescope").load_extension("emoji")
+        wk.add({
+          { "<leader>fe", ts.emoji, desc = "[F]ind [E]moji", mode = "n" },
+        })
+      end
     end,
   },
 }

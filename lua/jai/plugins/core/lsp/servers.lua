@@ -167,6 +167,11 @@ function M.default_on_attach(client, buf)
 
   vim.debug("Running default on_attach for server: " .. client.name, { title = title })
 
+  -- Disable semantic tokens in VS Code to avoid conflicts with VS Code's own tokens
+  if vim.g.vscode then
+    client.server_capabilities.semanticTokensProvider = nil
+  end
+
   -- call default on_attach
   require("jai.plugins.core.lsp.on_attach").on_attach(client, buf)
 
@@ -178,6 +183,12 @@ function M.default_on_attach(client, buf)
 end
 
 function M.configure_servers()
+  -- Skip LSP server configuration entirely if in VS Code
+  if vim.g.vscode then
+    vim.notify("Skipping LSP server configuration in VS Code", vim.log.levels.INFO)
+    return
+  end
+
   local lspconfig = require("lspconfig")
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
