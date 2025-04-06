@@ -7,10 +7,13 @@
 
 local opt = vim.opt
 
-opt.foldcolumn = "0"
-opt.foldlevel = 20 -- set to a high level so that by default most folds are open
-opt.foldmethod = "expr" -- allows for structured parsing to determine folds
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- Only set these options in standalone Neovim, not VS Code
+if not vim.g.vscode then
+  opt.foldcolumn = "0"
+  opt.foldlevel = 20 -- set to a high level so that by default most folds are open
+  opt.foldmethod = "expr" -- allows for structured parsing to determine folds
+  opt.foldexpr = "nvim_treesitter#foldexpr()"
+end
 
 local treesitter_opts = {
   -- Below are mainly default settings
@@ -61,7 +64,7 @@ local treesitter_opts = {
     "tsx",
     "typescript",
     "vimdoc",
-    "yaml",
+    "yaml"
   },
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -102,6 +105,7 @@ local treesitter_opts = {
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    -- Keep treesitter in VS Code for syntax highlighting benefits, but with adjusted config
     version = false,
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
@@ -112,6 +116,21 @@ return {
     },
     config = function()
       require("nvim-treesitter.install").compilers = { "gcc-14" }
+
+      -- In VS Code mode, disable certain treesitter features that might conflict
+      if vim.g.vscode then
+        treesitter_opts.highlight = {
+          enable = true,
+          -- Use more conservative settings in VS Code
+          disable = function(_lang, buf)
+            local max_filesize = 50 * 1024 -- Lower size limit in VS Code (50 KB)
+            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+            if ok and stats and stats.size > max_filesize then
+              return true
+            end
+          end
+        }
+      end
 
       require("nvim-treesitter.configs").setup(treesitter_opts)
     end,

@@ -19,6 +19,10 @@ end, {
 return {
   -- repo: https://github.com/stevearc/conform.nvim
   "stevearc/conform.nvim",
+  -- Disable formatting in VS Code as it has its own formatting capabilities
+  enabled = function()
+    return not vim.g.vscode
+  end,
   version = "^8.0.0",
   event = { "BufWritePre" },
   cmd = { "ConformInfo" },

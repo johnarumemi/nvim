@@ -9,6 +9,10 @@ return {
   -- repo: https://github.com/hrsh7th/nvim-cmp
   {
     "hrsh7th/nvim-cmp",
+    -- Disable autocompletion in VS Code as it has its own
+    enabled = function()
+      return not vim.g.vscode
+    end,
     version = false, -- last release was too long ago
     event = { "InsertEnter" },
     dependencies = {
@@ -165,6 +169,10 @@ return {
 
     -- https://github.com/nvimtools/none-ls.nvim/issues/58
     "nvimtools/none-ls.nvim",
+    -- Disable none-ls in VS Code
+    enabled = function()
+      return not vim.g.vscode
+    end,
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "nvimtools/none-ls-extras.nvim", "nvim-lua/plenary.nvim", "mason.nvim" },
     opts = function()
@@ -174,6 +182,7 @@ return {
   },
   {
     "folke/lazydev.nvim",
+    -- Keep lazydev for VS Code as it's helpful for Lua development
     ft = "lua", -- only load on lua files
     opts = {
       library = {
@@ -188,6 +197,10 @@ return {
     --- repo: https://github.com/folke/trouble.nvim
     -- NOTE: originally, the below config was taken from LazyVim
     "folke/trouble.nvim",
+    -- Disable trouble in VS Code as it has its own problems panel
+    enabled = function()
+      return not vim.g.vscode
+    end,
     cmd = { "Trouble" },
     dependencies = { "folke/which-key.nvim" },
     opts = {
@@ -245,6 +258,7 @@ return {
     -- Commenting out code
     -- repo: https://github.com/terrortylor/nvim-comment
     "terrortylor/nvim-comment",
+    -- Keep commenting functionality in VS Code
     lazy = false,
 
     opts = {
@@ -276,6 +290,10 @@ return {
     -- See docs/wiki below for usage with Rust,
     -- [1]: https://github.com/preservim/tagbar/wiki#rust
     "majutsushi/tagbar",
+    -- Disable tagbar in VS Code as it has its own outline view
+    enabled = function()
+      return not vim.g.vscode
+    end,
     event = { "LspAttach" },
     ft = { "rs", ".py", ".json", ".tsx", ".jsx", ".js" },
     config = function()
@@ -329,6 +347,10 @@ return {
     -- Neovim's native snippet engine.
     -- repo: https://github.com/garymjr/nvim-snippets
     "garymjr/nvim-snippets",
+    -- Disable snippets in VS Code as it has its own snippet engine
+    enabled = function()
+      return not vim.g.vscode
+    end,
     dependencies = {
       -- Snippets collection for a set of different programming languages.
       -- It doesn't provide any engine functionality - it's just snippet content.

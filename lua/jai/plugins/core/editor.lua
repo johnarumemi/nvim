@@ -1,6 +1,10 @@
 return {
   {
     "nvim-tree/nvim-tree.lua",
+    -- File explorer is redundant in VS Code
+    enabled = function()
+      return not vim.g.vscode
+    end,
     -- this should always be loaded and not lazy loaded
     lazy = false,
     dependencies = { "nvim-tree/nvim-web-devicons", "folke/which-key.nvim" },
@@ -28,6 +32,10 @@ return {
   },
   {
     "nvim-telescope/telescope.nvim", -- fuzzy finder
+    -- Telescope is redundant with VS Code's search
+    enabled = function()
+      return not vim.g.vscode
+    end,
     dependencies = { "nvim-lua/plenary.nvim", "folke/which-key.nvim" },
     lazy = false,
     config = function()
@@ -112,6 +120,7 @@ return {
   -- repo: https://github.com/RRethy/vim-illuminate
   {
     "RRethy/vim-illuminate",
+    -- Keep illuminate in VS Code for highlighting words under cursor
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     -- event = "LazyFile",
     opts = {
@@ -151,6 +160,10 @@ return {
     -- repo: https://github.com/folke/todo-comments.nvim
     -- see here for icons: https://www.nerdfonts.com/cheat-sheet
     "folke/todo-comments.nvim",
+    -- VS Code has its own TODO highlighting
+    enabled = function()
+      return not vim.g.vscode
+    end,
     cmd = { "TodoTrouble", "TodoTelescope" },
 
     -- event = "LazyFile",
