@@ -19,7 +19,9 @@ return {
       }),
 
       -- formating is via Conform plugin
-      none_ls.builtins.diagnostics.yamllint,
+      none_ls.builtins.diagnostics.yamllint.with({
+        extra_args = { "-d", "{extends: relaxed, rules: {line-length: {max: 100}}}" },
+      }),
 
       none_ls.builtins.code_actions.gitsigns,
 
