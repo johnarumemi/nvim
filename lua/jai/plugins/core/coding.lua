@@ -283,6 +283,12 @@ return {
       -- need to use config for this, since module name
       -- uses underscore, rather than hyphen
       require("nvim_comment").setup(opts)
+      local wk = require("which-key")
+
+      wk.add({
+        { "gcc", mode = "n", desc = "Comment Line" },
+        { "gc", mode = "v", desc = "Comment Multiple Lines" },
+      })
     end,
   },
   {

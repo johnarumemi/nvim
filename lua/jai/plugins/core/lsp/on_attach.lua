@@ -39,7 +39,10 @@ function M.on_attach(client, bufnr)
   buf_set_keymap("n", "gD", vim.lsp.buf.declaration, bufopts)
   buf_set_keymap("n", "gd", vim.lsp.buf.definition, bufopts)
   buf_set_keymap("n", "gi", vim.lsp.buf.implementation, bufopts)
-  buf_set_keymap("n", "gr", vim.lsp.buf.references, bufopts)
+
+  -- There are default lsp mappings already defined at this location, so
+  -- /Users/john/.local/share/bob/v0.11.1/share/nvim/runtime/lua/vim/_defaults.lua|205 col 19-29| vim.lsp.buf.references()
+  -- buf_set_keymap("n", "gr", vim.lsp.buf.references, bufopts)
   buf_set_keymap("n", "K", vim.lsp.buf.hover, bufopts)
   buf_set_keymap("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
   buf_set_keymap("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
@@ -59,7 +62,32 @@ function M.on_attach(client, bufnr)
     { "gD", buffer = bufnr, desc = "lsp: goto declaration" },
     { "gd", buffer = bufnr, desc = "lsp: goto definition" },
     { "gi", buffer = bufnr, desc = "lsp: goto implementation" },
-    { "gr", buffer = bufnr, desc = "lsp: references" },
+    -- { "gr", buffer = bufnr, desc = "lsp: references" },
+  })
+
+  wk.add({
+
+    { "<leader>gr", buffer = bufnr, group = "LSP: Reference" },
+
+    -- vim.lsp.buf.rename()
+    { "n", buffer = bufnr, mode = "n", desc = "Renames all references to symbol" },
+    -- vim.lsp.buf.code_action()
+    { "a", buffer = bufnr, mode = { "n", "x" }, desc = "Code Action" },
+
+    -- vim.lsp.buf.references()
+    { "r", buffer = bufnr, mode = "n", desc = "List all the references to symbol." },
+
+    -- vim.lsp.buf.implementation()
+    { "i", buffer = bufnr, mode = "n", desc = "List all the implementations to symbol." },
+  })
+
+  wk.add({
+    -- appears in location-list
+    -- vim.lsp.buf.document_symbol()
+    { "gO", buffer = bufnr, mode = "n", desc = "List all symbols in buffer." },
+
+    -- insert mode, press Control + S to trigger signature help
+    { "<C-S>", buffer = bufnr, mode = { "i", "s" }, desc = "Display signature help." },
   })
 
   wk.add({
