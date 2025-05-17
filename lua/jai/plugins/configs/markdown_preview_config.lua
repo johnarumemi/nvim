@@ -10,7 +10,8 @@ end
 
 local which_key_group = "Markdown Preview"
 
-vim.notify("Markdown Preview: loading config", vim.log.levels.INFO, { title = "Markdown Preview" })
+vim.debug("Markdown Preview: loading config", { title = "Markdown Preview" })
+
 -- documenation: https://neovim.io/doc/user/api.html#nvim_create_autocmd()
 -- Use BufNew to trigger on new buffers only. BufEnter triggers each time
 -- we switched to a new or exisiting buffer.
