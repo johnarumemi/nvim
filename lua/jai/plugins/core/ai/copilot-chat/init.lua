@@ -1,9 +1,11 @@
--- NOTE: any prompts you place here are directly available as commands,
--- prefixed with `CopilotChat`.
--- So a prompt of "DoSomething", will be available as `:CopilotChatDoSomething`.
--- Reference them with /PromptName in chat, use :CopilotChat<PromptName> or
--- :CopilotChatPrompts to select them:
+-- CopilotChat Configuration
+--
+-- This module provides configuration and setup for CopilotChat.
+-- It integrates custom prompts, commands and utility functions.
+--
+-- @module jai.plugins.core.ai.copilot-chat
 
+-- Import our modules
 local utils = require("jai.plugins.core.ai.copilot-chat.utils")
 local prompts = require("jai.plugins.core.ai.copilot-chat.prompts")
 local commands = require("jai.plugins.core.ai.copilot-chat.commands")

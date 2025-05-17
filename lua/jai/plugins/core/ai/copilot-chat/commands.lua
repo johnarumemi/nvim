@@ -1,4 +1,9 @@
 -- Custom commands for CopilotChat
+--
+-- This module provides custom commands for CopilotChat and their keybindings.
+--
+-- @module jai.plugins.core.ai.copilot-chat.commands
+
 local utils = require("jai.plugins.core.ai.copilot-chat.utils")
 
 -- Function to define and register all custom commands
@@ -6,80 +11,36 @@ local utils = require("jai.plugins.core.ai.copilot-chat.utils")
 ---@param select table CopilotChat.select module
 ---@param context table CopilotChat.context module
 ---@return table Table of which-key mapping entries
-local function create_custom_commands(chat, select, context)
+local function create_copilotchat_commands(chat, select, context)
+  -- Table of command configurations
+  ---@type CommandConfig[]
   local commands = {
-    -- Command: CopilotChatVisual
-    -- Description: Ask Copilot about the current visual selection
-    -- Usage: :'<,'>CopilotChatVisual [prompt]
-    Visual = {
-      func = function(args)
-        chat.ask(args.args, { selection = select.visual })
-      end,
-      command_opts = { nargs = "*", range = true },
-      mapping_opts = nil, -- No default mapping
-    },
-
     -- Command: CopilotChatBuffer
     -- Description: Ask Copilot about the entire current buffer
     -- Usage: :CopilotChatBuffer [prompt]
-    Buffer = {
-      func = function(args)
+    {
+      name = "Buffer",
+      enabled = true,
+      command = function(args)
         chat.ask(args.args, { selection = select.buffer })
       end,
       command_opts = { nargs = "*", range = true },
       -- no default mapping, but this command may be used by other
-      -- commands that have a mapping
-      mapping_opts = {},
-    },
-
-    -- Command: CopilotChatInline
-    -- Description: Shows Copilot's response in a floating window near the cursor
-    -- Usage: :'<,'>CopilotChatInline [prompt]
-    -- Mapping: <leader>ax (visual mode)
-    Inline = {
-      func = function(args)
-        chat.ask(args.args, {
-          selection = select.visual,
-          window = {
-            layout = "float",
-            relative = "cursor",
-            width = 1,
-            height = 0.4,
-            row = 1,
-          },
-        })
-      end,
-      command_opts = { nargs = "*", range = true },
-      mapping_opts = {
-        mapping = "<leader>ax",
-        description = "Inline chat",
-        mode = "x",
-      },
-    },
-
-    -- Command: CopilotChatReset
-    -- Description: Clears the chat history and buffer
-    -- Usage: :CopilotChatReset
-    -- Mapping: <leader>al
-    Reset = {
-      func = function() end, -- Just use the built-in command
-      command_opts = { nargs = 0 },
-      mapping_opts = {
-        mapping = "<leader>al",
-        description = "Clear buffer and chat history",
-      },
+      -- commands that have a mapping defined.
+      mapping_opts = nil,
     },
 
     -- Command: CopilotChatToggle
     -- Description: Toggles the Copilot Chat panel
     -- Usage: :CopilotChatToggle
     -- Mapping: <leader>ta
-    Toggle = {
-      func = function() end, -- Just use the built-in command
-      command_opts = { nargs = 0 },
+    {
+      name = "Toggle",
+      enabled = true,
+      builtin = true,
       mapping_opts = {
-        mapping = "<leader>ta",
-        description = "Toggle",
+        mapping = "<leader>at",
+        description = "Toggle Copilot Chat Visual (V2)",
       },
     },
   }
@@ -87,11 +48,13 @@ local function create_custom_commands(chat, select, context)
   local mappings = {}
 
   -- Register all commands and collect mappings
-  for name, cmd_def in pairs(commands) do
-    local mapping = utils.create_custom_command(name, cmd_def.func, cmd_def.command_opts, cmd_def.mapping_opts)
+  for _, cmd_config in ipairs(commands) do
+    if cmd_config.enabled ~= false then -- Default to enabled if not specified
+      local mapping = utils.create_custom_command(cmd_config)
 
-    if mapping then
-      table.insert(mappings, mapping)
+      if mapping then
+        table.insert(mappings, mapping)
+      end
     end
   end
 
@@ -99,6 +62,5 @@ local function create_custom_commands(chat, select, context)
 end
 
 return {
-  create_custom_commands = create_custom_commands,
+  create_custom_commands = create_copilotchat_commands,
 }
-
