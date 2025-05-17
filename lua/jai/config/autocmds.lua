@@ -34,6 +34,9 @@ local textwidth_ftype_map = {
   markdown = {
     textwidth = 88,
   },
+  nix = {
+    textwidth = 100,
+  },
 }
 
 vim.api.nvim_create_autocmd({ "BufNew", "FileType" }, {
