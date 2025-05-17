@@ -9,7 +9,7 @@ return {
   -- repo: https://github.com/hrsh7th/nvim-cmp
   {
     "hrsh7th/nvim-cmp",
-    -- Disable autocompletion in VS Code as it has its own
+    -- Disable autocompletion in VS Code as it has its own builtin.
     enabled = function()
       return not vim.g.vscode
     end,
@@ -26,7 +26,6 @@ return {
       -- Optional  -> Icons in autocompletion
       { "onsails/lspkind.nvim" },
     },
-    -- returns a table, hence will parent specs, so be careful of loading order
     opts = function()
       vim.debug("InsertEnter: running nvim-cmp main opts setup", { title = "Completion" })
       -- Setup code completion for LSP
@@ -115,7 +114,7 @@ return {
           -- display function signatures with current parameter emphasized
           { name = "nvim_lsp_signature_help", group_index = 2 },
 
-          -- complete neovim's Lua runtime API such vim.lsp.*
+          -- complete neovim's Lua runtime API such  as vim.lsp.*
           { name = "nvim_lua", keyword_length = 2, group_index = 2 },
         },
         window = {
@@ -126,10 +125,10 @@ return {
           -- experimenting with below with lspkind and Copilot
           format = lspkind.cmp_format({
             mode = "symbol",
+            -- when popup menu exceeds maxwidth, the truncated part would show
+            -- ellipsis_char instead
             max_width = 50,
             symbol_map = { Copilot = "" },
-            -- when popup menu exceed maxwidth, the truncated part would show
-            -- ellipsis_char instead
           }),
         },
         sorting = {
@@ -138,10 +137,15 @@ return {
             -- Prioritize copilot_cmp in completion list
             require("copilot_cmp.comparators").prioritize,
 
+            -- INFO: documentaton recommends using this to ensure that better
+            -- LSP completions are not stuck below poorer copilot completions.
+            -- I have commented out where it used to be in the piority list.
+            cmp.config.compare.exact,
+
             -- Below is the default comparitor list and order for nvim-cmp
             cmp.config.compare.offset,
             -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
-            cmp.config.compare.exact,
+            -- cmp.config.compare.exact,
             cmp.config.compare.score,
             cmp.config.compare.recently_used,
             cmp.config.compare.locality,
