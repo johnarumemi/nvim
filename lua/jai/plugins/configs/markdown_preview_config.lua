@@ -4,11 +4,70 @@
 
 local wk = require("which-key")
 
-wk.add({
-  { "<leader>m", group = "Markdown Preview" },
-  { "<leader>mo", "[[:MarkdownPreview<CR>]]", desc = "Open" },
-  { "<leader>ms", "[[:MarkdownPreviewStop<CR>]]", desc = "Stop" },
-  { "<leader>tm", ":MarkdownPreviewToggle<CR>", desc = "Markdown Preview Toggle" },
+local function jai_augroup(name)
+  return vim.api.nvim_create_augroup("jai_" .. name, { clear = true })
+end
+
+local which_key_group = "Markdown Preview"
+
+vim.notify("Markdown Preview: loading config", vim.log.levels.INFO, { title = "Markdown Preview" })
+-- documenation: https://neovim.io/doc/user/api.html#nvim_create_autocmd()
+-- Use BufNew to trigger on new buffers only. BufEnter triggers each time
+-- we switched to a new or exisiting buffer.
+vim.api.nvim_create_autocmd({ "BufNew" }, {
+  group = jai_augroup("markdown_preview_setup_config"),
+  pattern = { "*.markdown" },
+  desc = "Setup Markdown configuration",
+
+  -- args is a single table with following keys:
+  -- id: (number) autocommand id
+  -- event: (string) name of the triggered event autocmd-events
+  -- group: (number|nil) autocommand group id, if any
+  -- match: (string) expanded value of <amatch>
+  -- buf: (number) expanded value of <abuf>
+  -- file: (string) expanded value of <afile>
+  -- data: (any) arbitrary data passed from nvim_exec_autocmds()
+  callback = function(args)
+    local title = "Autocmd - Markdown - Setup Config"
+
+    if args.buf == nil then
+      vim.error(string.format("%s: failed setup as received a nill buffer", args.event), { title = title })
+      return
+    else
+      vim.debug("Starting markdown previous setup for buffer: " .. args.buf, { title = title })
+    end
+
+    -- only applies when using Filetype and a pattern of { "norg" }
+    if args.match ~= args.file then
+      local fmatch_msg = string.format("%s: <amatch>=%s | <afile>=%s", args.event, args.match, args.file)
+      vim.debug(fmatch_msg, { title = title })
+    end
+
+    -- only prevents it from wrapping the display of lines, not from inserting linebreaks.
+    -- use `set formatoptions-=t` to actually stop wrapping of lines completely
+    vim.api.nvim_buf_set_option(args.buf, "wrap", false)
+    vim.api.nvim_buf_set_option(args.buf, "textwidth", 75)
+
+    -- update options for current buffer only
+    --
+    -- num:  Size of an indent
+    vim.api.nvim_buf_set_option(args.buf, "shiftwidth", 2)
+    --  num:  Number of spaces tabs count for in insert mode
+    vim.api.nvim_buf_set_option(args.buf, "softtabstop", 2)
+    -- num:  Number of spaces tabs count for
+    vim.api.nvim_buf_set_option(args.buf, "tabstop", 2)
+
+    wk.add({
+      { "<leader>m", group = which_key_group },
+      { "<leader>mo", "[[:MarkdownPreview<CR>]]", buffer = args.buf, desc = "Open" },
+      { "<leader>ms", "[[:MarkdownPreviewStop<CR>]]", buffer = args.buf, desc = "Stop" },
+      { "<leader>tm", "[[:MarkdownPreviewToggle<CR>]]", buffer = args.buf, desc = "Markdown Preview Toggle" },
+    })
+
+    local msg = string.format("%s: settings applied for buffer: %d", args.event, args.buf)
+
+    vim.debug(msg, { title = title })
+  end,
 })
 
 -- set to 1, nvim will open the preview window after entering the markdown buffer
