@@ -113,6 +113,7 @@ return {
         "codelldb",
         "cmakelang",
         "cmakelint",
+        "nil",
       }
 
       -- Mac Specific

@@ -21,6 +21,26 @@ M.servers = {
 
   -- Rust: uses a specific plugin
 
+  -- Nix
+  nil_ls = {
+    settings = {
+      ["nil"] = {
+        formatting = {
+          -- ensure nixfmt is installed first.
+          -- It can't be installed with Mason on OSX at the moment.
+          command = { "nixfmt" },
+        },
+      },
+    },
+
+    on_attach = function(_, bufnr)
+      -- update options for bash files
+      buf_set_option(bufnr, "shiftwidth", 2) -- Size of an indent
+      buf_set_option(bufnr, "softtabstop", 2) -- Number of spaces tabs count for in insert mode
+      buf_set_option(bufnr, "tabstop", 2) -- Number of spaces tabs count for
+    end,
+  },
+
   -- Lua
   -- mason package name = lua-language-server
   lua_ls = {
