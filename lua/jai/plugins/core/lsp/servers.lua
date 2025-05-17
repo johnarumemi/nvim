@@ -163,7 +163,14 @@ M.servers = {
 
   -- YAML
   -- mason-lspconfig will install the mason yaml-language-server
-  yamlls = {},
+  yamlls = {
+    settings = {
+      yaml = {
+        format = { enable = true, printWidth = 100 },
+        validate = true,
+      },
+    },
+  },
 
   -- TOML
   -- repo: https://github.com/tamasfe/taplo
