@@ -53,6 +53,11 @@ M.servers = {
     settings = {
       Lua = {
         format = { enable = false },
+        -- use to prevent the LSP warnings for undefined `vim` global variable
+        -- from appearing.
+        diagnostics = {
+          globals = { "vim" },
+        },
       },
     },
     on_attach = function(_, bufnr)
