@@ -156,6 +156,7 @@ vim.g.conceal_set = {}
 -- These are applied here instead.
 vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
   group = jai_augroup("neorg_setup_conceallevel"),
+  -- set based on output of `:echo &ft`
   pattern = { "*.norg" },
   desc = "Setup Neorg conceal level",
   callback = function(args)
