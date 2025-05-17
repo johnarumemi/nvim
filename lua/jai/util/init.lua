@@ -21,6 +21,7 @@ local LazyUtil = require("lazy.core.util")
 ---@field os jai.util.os
 ---@field platform jai.util.platform
 ---@field theme jai.util.theme
+---@field lib jai.util.lib
 local M = {}
 
 -- Set up dynamic module loading via metatable
