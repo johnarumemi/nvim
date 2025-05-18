@@ -165,6 +165,39 @@ return {
     },
   },
 
+  --- repo: https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-trailspace.md
+  {
+    "echasnovski/mini.trailspace",
+    branch = "stable",
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    config = function()
+      local wk = require("which-key")
+
+      local mt = require("mini.trailspace")
+
+      -- IMPORTANT: Below need autocommands that run on file save
+      -- TODO: Below need autocommands that run on file save
+      wk.add({
+        { "<leader>m", group = "Mini" },
+        {
+          "<leader>mt",
+          function()
+            mt.trim()
+          end,
+          desc = "Trim trailing whitespace",
+        },
+
+        {
+          "<leader>ml",
+          function()
+            mt.trim_last_lines()
+          end,
+          desc = "Trim last blank lines",
+        },
+      })
+    end,
+  },
+
   -- Active indent guide and indent text objects. When you're browsing
   -- code, this highlights the current level of indentation, and animates
   -- the highlighting.
@@ -172,6 +205,7 @@ return {
     "echasnovski/mini.indentscope",
     -- Keep indent scope enabled in VS Code as it's still useful
     version = false, -- wait till new 0.7.0 release to put it back on semver
+    branch = "stable",
     -- https://github.com/LazyVim/LazyVim/discussions/1583#discussioncomment-7187450
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     -- event = "LazyFile",
@@ -237,8 +271,8 @@ return {
     },
     init = function()
       vim.opt.termguicolors = true
-              vim.notify = require("notify")
-          end,
+      vim.notify = require("notify")
+    end,
   },
   {
     -- Replacement command-line for Neovim
