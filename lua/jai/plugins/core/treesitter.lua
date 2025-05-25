@@ -64,7 +64,7 @@ local treesitter_opts = {
     "tsx",
     "typescript",
     "vimdoc",
-    "yaml"
+    "yaml",
   },
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -128,7 +128,7 @@ return {
             if ok and stats and stats.size > max_filesize then
               return true
             end
-          end
+          end,
         }
       end
 

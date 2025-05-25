@@ -12,6 +12,7 @@
 vim.lsp.set_log_level(vim.log.levels.ERROR)
 
 _G.neorg_env = os.getenv("NEORG_ENVIRONMENT") or "DEFAULT"
+_G.is_nix_env = os.getenv("NIX_ENV") ~= nil
 
 -- bootstrap neovim configuration using the `init.lua` file in below directory:
 -- ~/.config/nvim/lua/jai/config/init.lua

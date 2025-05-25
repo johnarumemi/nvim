@@ -14,24 +14,30 @@ return {
     -- On attach of an LSP client to a server, mason-lspconfig will be run.
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      "williamboman/mason.nvim",
-      -- NOTE: this exact format of specifying dependencies is required.
-      -- Otherwise, I couldn't get the plugin to work.
-      {
-        "williamboman/mason-lspconfig.nvim",
+      not _G.is_nix_env and {
 
-        opts = {
+        "williamboman/mason.nvim",
+        enable = not _G.is_nix_env,
+      } or nil,
+          -- NOTE: this exact format of specifying dependencies is required.
+          -- Otherwise, I couldn't get the plugin to work.
+      not _G.is_nix_env
+          and {
+            "williamboman/mason-lspconfig.nvim",
+            enable = not _G.is_nix_env,
+            opts = {
 
-          -- NOTE: use lspconfig names here.
-          -- for cases where name does not exist in lspconfig,
-          -- use the "mason" equivalent custom option to install these.
-          ensure_installed = {},
+              -- NOTE: use lspconfig names here.
+              -- for cases where name does not exist in lspconfig,
+              -- use the "mason" equivalent custom option to install these.
+              ensure_installed = {},
 
-          -- if a server is configured in lsp, this will ensure that mason
-          -- installs the necessary LSP server
-          automatic_installation = true,
-        },
-      },
+              -- if a server is configured in lsp, this will ensure that mason
+              -- installs the necessary LSP server
+              automatic_installation = true,
+            },
+          }
+        or nil,
 
       { -- optional completion source for require statements and module annotations
         "hrsh7th/nvim-cmp",
@@ -97,7 +103,7 @@ return {
     "williamboman/mason.nvim",
     -- Disable Mason when running in VS Code
     enabled = function()
-      return not vim.g.vscode
+      return not vim.g.vscode and not _G.is_nix_env
     end,
     lazy = false,
 

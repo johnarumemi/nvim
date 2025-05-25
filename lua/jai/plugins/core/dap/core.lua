@@ -112,34 +112,36 @@ return {
       end
     end,
   },
-  -- [[ mason.nvim integration ]]
-  -- repo: https://github.com/jay-babu/mason-nvim-dap.nvim
-  {
-    "jay-babu/mason-nvim-dap.nvim",
-    dependencies = { "nvim-dap", "williamboman/mason.nvim" },
-    cmd = { "DapInstall", "DapUninstall" },
-    opts = {
-      -- Makes a best effort to setup the various debuggers with
-      -- reasonable debug configurations
-      automatic_installation = true,
+      -- [[ mason.nvim integration ]]
+      -- repo: https://github.com/jay-babu/mason-nvim-dap.nvim
+  not _G.is_nix_env
+      and {
+        "jay-babu/mason-nvim-dap.nvim",
+        dependencies = { "nvim-dap", "williamboman/mason.nvim" },
+        cmd = { "DapInstall", "DapUninstall" },
+        opts = {
+          -- Makes a best effort to setup the various debuggers with
+          -- reasonable debug configurations
+          automatic_installation = true,
 
-      -- You can provide additional configuration to the handlers,
-      -- see mason-nvim-dap README for more information
-      handlers = {},
+          -- You can provide additional configuration to the handlers,
+          -- see mason-nvim-dap README for more information
+          handlers = {},
 
-      -- You'll need to check that you have the required things installed
-      -- online, please don't ask me how to install them :)
-      ensure_installed = {
-        -- see mappings for dap name -> Mason name
-        -- https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/source.lua
-        -- Update this to ensure that you have the debuggers for the langs you want
-        -- codelldb  and cpptools is for Rust and C/C++ debugging.
-        "codelldb",
-        "cppdbg", -- nvim_dap adapter name for cpptools in Mason pacakge name
-      },
-    },
-    -- mason-nvim-dap is loaded when nvim-dap loads
-    -- use empty config below to ensure lazy doesn't call <module>.setup()
-    config = function() end,
-  },
+          -- You'll need to check that you have the required things installed
+          -- online, please don't ask me how to install them :)
+          ensure_installed = {
+            -- see mappings for dap name -> Mason name
+            -- https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/source.lua
+            -- Update this to ensure that you have the debuggers for the langs you want
+            -- codelldb  and cpptools is for Rust and C/C++ debugging.
+            "codelldb",
+            "cppdbg", -- nvim_dap adapter name for cpptools in Mason pacakge name
+          },
+        },
+        -- mason-nvim-dap is loaded when nvim-dap loads
+        -- use empty config below to ensure lazy doesn't call <module>.setup()
+        config = function() end,
+      }
+    or nil,
 }

@@ -102,10 +102,12 @@ local plugin_specs = {
   {
     "mfussenegger/nvim-dap",
     optional = true,
-    dependencies = {
-      -- Ensure C/C++ debugger is installed
-      "williamboman/mason.nvim",
-    },
+    dependencies = not _G.is_nix_env
+        and {
+          -- Ensure C/C++ debugger is installed
+          "williamboman/mason.nvim",
+        }
+      or nil,
     opts = function()
       local dap = require("dap")
       if not dap.adapters["codelldb"] then
