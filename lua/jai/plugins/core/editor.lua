@@ -38,6 +38,13 @@ return {
     end,
     dependencies = { "nvim-lua/plenary.nvim", "folke/which-key.nvim" },
     lazy = false,
+    opts = {
+      extensions = {
+        ["ui-select"] = {
+          require("telescope.themes").get_dropdown({}),
+        },
+      },
+    },
     config = function()
       local wk = require("which-key")
 

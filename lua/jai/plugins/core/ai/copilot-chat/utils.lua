@@ -36,6 +36,7 @@ local function create_custom_command(config)
 
   -- Create and return which-key mapping if provided
   if mapping_opts and mapping_opts.mapping then
+    vim.debug("Creating CopilotChat Keymap: " .. name, { title = "CopilotChat - Setup" })
     local wk_entry = {
       mapping_opts.mapping,
       mapping_opts.command or ("<cmd>CopilotChat" .. name .. "<cr>"),

@@ -43,6 +43,7 @@ local treesitter_opts = {
     "javascript",
     "json",
     "jq",
+    "just",
     "lua",
     "make",
     "markdown",
@@ -105,8 +106,7 @@ local treesitter_opts = {
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    -- Keep treesitter in VS Code for syntax highlighting benefits, but with adjusted config
-    version = false,
+    branch = "main",
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     cmd = {
@@ -115,7 +115,7 @@ return {
       "TSInstallSync",
     },
     config = function()
-      require("nvim-treesitter.install").compilers = { "gcc-14" }
+      -- require("nvim-treesitter.install").compilers = { "gcc" }
 
       -- In VS Code mode, disable certain treesitter features that might conflict
       if vim.g.vscode then

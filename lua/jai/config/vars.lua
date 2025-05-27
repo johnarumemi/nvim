@@ -42,12 +42,12 @@ g.background = "dark"
 local package_path = vim.fn.stdpath("config") .. "/site"
 vim.o.packpath = vim.o.packpath .. "," .. package_path
 
---- Display a notification with INFO level
+--- Display a notification with TRACE level
 ---@param msg string Content of the notification to show to the user
 ---@param opts table|nil Optional parameters (title, etc.)
 ---@diagnostic disable-next-line: unused-local
-function vim.info(msg, opts) -- luacheck: no unused args
-  vim.notify(msg, vim.log.levels.INFO, opts)
+function vim.trace(msg, opts) -- luacheck: no unused args
+  vim.notify(msg, vim.log.levels.TRACE, opts)
 end
 
 --- Display a notification with DEBUG level
@@ -56,6 +56,14 @@ end
 ---@diagnostic disable-next-line: unused-local
 function vim.debug(msg, opts) -- luacheck: no unused args
   vim.notify(msg, vim.log.levels.DEBUG, opts)
+end
+
+--- Display a notification with INFO level
+---@param msg string Content of the notification to show to the user
+---@param opts table|nil Optional parameters (title, etc.)
+---@diagnostic disable-next-line: unused-local
+function vim.info(msg, opts) -- luacheck: no unused args
+  vim.notify(msg, vim.log.levels.INFO, opts)
 end
 
 --- Display a notification with WARN level

@@ -24,7 +24,7 @@ return {
       not _G.is_nix_env
           and {
             "williamboman/mason-lspconfig.nvim",
-            enable = not _G.is_nix_env,
+            enable = true,
             opts = {
 
               -- NOTE: use lspconfig names here.

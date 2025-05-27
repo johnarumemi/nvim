@@ -58,7 +58,7 @@ vim.api.nvim_create_autocmd({ "BufNew", "FileType" }, {
       ---@type string
       local colorcolumn = ftype_config.colorcolumn or tostring(textwidth)
 
-      local msg = string.format("%s: setting colorcolumn for filetype %s", opts.event, opts.match)
+      local msg = string.format("%s: setting colorcolumn and textwidth for filetype %s", opts.event, opts.match)
       vim.debug(msg, { title = title })
 
       vim.api.nvim_set_option_value("textwidth", textwidth, { buf = opts.buf })

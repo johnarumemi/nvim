@@ -11,6 +11,15 @@ local prompts = require("jai.plugins.core.ai.copilot-chat.prompts")
 local commands = require("jai.plugins.core.ai.copilot-chat.commands")
 
 return {
+  { -- For telescope UI select
+    "nvim-telescope/telescope-ui-select.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      -- To get ui-select loaded and working with telescope, you need to call
+      -- load_extension, somewhere after setup function:
+      require("telescope").load_extension("ui-select")
+    end,
+  },
   {
     -- repo: https://github.com/CopilotC-Nvim/CopilotChat.nvim
     --
@@ -29,64 +38,67 @@ return {
       { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
       { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
     },
-    opts = {
-      debug = true, -- Enable debugging
-      agent = "copilot",
-      question_header = "## User ",
-      answer_header = "## Copilot ",
-      error_header = "## Error ",
-      model = "claude-3.7-sonnet",
-      auto_follow_cursor = false, -- Don't follow the cursor after getting response
-      show_help = false, -- Show help in virtual text, set to true if that's 1st time using Copilot Chat
-      mappings = {
-        -- Use tab for completion
-        complete = {
-          detail = "Use @<Tab> or /<Tab> for options.",
-          insert = "<Tab>",
+    opts = function()
+      return {
+        debug = false, -- Enable debugging
+        agent = "copilot",
+        question_header = "## User ",
+        answer_header = "## Copilot ",
+        error_header = "## Error ",
+        model = "claude-3.7-sonnet",
+        auto_follow_cursor = false, -- Don't follow the cursor after getting response
+        show_help = false, -- Show help in virtual text, set to true if that's 1st time using Copilot Chat
+        mappings = {
+          -- Use tab for completion
+          complete = {
+            detail = "Use @<Tab> or /<Tab> for options.",
+            insert = "<Tab>",
+          },
+          -- Close the chat
+          close = {
+            normal = "q",
+            insert = "<C-c>",
+          },
+          -- Reset the chat buffer
+          reset = {
+            normal = "<C-x>",
+            insert = "<C-x>",
+          },
+          -- Submit the prompt to Copilot
+          submit_prompt = {
+            normal = "<CR>",
+            insert = "<C-CR>",
+          },
+          -- Accept the diff
+          accept_diff = {
+            normal = "<C-y>",
+            insert = "<C-y>",
+          },
+          -- Yank the diff in the response to register
+          yank_diff = {
+            normal = "gmy",
+          },
+          -- Show the diff
+          show_diff = {
+            normal = "gmd",
+          },
+          -- Show the prompt
+          show_system_prompt = {
+            normal = "gmp",
+          },
+          -- Show the user selection
+          show_user_selection = {
+            normal = "gms",
+          },
         },
-        -- Close the chat
-        close = {
-          normal = "q",
-          insert = "<C-c>",
-        },
-        -- Reset the chat buffer
-        reset = {
-          normal = "<C-x>",
-          insert = "<C-x>",
-        },
-        -- Submit the prompt to Copilot
-        submit_prompt = {
-          normal = "<CR>",
-          insert = "<C-CR>",
-        },
-        -- Accept the diff
-        accept_diff = {
-          normal = "<C-y>",
-          insert = "<C-y>",
-        },
-        -- Yank the diff in the response to register
-        yank_diff = {
-          normal = "gmy",
-        },
-        -- Show the diff
-        show_diff = {
-          normal = "gmd",
-        },
-        -- Show the prompt
-        show_system_prompt = {
-          normal = "gmp",
-        },
-        -- Show the user selection
-        show_user_selection = {
-          normal = "gms",
-        },
-      },
-    },
+      }
+    end,
     config = function(_, opts)
       local chat = require("CopilotChat")
       local select = require("CopilotChat.select")
       local context = require("CopilotChat.context")
-      -- Use unnamed register for the selection
+      -- options:https://github.com/CopilotC-Nvim/CopilotChat.nvim?tab=readme-ov-file#selections
+      -- Unnamed register (last deleted/changed/yanked content)
       opts.selection = select.unnamed
 
       -- Merge the prompts with the ones created using the dependencies
@@ -123,15 +135,17 @@ return {
       local additional_mappings = {
         -- Group definition
         { "<leader>a", group = "Copilot Chat" },
+        { "<leader>ap", group = "Prompts" },
 
         -- Show available prompts with telescope
         {
-          "<leader>ap",
+          "<leader>ah",
           function()
             local actions = require("CopilotChat.actions")
+            -- FIXME: below method appears to be deprecated in v3.12.0
             require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
           end,
-          desc = "CopilotChat - Show prompt actions in telescope",
+          desc = "CopilotChat - Show prompts in telescope",
         },
 
         -- Quick chat with Copilot

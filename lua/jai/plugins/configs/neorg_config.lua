@@ -10,7 +10,7 @@ local wk = require("which-key")
 local default_workspace = nil
 local base_dir = os.getenv("HOME") .. "/neorg-notes/"
 
-vim.debug("Neorg base workspace directory is " .. base_dir, { title = "Neorg" })
+-- vim.debug("Neorg base workspace directory is " .. base_dir, { title = "Neorg" })
 
 -- NOTE: when using the `<locallleader>n` keymap to create a
 -- new notes, this will be created within your currently set

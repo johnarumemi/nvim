@@ -40,7 +40,7 @@ local function create_copilotchat_commands(chat, select, context)
       builtin = true,
       mapping_opts = {
         mapping = "<leader>at",
-        description = "Toggle Copilot Chat Visual (V2)",
+        description = "Toggle Copilot Chat Visual",
       },
     },
   }
@@ -53,7 +53,7 @@ local function create_copilotchat_commands(chat, select, context)
       local mapping = utils.create_custom_command(cmd_config)
 
       if mapping then
-        table.insert(mappings, mapping)
+        table.insert(mappings, #mappings, mapping)
       end
     end
   end
