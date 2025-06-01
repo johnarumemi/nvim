@@ -42,6 +42,13 @@ g.background = "dark"
 local package_path = vim.fn.stdpath("config") .. "/site"
 vim.o.packpath = vim.o.packpath .. "," .. package_path
 
+-- Recognise files with .mdc extension as Markdown files
+vim.filetype.add({
+  extension = {
+    mdc = "markdown",
+  },
+})
+
 --- Display a notification with TRACE level
 ---@param msg string Content of the notification to show to the user
 ---@param opts table|nil Optional parameters (title, etc.)
