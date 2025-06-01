@@ -39,13 +39,25 @@ return {
     dependencies = { "nvim-lua/plenary.nvim", "folke/which-key.nvim" },
     lazy = false,
     opts = {
+      defaults = {
+        vimgrep_arguments = {
+          "rg",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+          "--no-ignore-parent", -- Add this to ignore parent directory ignore files
+        },
+      },
       extensions = {
         ["ui-select"] = {
           require("telescope.themes").get_dropdown({}),
         },
       },
     },
-    config = function()
+    config = function(_, opts)
       local wk = require("which-key")
 
       wk.add({
@@ -58,6 +70,8 @@ return {
         -- Open [operation]
         { "<leader>ot", ":Telescope<CR>", desc = "Open Telescope" },
       })
+
+      require("telescope").setup(opts)
     end,
   },
   {
