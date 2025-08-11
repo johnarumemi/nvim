@@ -14,6 +14,7 @@ return {
   { -- For telescope UI select
     "nvim-telescope/telescope-ui-select.nvim",
     dependencies = { "nvim-telescope/telescope.nvim" },
+    enabled = false,
     config = function()
       -- To get ui-select loaded and working with telescope, you need to call
       -- load_extension, somewhere after setup function:
@@ -25,9 +26,10 @@ return {
     --
     "CopilotC-Nvim/CopilotChat.nvim",
     -- Disable CopilotChat in VS Code as it has its own Copilot Chat
-    enabled = function()
-      return not vim.g.vscode
-    end,
+    -- enabled = function()
+    --   return not vim.g.vscode
+    -- end,
+    enabled = false,
     -- Do not use branch and version together, either use branch or version
     version = "v3.12.0",
     -- branch = "main",

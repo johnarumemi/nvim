@@ -5,9 +5,10 @@ return {
     -- repo: https://github.com/zbirenbaum/copilot.lua
     "zbirenbaum/copilot.lua",
     -- Disable Copilot in VS Code as it has its own Copilot extension
-    enabled = function()
-      return not vim.g.vscode
-    end,
+    -- enabled = function()
+    --   return not vim.g.vscode
+    -- end,
+    enabled = false,
     cmd = { "Copilot" },
     event = { "InsertEnter" },
     config = function()
@@ -30,12 +31,13 @@ return {
     -- NOTE: part of configuring this involves adding it as a source to nvim-cmp.
     -- So if uninstalling, ensure that it is removed from there as well.
     "zbirenbaum/copilot-cmp",
-    enabled = function()
-      -- Disable Copilot CMP in VS Code
-      return not vim.g.vscode
-    end,
+    enabled = false,
+    -- enabled = function()
+    --   -- Disable Copilot CMP in VS Code
+    --   return not vim.g.vscode
+    -- end,
     config = function()
-      require("copilot_cmp").setup()
+      -- require("copilot_cmp").setup()
     end,
   },
   {
@@ -44,8 +46,9 @@ return {
     -- add copilot status sign in lualine
     "AndreM222/copilot-lualine",
     -- Disable Copilot lualine in VS Code as it's not needed
-    enabled = function()
-      return not vim.g.vscode
-    end,
+    enabled = false,
+    -- enabled = function()
+    --   return not vim.g.vscode
+    -- end,
   },
 }

@@ -135,7 +135,7 @@ return {
           priority_weight = 2,
           comparators = {
             -- Prioritize copilot_cmp in completion list
-            require("copilot_cmp.comparators").prioritize,
+            -- require("copilot_cmp.comparators").prioritize,
 
             -- INFO: documentaton recommends using this to ensure that better
             -- LSP completions are not stuck below poorer copilot completions.
