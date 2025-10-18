@@ -7,6 +7,7 @@
 -- @module jai.config.commands
 -- @copyright 2025
 -- @license MIT
+vim.notify("Loading custom commands", vim.log.levels.DEBUG, { title = "Configuration" })
 
 -- Create a global variable to store the colorscheme name
 vim.g.colorscheme_name = "auto"

@@ -2,6 +2,10 @@ return {
   {
     -- repo: https://github.com/pmizio/typescript-tools.nvim
     "pmizio/typescript-tools.nvim",
+    -- Disable in VS Code as it has its own TypeScript LSP support
+    enabled = function()
+      return not vim.g.vscode
+    end,
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     opts = {},
     config = function()

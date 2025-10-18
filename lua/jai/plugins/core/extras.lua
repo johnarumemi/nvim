@@ -4,6 +4,10 @@ return {
     -- [[ Markdown Preview ]]
     -- repo: https://github.com/iamcco/markdown-preview.nvim
     "iamcco/markdown-preview.nvim",
+    -- Disable in VS Code as it has its own markdown preview
+    enabled = function()
+      return not vim.g.vscode
+    end,
     -- Lazy-load on command
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     -- Lazy-load on filetype
@@ -31,6 +35,10 @@ return {
   {
     -- repo: https://github.com/hedyhli/markdown-toc.nvim
     "hedyhli/markdown-toc.nvim",
+    -- Disable in VS Code as it's not needed
+    enabled = function()
+      return not vim.g.vscode
+    end,
     ft = "markdown", -- Lazy load on markdown filetype
     cmd = { "Mtoc" }, -- Or, lazy load on "Mtoc" command
     opts = {

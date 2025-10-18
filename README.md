@@ -118,26 +118,68 @@ brew install --cask font-jetbrains-mono-nerd-font
 
 The following plugins are disabled when using Neovim within VS Code:
 
+**UI Plugins:**
+
 - bufferline: Tab management is handled by VS Code's interface
 - dashboard-nvim: Start screen is redundant with VS Code
-- gitsigns.nvim: Git decorations are managed by VS Code
-- indent-blankline: Indentation guides are provided by VS Code
 - lualine: Status line is not needed as VS Code has its own
 - nvim-notify: Notifications are handled by VS Code
 - nvim-tree: File explorer is provided by VS Code
-- nvim-treesitter-context: VS Code provides similar functionality
+
+**Editor Plugins:**
+
+- gitsigns.nvim: Git decorations are managed by VS Code
 - telescope: File searching is handled by VS Code
 - which-key: Conflicts with VS Code's keyboard shortcuts
+- markdown-preview.nvim: VS Code has built-in markdown preview
+- markdown-toc.nvim: Not needed in VS Code
 
-### Functionality Changes in VS Code Mode
+**LSP & Completion:**
 
-When using Neovim within VS Code:
+- nvim-lspconfig: VS Code has its own LSP implementation
+- mason.nvim & mason-lspconfig.nvim: LSP server management not needed
+- nvim-cmp: Conflicts with VS Code's IntelliSense
+- conform.nvim: VS Code has its own formatters
 
-- LSP features like code completion, diagnostics, and formatting are provided by VS Code
-- The color scheme adapts to VS Code's current theme
-- Some keybindings are adjusted to prevent conflicts with VS Code shortcuts
-- Terminal functionality is handled by VS Code's integrated terminal
-- File navigation relies on VS Code's explorer and quick open features
+**Language-Specific Plugins:**
+
+- rustaceanvim: VS Code has rust-analyzer extension
+- crates.nvim: VS Code has Cargo extension support
+- clangd_extensions.nvim: VS Code has C++ LSP support
+- cmake-tools.nvim: VS Code has CMake extension
+- typescript-tools.nvim: VS Code has TypeScript LSP support
+
+**Development Tools:**
+
+- nvim-dap: VS Code has its own debugger
+- neotest: VS Code has its own testing framework
+
+**AI Plugins (currently disabled everywhere):**
+
+- copilot.lua, copilot-cmp, copilot-lualine: Disabled globally
+- CopilotChat.nvim: Disabled globally
+
+### What's Still Active in VS Code Mode
+
+When using Neovim within VS Code, only core editing features remain active:
+
+**Active:**
+
+- ✅ Treesitter: Syntax highlighting and parsing
+- ✅ mini.indentscope: Visual indent guides
+- ✅ Core Neovim keybindings and motions
+- ✅ Text editing plugins (autopairs, comments, etc.)
+
+**Provided by VS Code:**
+
+- LSP features (completion, diagnostics, go-to-definition, etc.)
+- Formatting and linting
+- Debugging (DAP)
+- Testing frameworks
+- File navigation and search
+- Git integration
+- Terminal functionality
+- UI elements (statusline, tabs, notifications)
 
 ## Copilot
 

@@ -7,6 +7,7 @@
 -- @module jai.config.vars
 -- @copyright 2025
 -- @license MIT
+vim.notify("Loading global variables", vim.log.levels.DEBUG, { title = "Configuration" })
 
 -- LEADER
 -- These keybindings need to be defined before the first /

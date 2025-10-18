@@ -15,6 +15,7 @@
 -- @copyright 2025
 -- @license MIT
 
+vim.notify("Loading configuration", vim.log.levels.INFO, { title = "Configuration" })
 require("jai.config.options") -- Global options
 require("jai.config.vars") -- Global variables
 require("jai.config.keymaps") -- Global Keymaps
@@ -25,3 +26,5 @@ require("jai.config.autocmds") -- Autocommands
 -- This will also load the plugins and set up the plugin manager.
 -- It's important that options is loaded before lazy (for mapleader)
 require("jai.config.plugin_manager")
+
+vim.notify("Configuration loaded", vim.log.levels.INFO, { title = "Configuration" })

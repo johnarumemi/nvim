@@ -2,6 +2,10 @@ return {
   {
     -- repo: https://github.com/nvim-neotest/neotest
     "nvim-neotest/neotest",
+    -- Disable in VS Code as it has its own testing support
+    enabled = function()
+      return not vim.g.vscode
+    end,
     dependencies = {
       "nvim-neotest/nvim-nio",
       "nvim-lua/plenary.nvim",

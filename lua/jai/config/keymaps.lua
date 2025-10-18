@@ -7,6 +7,7 @@
 -- @module jai.config.keymaps
 -- @copyright 2025
 -- @license MIT
+vim.notify("Loading global keymaps", vim.log.levels.DEBUG, { title = "Configuration" })
 
 -- Helper function for setting keymaps with common options
 local function map(mode, lhs, rhs, opts)

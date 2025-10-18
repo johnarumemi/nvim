@@ -28,14 +28,15 @@ function M.setup()
   -- Check if running in VSCode integration mode
   if vim.g.vscode then
     theme = M.vscode_theme
-    vim.debug("Running in VSCode mode, using theme: " .. theme, { title = "Theme" })
+    -- vim.debug("Running in VSCode mode, using theme: " .. theme, { title = "Theme" })
+    vim.debug("Running in VSCode mode, disabling theme")
   else
     vim.debug("Running standalone, using theme: " .. theme, { title = "Theme" })
+
+    -- Use the ColorschemeAuto command to set the theme
+    -- This ensures our autocommands for theme changes are triggered
+    vim.cmd("silent! ColorschemeAuto " .. theme)
   end
-  
-  -- Use the ColorschemeAuto command to set the theme
-  -- This ensures our autocommands for theme changes are triggered
-  vim.cmd("silent! ColorschemeAuto " .. theme)
 end
 
 --- Function to set a specific theme

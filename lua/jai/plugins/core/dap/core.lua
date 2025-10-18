@@ -3,6 +3,10 @@ return {
   -- repo: https://github.com/mfussenegger/nvim-dap
   {
     "mfussenegger/nvim-dap",
+    -- Disable DAP in VS Code as it has its own debugger
+    enabled = function()
+      return not vim.g.vscode
+    end,
     recommended = true,
     desc = "Debugging support. Requires language specific adapters to be configured. (see lang extras)",
 

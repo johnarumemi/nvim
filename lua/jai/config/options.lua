@@ -9,6 +9,7 @@
 -- @module jai.config.options
 -- @copyright 2025
 -- @license MIT
+vim.notify("Loading global options", vim.log.levels.DEBUG, { title = "Configuration" })
 
 -- alias the vim.opt meta-accessor
 local opt = vim.opt
@@ -40,5 +41,7 @@ opt.splitright = true -- bool: Place new window to right of current one
 opt.splitbelow = true -- bool: Place new window below the current one
 
 -- [[ Global Theme Settings ]]
-opt.syntax = "ON" -- str:  Allow syntax highlighting
+-- Note: syntax highlighting is handled by Treesitter, so we don't need to set this
+-- If you do need to set it manually, use lowercase: opt.syntax = "on"
+-- opt.syntax = "on" -- str:  Allow syntax highlighting
 opt.termguicolors = true -- bool: If term supports ui color then enable

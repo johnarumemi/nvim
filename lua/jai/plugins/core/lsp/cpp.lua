@@ -53,7 +53,10 @@ local plugin_specs = {
     -- repo: https://github.com/p00f/clangd_extensions.nvim
     "p00f/clangd_extensions.nvim",
     lazy = true,
-    enabled = JUtil.os.is_mac(),
+    -- Disable in VS Code as it has its own C++ LSP support
+    enabled = function()
+      return JUtil.os.is_mac() and not vim.g.vscode
+    end,
     config = function() end,
     opts = {
       inlay_hints = {
@@ -150,6 +153,10 @@ local plugin_specs = {
   {
     "Civitasv/cmake-tools.nvim",
     lazy = true,
+    -- Disable in VS Code as it has its own CMake extension support
+    enabled = function()
+      return not vim.g.vscode
+    end,
     init = function()
       local loaded = false
       local function check()

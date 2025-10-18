@@ -1,3 +1,14 @@
+-- Custom Autocmds Configuration
+--
+-- This module defines custom Neovim autocmds.
+-- It includes the setup of textwidth and colorcolumn for filetypes,
+-- gitcommit linewraps, and lualine theme setting.
+--
+-- @module jai.config.autocmds
+-- @copyright 2025
+-- @license MIT
+vim.notify("Loading custom autocmds", vim.log.levels.DEBUG, { title = "Configuration" })
+
 -- my custom augroups
 local function jai_augroup(name)
   return vim.api.nvim_create_augroup("jai_" .. name, { clear = true })

@@ -7,6 +7,7 @@
 -- @module jai.config.plugin_manager
 -- @copyright 2025
 -- @license MIT
+vim.notify("Loading plugin manager", vim.log.levels.DEBUG, { title = "Configuration" })
 
 -- Bootstrap lazy.nvim if it's not installed
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

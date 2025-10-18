@@ -3,6 +3,10 @@ return {
   {
     -- repo: https://github.com/mrcjkb/rustaceanvim
     "mrcjkb/rustaceanvim",
+    -- Disable in VS Code as it has its own Rust LSP support
+    enabled = function()
+      return not vim.g.vscode
+    end,
     version = "^5", -- Recommended
     ft = { "rust" },
     lazy = false, -- plugin is already lazy
@@ -170,6 +174,10 @@ return {
     -- Utility for managing dependencies in Cargo.toml file
     -- repo: https://github.com/Saecki/crates.nvim
     "Saecki/crates.nvim",
+    -- Disable in VS Code as it has its own Cargo/Rust extension support
+    enabled = function()
+      return not vim.g.vscode
+    end,
     event = { "BufRead Cargo.toml" },
     opts = {
       completion = {
