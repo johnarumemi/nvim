@@ -378,37 +378,11 @@ return {
       },
       -- callback where you can add custom code when the Zen window opens
       on_open = function(win)
-        local buf = vim.api.nvim_get_current_buf()
-
-        if vim.bo[buf].filetype == "norg" then
-          vim.g.original_spell = vim.api.nvim_get_option_value("spell", { scope = "local", win = 0 })
-
-          vim.api.nvim_set_option_value("spell", false, { scope = "local", win = 0 })
-
-          require("illuminate").invisible_buf()
-        end
+        -- Add custom code here if needed
       end,
       -- callback where you can add custom code when the Zen window closes
       on_close = function()
-        local buf = vim.api.nvim_get_current_buf()
-
-        if vim.bo[buf].filetype == "norg" then
-          if vim.g.original_spell == nil then
-            return
-          end
-
-          local spell_value = nil
-
-          if type(vim.g.original_spell) == "string" then
-            spell_value = vim.g.original_spell == "spell"
-          else
-            spell_value = vim.g.original_spell
-          end
-
-          vim.api.nvim_set_option_value("spell", spell_value, { scope = "local", win = 0 })
-
-          require("illuminate").visible_buf()
-        end
+        -- Add custom code here if needed
       end,
     },
   },

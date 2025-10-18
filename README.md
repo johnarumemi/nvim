@@ -8,15 +8,6 @@ TODO: update this for use with Lazy.
 
 - Install [diffview](https://github.com/sindrets/diffview.nvim?tab=readme-ov-file).
 
-## Environment Variables
-
-```bash
-NEORG_ENVIRONMENT= HOME | WORK
-```
-
-Sets default workspace when using `:Neorg workspace` with no specific
-workspace specified.
-
 ## Useful links
 
 - [Neovim rust setup and guide](https://rsdlt.github.io/posts/rust-nvim-ide-guide-walkthrough-development-debug/)
@@ -148,45 +139,6 @@ When using Neovim within VS Code:
 - Terminal functionality is handled by VS Code's integrated terminal
 - File navigation relies on VS Code's explorer and quick open features
 
-## Neorg fonts
-
-The required version of these fonts is at least v3.x.x for nerd fonts. Check
-your version in brew or just do a greedy update:
-
-```bash
-brew upgrade --cask --greedy
-```
-
-## Neorg (possibly deprecated with 9.0.0)
-
-On MacOS, you will get compilation errors if using the default gcc or clang.
-You will need to install the brew gcc
-
-```bash
-brew install gcc
-```
-
-However, the above installed gcc binaries have versions as suffixes, i.e. `gcc-13`.
-What you thus need to do is create symlinks that don't have these versions as suffixes.
-
-```bash
-ln -s $(brew --prefix)/bin/gcc-13 $(brew --prefix)/bin/gcc
-```
-
-Also ensure to update the `CC` environment variable to point to your symlinked gcc.
-
-```bash
-# zprofile.sh
-export CC=$(brew --prefix)/bin/gcc
-```
-
-All the above will enable neorg to install correctly, you can test this via
-manually running the treesitter grammar via:
-
-```bash
-nvim -c "TSInstallSync norg"
-```
-
 ## Copilot
 
 See `:help copilot` for further information.
@@ -305,35 +257,34 @@ Example:
 # Output
 
 Treesitter
-  - @spell.norg links to @spell norg
-  - @neorg.markup.italic.norg links to @markup.italic norg
-  - @neorg.markup.italic.norg links to @markup.italic norg
+  - @spell.markdown links to @spell markdown
+  - @markup.italic.markdown links to @markup.italic markdown
 ```
 
-group name = @neorg.markup.italic.norg
-highlight group linked to = @markup.italic
+- **group name** = `@markup.italic.markdown`
+- **highlight group linked to** = `@markup.italic`
 
-So if we want to create a new highlight group we can use the
+So if we want to create a new custom highlight group we can use the
 following:
 
 ```lua
-vim.cmd([[ highlight NeorgVerbatim guifg=cyan ]])
+vim.cmd([[ highlight CustomItalic guifg=cyan gui=italic ]])
 ```
 
-Above creates a highlight grouped called `NeorgVerbatim`.
+Above creates a highlight group called `CustomItalic`.
 
-We now need to link the group to it:
+We now need to link the treesitter group to it:
 
 ```lua
 vim.cmd([[
-  autocmd FileType norg
-  highlight link @neorg.markup.verbatim.norg NeorgVerbatim
+  autocmd FileType markdown
+  highlight link @markup.italic.markdown CustomItalic
 ]])
 ```
 
-Above creates an autocommand triggered on entering a norg
-file. The autocommand will then call the following command,
-`:highlight link @neorg.markup.verbatim.norg NeorgVerbatim`
+Above creates an autocommand triggered on entering a markdown
+file. The autocommand will then call the following command:
+`:highlight link @markup.italic.markdown CustomItalic`
 
 ## Troubleshooting
 

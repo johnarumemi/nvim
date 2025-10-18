@@ -94,26 +94,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   end,
 })
 
---[[
--- Autocommand for setting concealcursor within norg files
---
--- see docs for info,
--- docs: https://neovim.io/doc/user/options.html#'concealcursor'
---
--- For a value of "nc", so long as you are moving around text is concealed, but
--- when starting to insert text or selecting a Visual area the concealed text
--- is displayed, so that you can see what you are doing.
---]]
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-  group = jai_augroup("norg_concealcursor"),
-  desc = "Set norg concealcursor to nc",
-  callback = function(opts)
-    if vim.bo[opts.buf].filetype == "norg" then
-      vim.cmd("set cocu=nc")
-    end
-  end,
-})
-
 local function convert_to_lualine_theme(theme_name)
   if theme_name == "auto" or theme_name == "default" then
     return "auto"
@@ -135,34 +115,6 @@ local function convert_to_lualine_theme(theme_name)
     return theme_name
   end
 end
-
--- Autocommand triggered after a colorscheme is loaded
-vim.api.nvim_create_autocmd({ "ColorScheme" }, {
-  group = jai_augroup("set_neorg_custom_verbatim_higlight"),
-  desc = "create highlight link to NeorgCustomVerbatim on change in colorscheme",
-  callback = function()
-    local title = "Autocmd - NeorgCustomVerbatim"
-
-    vim.notify("Creating NeorgCustomVerbatim highlight group", vim.log.levels.DEBUG, {
-      title = title,
-    })
-    vim.cmd([[ highlight NeorgCustomVerbatim guifg=cyan ]])
-    vim.cmd([[ highlight NeorgCustomTodoUndone guifg=orange ]])
-
-    -- link the Neorg verbatim syntax element to
-    -- the new highlight group via use of an autocmd that
-    -- triggers when entering a norg file.
-    vim.notify("Linking NeorgCustomVerbatim to @neorg.markup.verbatim.norg", vim.log.levels.DEBUG, {
-      title = title,
-    })
-    vim.cmd([[ highlight link @neorg.markup.verbatim.norg NeorgCustomVerbatim ]])
-
-    vim.notify("Linking NeorgCustomTodoUndone to @neorg.todo_items.undone.norg", vim.log.levels.DEBUG, {
-      title = title,
-    })
-    vim.cmd([[ highlight link @neorg.todo_items.undone.norg NeorgCustomTodoUndone ]])
-  end,
-})
 
 -- Usage of this should be paired with the `ColorschemeAuto` command
 vim.api.nvim_create_autocmd({ "ColorSchemePre" }, {

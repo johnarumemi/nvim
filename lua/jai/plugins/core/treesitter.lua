@@ -49,7 +49,6 @@ local treesitter_opts = {
     "markdown",
     "markdown_inline",
     "nasm",
-    "norg",
     "objdump", -- repo: https://github.com/ColinKennedy/tree-sitter-objdump
     "proto", -- Protocol Buffers
     "python",

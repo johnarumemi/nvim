@@ -1,38 +1,6 @@
 return {
 
   {
-    -- [[ Neorg ]]
-    -- repo: https://github.com/nvim-neorg/neorg
-    "nvim-neorg/neorg",
-    lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
-    version = "*", -- Pin Neorg to the latest stable release
-    init = function()
-      local config = require("jai.plugins.configs.neorg_config")
-
-      config.init()
-    end,
-    config = function()
-      local config = require("jai.plugins.configs.neorg_config")
-
-      -- Disable nvim-cmp integration when in VS Code
-      if vim.g.vscode then
-        -- Remove nvim-cmp integration to prevent errors
-        if config.opts.load["core.completion"] then
-          config.opts.load["core.completion"] = nil
-        end
-      end
-      require("neorg").setup(config.opts)
-    end,
-  },
-  {
-    "max397574/neorg-contexts",
-    dependencies = { "nvim-neorg/neorg" },
-  },
-  {
-    "benlubas/neorg-conceal-wrap",
-    dependencies = { "nvim-neorg/neorg" },
-  },
-  {
     -- [[ Markdown Preview ]]
     -- repo: https://github.com/iamcco/markdown-preview.nvim
     "iamcco/markdown-preview.nvim",
@@ -108,7 +76,7 @@ return {
     -- repo: https://github.com/Allaman/emoji.nvim
     "allaman/emoji.nvim",
     version = "1.0.0", -- optionally pin to a tag
-    ft = { "markdown", "norg" }, -- adjust to your needs
+    ft = { "markdown" }, -- adjust to your needs
     enabled = function()
       -- Only load plugin in non-VS Code environments
       return not vim.g.vscode
