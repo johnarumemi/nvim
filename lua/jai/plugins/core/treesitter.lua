@@ -105,6 +105,10 @@ local treesitter_opts = {
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    -- Disable in VS Code as it has its own syntax highlighting
+    enabled = function()
+      return not vim.g.vscode
+    end,
     branch = "main",
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
@@ -115,22 +119,6 @@ return {
     },
     config = function()
       -- require("nvim-treesitter.install").compilers = { "gcc" }
-
-      -- In VS Code mode, disable certain treesitter features that might conflict
-      if vim.g.vscode then
-        treesitter_opts.highlight = {
-          enable = true,
-          -- Use more conservative settings in VS Code
-          disable = function(_lang, buf)
-            local max_filesize = 50 * 1024 -- Lower size limit in VS Code (50 KB)
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
-              return true
-            end
-          end,
-        }
-      end
-
       require("nvim-treesitter.configs").setup(treesitter_opts)
     end,
   },

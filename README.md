@@ -133,6 +133,7 @@ The following plugins are disabled when using Neovim within VS Code:
 - which-key: Conflicts with VS Code's keyboard shortcuts
 - markdown-preview.nvim: VS Code has built-in markdown preview
 - markdown-toc.nvim: Not needed in VS Code
+- nvim-treesitter: VS Code has its own syntax highlighting
 
 **LSP & Completion:**
 
@@ -165,13 +166,13 @@ When using Neovim within VS Code, only core editing features remain active:
 
 **Active:**
 
-- ✅ Treesitter: Syntax highlighting and parsing
-- ✅ mini.indentscope: Visual indent guides
 - ✅ Core Neovim keybindings and motions
 - ✅ Text editing plugins (autopairs, comments, etc.)
+- ✅ mini.indentscope: Visual indent guides
 
 **Provided by VS Code:**
 
+- Syntax highlighting (TextMate grammars / Treesitter)
 - LSP features (completion, diagnostics, go-to-definition, etc.)
 - Formatting and linting
 - Debugging (DAP)
