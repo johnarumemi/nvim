@@ -221,8 +221,6 @@ function M.configure_servers()
     return
   end
 
-  local lspconfig = require("lspconfig")
-
   local capabilities = vim.lsp.protocol.make_client_capabilities()
 
   -- for cpm_nvim_lsp
@@ -255,7 +253,7 @@ function M.configure_servers()
     end
 
     vim.debug("Started  setup for server: " .. server, { title = title })
-    lspconfig[server].setup(server_opts)
+    vim.lsp.config(server, server_opts)
     vim.debug("Finished setup for server: " .. server, { title = title })
   end
 end

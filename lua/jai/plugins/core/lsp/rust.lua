@@ -174,15 +174,14 @@ return {
     -- Utility for managing dependencies in Cargo.toml file
     -- repo: https://github.com/Saecki/crates.nvim
     "Saecki/crates.nvim",
+    tag = "stable",
     -- Disable in VS Code as it has its own Cargo/Rust extension support
     enabled = function()
       return not vim.g.vscode
     end,
     event = { "BufRead Cargo.toml" },
-    opts = {
-      completion = {
-        cmp = { enabled = true },
-      },
-    },
+    config = function()
+      require('crates').setup()
+    end,
   },
 }
