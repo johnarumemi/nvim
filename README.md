@@ -69,8 +69,8 @@ Alternatively Mason should install it for you.
 
 ### Manual Steps / Caveats
 
-Add `mason/bin` to your `$PATH` environment variable. This is to enable
-finding executables installed by Mason.
+Add `mason/bin` to your `$PATH` environment variable. This is to enable finding executables
+installed by Mason.
 
 ```bash
 # .zprofile
@@ -81,18 +81,18 @@ export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 
 ### Tagbar plugin
 
-For this plugin to work (especially with rust) you should install the `universal ctags` binary. It conflicts with exuberant ctags and should be installed using the instructions below.
+For this plugin to work (especially with rust) you should install the `universal ctags` binary. It
+conflicts with exuberant ctags and should be installed using the instructions below.
 
 <https://github.com/universal-ctags/homebrew-universal-ctags>
 
 See [wiki](https://github.com/preservim/tagbar/wiki#rust) for how to set this up.
 
-Note that if you have exuberant-ctags etc installed, this conflicts with
-universal-ctags, since installing universal-ctags creates / aliases `$(brew
---prefix)/bin/ctags`.
+Note that if you have exuberant-ctags etc installed, this conflicts with universal-ctags, since
+installing universal-ctags creates / aliases `$(brew --prefix)/bin/ctags`.
 
 ```bash
-brew uninstall ctags 
+brew uninstall ctags
 brew install universal-ctags
 ```
 
@@ -190,8 +190,8 @@ NOTE: This plugin **qequires node >= v18**.
 
 Other resources:
 
-- [Main github copilot repo](https://github.com/github/copilot.vim) but
-community also mentions the pure lua version found [here](https://github.com/zbirenbaum/copilot.lua)
+- [Main github copilot repo](https://github.com/github/copilot.vim) but community also mentions the
+  pure lua version found [here](https://github.com/zbirenbaum/copilot.lua)
 - [Copilot completion](https://github.com/zbirenbaum/copilot-cmp)
 - <https://tamerlan.dev/setting-up-copilot-in-neovim-with-sane-settings/>
 - [CopilotChat](https://github.com/CopilotC-Nvim/CopilotChat.nvim)
@@ -234,40 +234,37 @@ Commands coming from default prompts:
 
 ## Mason
 
-This is a package manager that is used for managing various development tools: it can
-be installed and managed via Lazy. Development tools can include LSP **servers**,
-which perform static analysis on the code sent into it by an LSP client.
+This is a package manager that is used for managing various development tools: it can be installed
+and managed via Lazy. Development tools can include LSP **servers**, which perform static analysis
+on the code sent into it by an LSP client.
 
 ### nvim-lspconfig
 
-Neovim natively supports LSP clients, and provides a framework called vim.lsp for
-developing LSP clients to communicate with an LSP server. nvim-lspconfig is simply
-a plugin that holds the **configurations** for the neovim lsp client to communicate
-with various lsp servers. The key word, as highlighted, is that it is configuring
-the inbuilt native lsp client to communicate with specific lsp servers: it is not
-the nvim lsp client itself!
+Neovim natively supports LSP clients, and provides a framework called vim.lsp for developing LSP
+clients to communicate with an LSP server. nvim-lspconfig is simply a plugin that holds the
+**configurations** for the neovim lsp client to communicate with various lsp servers. The key word,
+as highlighted, is that it is configuring the inbuilt native lsp client to communicate with specific
+lsp servers: it is not the nvim lsp client itself!
 
 ### mason-lspconfig
 
-So we have mason that can install various LSP servers, Neovim with an in-built
-LSP client for communicating with a server and finally, nvim-lspconfig for actually
-holding configurations for how the inbuilt LSP client can be configured to communicate
-with a specific LSP server. mason-lspconfig acts as a bridge between mason and
-nvim-lspconfig. It says "Hey! nvim-lspconfig has been configured to communicate with the rust-analyzer lsp server! lets use mason to ensure this server is installed,
+So we have mason that can install various LSP servers, Neovim with an in-built LSP client for
+communicating with a server and finally, nvim-lspconfig for actually holding configurations for how
+the inbuilt LSP client can be configured to communicate with a specific LSP server. mason-lspconfig
+acts as a bridge between mason and nvim-lspconfig. It says "Hey! nvim-lspconfig has been configured
+to communicate with the rust-analyzer lsp server! lets use mason to ensure this server is installed,
 if it is not installed, we can install it with mason!".
 
 ### package names
 
-Now mason might have a package name for a given server, and then lspconfig
-will have a config for a given server. The names between of the actual server
-may differ between the lspconfig server name and the mason package name for the
-server to be installed / communicated with. mason-lspconfig will translate
-between the server names provided by lspconfig to the mason package names
-(e.g. sumneko_lua <-> lua-language-server = lspconfig name <-> mason package name)
+Now mason might have a package name for a given server, and then lspconfig will have a config for a
+given server. The names between of the actual server may differ between the lspconfig server name
+and the mason package name for the server to be installed / communicated with. mason-lspconfig will
+translate between the server names provided by lspconfig to the mason package names (e.g.
+sumneko_lua <-> lua-language-server = lspconfig name <-> mason package name)
 
-In the api's that mason-lspconfig uses, you should specify configurations
-against an lsp client config or lsp server using the lspconfig name, not the mason
-package name.
+In the api's that mason-lspconfig uses, you should specify configurations against an lsp client
+config or lsp server using the lspconfig name, not the mason package name.
 
 #### useful help docs
 
@@ -283,14 +280,13 @@ General helpful guidance.
 
 ### Finding file type
 
-You can find the filetype ("dapui_watches", "dapui_breakpoints", etc.) by
-moving the cursor to the window in question and running `:echo &ft`
+You can find the filetype ("dapui_watches", "dapui_breakpoints", etc.) by moving the cursor to the
+window in question and running `:echo &ft`
 
 ### Changing highlights
 
-Move your cursor under the text you want to alter the
-highlight. Enter command mode and use `:Inspect` to get the
-name of group.
+Move your cursor under the text you want to alter the highlight. Enter command mode and use
+`:Inspect` to get the name of group.
 
 Example:
 
@@ -307,8 +303,7 @@ Treesitter
 - **group name** = `@markup.italic.markdown`
 - **highlight group linked to** = `@markup.italic`
 
-So if we want to create a new custom highlight group we can use the
-following:
+So if we want to create a new custom highlight group we can use the following:
 
 ```lua
 vim.cmd([[ highlight CustomItalic guifg=cyan gui=italic ]])
@@ -325,22 +320,21 @@ vim.cmd([[
 ]])
 ```
 
-Above creates an autocommand triggered on entering a markdown
-file. The autocommand will then call the following command:
-`:highlight link @markup.italic.markdown CustomItalic`
+Above creates an autocommand triggered on entering a markdown file. The autocommand will then call
+the following command: `:highlight link @markup.italic.markdown CustomItalic`
 
 ## Troubleshooting
 
 ### Corrupted Sessions
 
-Sometimes sessions are corrupted, and while there might be better ways of resolving this;
-for now the best way is to just delete sessions found in `~/.local/share/nvim/sessions/`
+Sometimes sessions are corrupted, and while there might be better ways of resolving this; for now
+the best way is to just delete sessions found in `~/.local/share/nvim/sessions/`
 
 ### rust-analyzer issues
 
-Rust-analyzer only supports the `stable` toolchain. If you have an override in
-place from using `rustup default <some-non-stable-toolchain>` then it will fail
-to understand the rust source. See `docs` link below for further information.
+Rust-analyzer only supports the `stable` toolchain. If you have an override in place from using
+`rustup default <some-non-stable-toolchain>` then it will fail to understand the rust source. See
+`docs` link below for further information.
 
 The only way I know to fix this is to explicitly set the below environment variable:
 

@@ -1,7 +1,6 @@
 # Resize Windows
 
-This can be used to resize the buffer with id `<number>`,
-or `0` for current buffer.
+This can be used to resize the buffer with id `<number>`, or `0` for current buffer.
 
 ```bash
 :echo winwidth(<number>)
@@ -18,11 +17,9 @@ or `0` for current buffer.
 
 # No Wrap
 
-`:set nowrap` only prevents it from wrapping the display
-of lines, not from inserting linebreaks.
+`:set nowrap` only prevents it from wrapping the display of lines, not from inserting linebreaks.
 
-Use `set formatoptions-=t` to actually stop wrapping of
-lines completely.
+Use `set formatoptions-=t` to actually stop wrapping of lines completely.
 
 # Create autocommands
 
